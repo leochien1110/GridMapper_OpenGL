@@ -1,0 +1,9 @@
+if (strcmp("843112070567", dev_num) == 0) {
+	//if(value == 4294967295){
+		std::cout << "D435 pipelines: " << dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER) << std::endl;
+	}
+	if (strcmp("905312110443", dev_num) == 0) {
+		//if(value == 4294967295){
+		std::cout << "T265 pipelines: " << dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER) << std::endl;
+	}
+}
