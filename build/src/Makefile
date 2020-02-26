@@ -125,59 +125,59 @@ onboard/fast:
 	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/build
 .PHONY : onboard/fast
 
-connection.o: connection.cpp.o
+main.o: main.cpp.o
 
-.PHONY : connection.o
-
-# target to build an object file
-connection.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connection.cpp.o
-.PHONY : connection.cpp.o
-
-connection.i: connection.cpp.i
-
-.PHONY : connection.i
-
-# target to preprocess a source file
-connection.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connection.cpp.i
-.PHONY : connection.cpp.i
-
-connection.s: connection.cpp.s
-
-.PHONY : connection.s
-
-# target to generate assembly for a file
-connection.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connection.cpp.s
-.PHONY : connection.cpp.s
-
-glad.o: glad.c.o
-
-.PHONY : glad.o
+.PHONY : main.o
 
 # target to build an object file
-glad.c.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.o
-.PHONY : glad.c.o
+main.cpp.o:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-glad.i: glad.c.i
+main.i: main.cpp.i
 
-.PHONY : glad.i
+.PHONY : main.i
 
 # target to preprocess a source file
-glad.c.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.i
-.PHONY : glad.c.i
+main.cpp.i:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-glad.s: glad.c.s
+main.s: main.cpp.s
 
-.PHONY : glad.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-glad.c.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.s
-.PHONY : glad.c.s
+main.cpp.s:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+mapper.o: mapper.cpp.o
+
+.PHONY : mapper.o
+
+# target to build an object file
+mapper.cpp.o:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.o
+.PHONY : mapper.cpp.o
+
+mapper.i: mapper.cpp.i
+
+.PHONY : mapper.i
+
+# target to preprocess a source file
+mapper.cpp.i:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.i
+.PHONY : mapper.cpp.i
+
+mapper.s: mapper.cpp.s
+
+.PHONY : mapper.s
+
+# target to generate assembly for a file
+mapper.cpp.s:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.s
+.PHONY : mapper.cpp.s
 
 onboard.o: onboard.cpp.o
 
@@ -206,6 +206,33 @@ onboard.cpp.s:
 	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/onboard.cpp.s
 .PHONY : onboard.cpp.s
 
+rs_camera.o: rs_camera.cpp.o
+
+.PHONY : rs_camera.o
+
+# target to build an object file
+rs_camera.cpp.o:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.o
+.PHONY : rs_camera.cpp.o
+
+rs_camera.i: rs_camera.cpp.i
+
+.PHONY : rs_camera.i
+
+# target to preprocess a source file
+rs_camera.cpp.i:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.i
+.PHONY : rs_camera.cpp.i
+
+rs_camera.s: rs_camera.cpp.s
+
+.PHONY : rs_camera.s
+
+# target to generate assembly for a file
+rs_camera.cpp.s:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.s
+.PHONY : rs_camera.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -215,15 +242,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... onboard"
 	@echo "... edit_cache"
-	@echo "... connection.o"
-	@echo "... connection.i"
-	@echo "... connection.s"
-	@echo "... glad.o"
-	@echo "... glad.i"
-	@echo "... glad.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... mapper.o"
+	@echo "... mapper.i"
+	@echo "... mapper.s"
 	@echo "... onboard.o"
 	@echo "... onboard.i"
 	@echo "... onboard.s"
+	@echo "... rs_camera.o"
+	@echo "... rs_camera.i"
+	@echo "... rs_camera.s"
 .PHONY : help
 
 

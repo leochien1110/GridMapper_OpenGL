@@ -1,37 +1,40 @@
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <stdio.h>
-#include <signal.h>
-#include <string.h>
-#include <thread>
-#include <mutex>
+#include "onboard.h"
 
-#include "connection.hpp"
-#include "scene.hpp"
-#include "mapper.hpp"
-#include "sensor.hpp"
-
-char voxel_map[100][30][100];
-
-int main(int argc, char * argv[]) try
+Onboard::Onboard(std::string gs_ip)
 {
-    Connection px2gs(1,argv[1]);
-    px2gs.init(6666);
-
-    const int width = 848;	//1280,848,640,480, 424
-    const int height = 480;	//720,480,360,270,240
-    const int desired_fps = 60;
-    Mapper voxel_mapper(width, height, desired_fps, voxel_map);
-
-    px2gs.end();
-
+    ip = gs_ip;
+    std::cout << "ip: " << ip << std::endl;
+    onboard_status = true;
 }
 
-catch (const std::exception& e)
+Onboard::~Onboard()
 {
-    std::cerr << e.what() << std::endl;
-    return EXIT_FAILURE;
+    stop();
+}
+void Onboard::update()
+{
+    std::cout << "Onboard updating..." << std::endl;
+    // run flight controller
+
+    // run sock
+
+    // run camera
+    camera.init(width,height,fps);  // config devices and filter
+    camera.start(); //start threading stream 
+
+    // run mapper
+    Mapper mapper(camera.pc_vertices, camera.points,            \
+                  camera.camera_pose, camera.specific_point,  \
+                  camera.inv_C, width,height);
+    mapper.start();
+
+    while(onboard_status)
+    {
+        // share data / data transfer
+    }
+}
+
+void Onboard::stop()
+{
+    std::cout << "Onboard stop" << std::endl;
 }
