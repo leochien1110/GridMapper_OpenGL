@@ -13,15 +13,8 @@ find_package (Threads)
 #find_package(OpenMP)
 find_package(X11 REQUIRED)
 
-# Curses(Key_event)
-if(UNIX)
-  find_package(Curses REQUIRED)
-  include_directories(${CURSES_INCLUDE_DIR})  
-endif()
-
 # copy resource folder to build
 file(COPY ${CMAKE_SOURCE_DIR}/res DESTINATION ${CMAKE_BINARY_DIR})
-
 
 # Set Path
 set(OPENCV_LIBS_PATH ../../opencv/build/lib)
@@ -57,14 +50,31 @@ endif()
 link_directories(../thirdparty/lib)
 
 # The main program
+add_executable(onboard main.cpp
+                       onboard.h
+                       onboard.cpp
+                       rs_camera.h
+                       rs_camera.cpp
+                       mapper.h
+                       mapper.cpp
+                       )
+
+target_link_libraries(onboard PRIVATE thirdparty
+                      pthread
+                      ${CMAKE_THREAD_LIBS_INIT}
+                      ${REALSENSE2_FOUND}
+                      ${OpenCV_LIBS} 
+                      ${CMAKE_DL_LIBS})
+
+#[[
 add_executable(onboard onboard.cpp
                        connection.hpp
                        connection.cpp
                        stb_image.h 
                        shader_m.h
                        glad.c)
-
-                       target_link_libraries(onboard PRIVATE thirdparty 
+                       
+target_link_libraries(onboard PRIVATE thirdparty 
                        ${CMAKE_THREAD_LIBS_INIT} 
                        ${OpenCV_LIBS} 
                        ${REALSENSE2_FOUND} 
@@ -76,7 +86,6 @@ add_executable(onboard onboard.cpp
                        X11 
                        pthread Xrandr Xi dl ${CURSES_LIBRARIES})
 
-#[[
 add_executable(offboard offboard.cpp 
                         stb_image.h 
                         shader_m.h 
