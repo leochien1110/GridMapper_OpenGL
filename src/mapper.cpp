@@ -1,30 +1,40 @@
 #include "mapper.h"
 
-Mapper::Mapper(float3 * vertices, rs2::points points, float * camera_pose, float * specific_pt, float _inv_C[3][3], int w, int h) : width(w), height(h)
+Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, float * specific_pt, float _inv_C[3][3], int w, int h) : width(w), height(h)
 {    
     std::cout << "Welcome to Mapper :)" << std::endl;
+    //std::cout << "points addr: " << points << std::endl;
 
-    pc_vertices = new float3[1000000];
+    // pointer to camera.camera_pose address
+    camera_pose = _camera_pose;
+
+    pc_vertices = vertices;
+    pc_points = points;
+
+    inv_C = _inv_C;
+    
+    specific_point = specific_pt;
+   
+    /*pc_vertices = new float3[1000000];
     for (int i = 0; i < points.size(); i++)
     {
         pc_vertices[i].x = vertices[i].x;
         pc_vertices[i].y = vertices[i].y;
         pc_vertices[i].z = vertices[i].z;
-    }
-
-    for(int i = 0; i < 3; ++i)
+    }*/
+    
+   
+    /*for(int i = 0; i < 3; ++i)
     {
         specific_point[i] = specific_pt[i];
-    }
+    }*/
 
     reduced_vertices = new float3[reduced_res];
 
-    pc_points = points;
-
-    for(int i = 0; i < 3; ++i){
+    /*for(int i = 0; i < 3; ++i){
         for(int j = 0; j < 3; ++j)
             inv_C[i][j] = _inv_C[i][j];
-    }
+    }*/
 
     //***************
     // Initialization
@@ -46,12 +56,31 @@ Mapper::~Mapper()
 {
     stop();
 }
-
-void Mapper::start()
+void Mapper ::start()
 {
+    if(!mapper_status){
+        mapper_status = true;
+        std::cout << "Starting Mapper Streaming Thread" << std::endl;
+        streamThread = std::thread(&Mapper::stream, this);
+    }
+}
+
+void Mapper::stream()
+{
+    std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(2000));
     std::cout << "Start Mapping..." << std::endl;
     while(mapper_status)
     {
+        std::cout << camera_pose[0] << " "  \
+            << camera_pose[1] << " "        \
+            << camera_pose[2] << " "        \
+            << pc_points.size()                 \
+            << " " << std::endl;
+        
+        camera_scaled_pose[0] = camera_pose[0] * mapscale_x;
+        camera_scaled_pose[1] = camera_pose[1] * mapscale_y;
+        camera_scaled_pose[2] = camera_pose[2] * mapscale_z;
+        
         reduce_resolution();
 
         //----------------------------
@@ -59,6 +88,7 @@ void Mapper::start()
 		//----------------------------
         float v[3];	//voxel map coordinate
         ray_tracing(v);
+        std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(500));
     }
 }
 
@@ -125,7 +155,6 @@ void Mapper::ray_tracing(float v[3])
             /*******************************************/
             /**********Occupancy Indicator(rect)********/
             /*******************************************/
-
             /* Free Cell */
             int r[3];						//ray 
             float r_length;					//unit ray_length
@@ -272,11 +301,12 @@ void Mapper::ray_tracing(float v[3])
                 ray_cube[0] = r[0] / unit_length_x;
                 ray_cube[1] = r[1] / unit_length_y;
                 ray_cube[2] = r[2] / unit_length_z;
-
+                
                 //check if cell is beyond boundary (for fix boundary only)
                 if (ray_cube[0] >= grid_x || ray_cube[1] >= grid_y || ray_cube[2] >= grid_z || ray_cube[0] < 0 || ray_cube[1] < 0 || ray_cube[2] < 0
-                    || ray_cube[0] - 1 < 0 || ray_cube[1] - 1 < 0 || ray_cube[2] - 1 < 0)
-                    continue;
+                    || ray_cube[0] - 1 < 0 || ray_cube[1] - 1 < 0 || ray_cube[2] - 1 < 0){
+                     continue;
+                } 
 
                 // assign free value to the cell
                 render_vmap(false, ray_cube, r_length, k, angle45_xz, angle45_zy);
@@ -300,7 +330,7 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 {
     float K;
 	//std::lock_guard<std::mutex> mlock(mutex_t_m2g);
-	
+
     // occupied cell
 	if (voxelmap[cube[0]][cube[1]][cube[2]] <= 255 && occupied == true) {
 		K = 128 * k  * r_distance / (width / 2);
@@ -313,7 +343,6 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 		initial_voxelmap[cube[0]][cube[1]][cube[2]] = 1;
 		voxelmap_old[cube[0]][cube[1]][cube[2]] = voxelmap[cube[0]][cube[1]][cube[2]];	//set this value as old data in next loop 
 	}
-
 	//false = free cell
 	else if (voxelmap[cube[0]][cube[1]][cube[2]] > 0 && occupied == false) {
 		K = 32 * k  * r_distance / (width / 2);
@@ -330,6 +359,11 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 
 void Mapper::stop()
 {
+    std::cout << "Mapper stop streaming" << std::endl;
+    if(streamThread.joinable()){
+        streamThread.join();
+        std::cout << "mapper streamThread released" << std::endl;
+    }
     delete pc_vertices;
     delete reduced_vertices;
 }

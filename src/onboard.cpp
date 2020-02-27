@@ -17,11 +17,15 @@ void Onboard::update()
     // run flight controller
 
     // run sock
-
+    
     // run camera
     camera.init(width,height,fps);  // config devices and filter
     camera.start(); //start threading stream 
-
+    std::cout << camera.camera_pose[0] << " "   \
+        << camera.camera_pose[1] << " "         \
+        << camera.camera_pose[2] << " "         \
+        << &camera.inv_C                  \
+        << " " << std::endl;
     // run mapper
     Mapper mapper(camera.pc_vertices, camera.points,            \
                   camera.camera_pose, camera.specific_point,  \

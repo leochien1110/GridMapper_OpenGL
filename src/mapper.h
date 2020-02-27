@@ -13,7 +13,7 @@
 class Mapper
 {
 public:
-    Mapper(float3 *, rs2::points, float *, float *, float [3][3], int, int);
+    Mapper(float3 *, rs2::points &, float *, float *, float [3][3], int, int);
     ~Mapper();
 
     //Voxel map size
@@ -53,6 +53,7 @@ public:
 
     // func
     void start();
+    void stream();
     void reduce_resolution();
     void ray_tracing(float *);
     void render_vmap(bool, int [], float, int, bool, bool);
@@ -61,8 +62,10 @@ public:
 private:
     // float
     float camera_scaled_pose[3] = { 0 };
-    float specific_point[3];
-    float inv_C[3][3];
+    float *camera_pose;
+    float *specific_point;
+    float (*inv_C)[3];
+    //float inv_C[3][3];
     //vertices;
     rs2::points pc_points;
     float3 *pc_vertices;

@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/leo/git/mapper_px4/build/src",
+  "command": "/usr/bin/c++   -I/home/leo/git/mapper_px4/src/../thirdparty/include -I/home/leo/git/mapper_px4/src/../../librealsense/include -isystem /usr/local/include -isystem /usr/local/include/opencv -I/home/leo/git/mapper_px4/thirdparty/include  -g   -o CMakeFiles/onboard.dir/main.cpp.o -c /home/leo/git/mapper_px4/src/main.cpp",
+  "file": "/home/leo/git/mapper_px4/src/main.cpp"
+},
+{
+  "directory": "/home/leo/git/mapper_px4/build/src",
+  "command": "/usr/bin/c++   -I/home/leo/git/mapper_px4/src/../thirdparty/include -I/home/leo/git/mapper_px4/src/../../librealsense/include -isystem /usr/local/include -isystem /usr/local/include/opencv -I/home/leo/git/mapper_px4/thirdparty/include  -g   -o CMakeFiles/onboard.dir/onboard.cpp.o -c /home/leo/git/mapper_px4/src/onboard.cpp",
+  "file": "/home/leo/git/mapper_px4/src/onboard.cpp"
+},
+{
+  "directory": "/home/leo/git/mapper_px4/build/src",
+  "command": "/usr/bin/c++   -I/home/leo/git/mapper_px4/src/../thirdparty/include -I/home/leo/git/mapper_px4/src/../../librealsense/include -isystem /usr/local/include -isystem /usr/local/include/opencv -I/home/leo/git/mapper_px4/thirdparty/include  -g   -o CMakeFiles/onboard.dir/rs_camera.cpp.o -c /home/leo/git/mapper_px4/src/rs_camera.cpp",
+  "file": "/home/leo/git/mapper_px4/src/rs_camera.cpp"
+},
+{
+  "directory": "/home/leo/git/mapper_px4/build/src",
+  "command": "/usr/bin/c++   -I/home/leo/git/mapper_px4/src/../thirdparty/include -I/home/leo/git/mapper_px4/src/../../librealsense/include -isystem /usr/local/include -isystem /usr/local/include/opencv -I/home/leo/git/mapper_px4/thirdparty/include  -g   -o CMakeFiles/onboard.dir/mapper.cpp.o -c /home/leo/git/mapper_px4/src/mapper.cpp",
+  "file": "/home/leo/git/mapper_px4/src/mapper.cpp"
+}
+]

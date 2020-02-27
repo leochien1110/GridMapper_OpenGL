@@ -78,8 +78,11 @@ void RS_Camera::stream()
         {
             read_depth();
             read_pose();
-            std::cout << "Shifted Postion(X,Y,Z): " << std::setprecision(5) << std::fixed <<
-			camera_pose[0] << " " << camera_pose[1] << " " << camera_pose[2] << " " << std::endl;
+            //std::cout << "Shifted Postion(X,Y,Z): " << std::setprecision(5) << std::fixed <<
+			//camera_pose[0] << " " << camera_pose[1] << " " << camera_pose[2] << " " << std::endl;
+            //std::cout << "points addr: " << &points << std::endl;
+            //std::cout << "inv_C[0][0]: " << inv_C[0][0] << std::endl;
+            std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(1000));
         }
     }
 }
@@ -129,6 +132,7 @@ void RS_Camera::read_pose()
         camera_state[4] = angle.z;					//camera_pose[4]
         camera_state[5] = angle.x;					//camera_pose[5]
     }
+    mutex.lock();
     camera_pose[0] = init_camera_global_pos[0] + camera_state[0];
     camera_pose[1] = init_camera_global_pos[1] + camera_state[1];
     camera_pose[2] = init_camera_global_pos[2] + camera_state[2];
@@ -138,6 +142,8 @@ void RS_Camera::read_pose()
     camera_pose[6] = camera_state[0];
     camera_pose[7] = camera_state[1];
     camera_pose[8] = camera_state[2];
+    mutex.unlock();
+    get_rotate_matrix();
 }
 void RS_Camera::fov(rs2::frame &depth)
 {
@@ -162,6 +168,7 @@ void RS_Camera::get_rotate_matrix()
         for (int mj = 0; mj < 3; mj++)
             inv_C[mi][mj] = ((C[(mj + 1) % 3][(mi + 1) % 3] * C[(mj + 2) % 3][(mi + 2) % 3]) - (C[(mj + 1) % 3][(mi + 2) % 3] * C[(mj + 2) % 3][(mi + 1) % 3])) / determinant;
     }
+    std::cout << "inv_C[1][1]:" << inv_C[1][1] << std::endl;
 }
 void RS_Camera::stop()
 {
