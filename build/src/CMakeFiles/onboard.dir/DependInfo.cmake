@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/leo/git/mapper_px4/src/connect.cpp" "/home/leo/git/mapper_px4/build/src/CMakeFiles/onboard.dir/connect.cpp.o"
   "/home/leo/git/mapper_px4/src/main.cpp" "/home/leo/git/mapper_px4/build/src/CMakeFiles/onboard.dir/main.cpp.o"
   "/home/leo/git/mapper_px4/src/mapper.cpp" "/home/leo/git/mapper_px4/build/src/CMakeFiles/onboard.dir/mapper.cpp.o"
   "/home/leo/git/mapper_px4/src/onboard.cpp" "/home/leo/git/mapper_px4/build/src/CMakeFiles/onboard.dir/onboard.cpp.o"

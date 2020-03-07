@@ -57,6 +57,8 @@ add_executable(onboard main.cpp
                        rs_camera.cpp
                        mapper.h
                        mapper.cpp
+                       connect.h
+                       connect.cpp
                        )
 
 target_link_libraries(onboard PRIVATE thirdparty

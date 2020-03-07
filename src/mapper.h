@@ -58,7 +58,8 @@ public:
     void ray_tracing(float *);
     void render_vmap(bool, int [], float, int, bool, bool);
     void stop();
-
+    bool mapper_status;
+    
 private:
     // float
     float camera_scaled_pose[3] = { 0 };
@@ -74,7 +75,6 @@ private:
     //Threading
     std::mutex mutex;
     std::thread streamThread;
-    bool mapper_status;
 
     // Class
     RS_Camera rs_camera;

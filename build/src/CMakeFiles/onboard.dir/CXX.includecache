@@ -206,6 +206,34 @@ math.h
 float.h
 -
 
+/home/leo/git/mapper_px4/src/connect.cpp
+connect.h
+/home/leo/git/mapper_px4/src/connect.h
+
+/home/leo/git/mapper_px4/src/connect.h
+sys/socket.h
+-
+sys/types.h
+-
+stdlib.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+signal.h
+-
+string.h
+-
+unistd.h
+-
+iostream
+-
+thread
+-
+mutex
+-
+
 /home/leo/git/mapper_px4/src/main.cpp
 iostream
 -
@@ -259,6 +287,8 @@ rs_camera.h
 /home/leo/git/mapper_px4/src/rs_camera.h
 mapper.h
 /home/leo/git/mapper_px4/src/mapper.h
+connect.h
+/home/leo/git/mapper_px4/src/connect.h
 
 /home/leo/git/mapper_px4/src/rs_camera.cpp
 rs_camera.h

@@ -180,7 +180,7 @@ void Mapper::ray_tracing(float v[3])
                 }
             }
 
-            //Make sure that the ray direction is correct
+            //Make sure the ray direction is correct
             int unit_length_dir = unit_length_x;
             if (coarray[c_index] < 0)
                 unit_length_dir *= -1;

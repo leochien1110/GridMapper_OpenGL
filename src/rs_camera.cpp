@@ -2,7 +2,7 @@
 
 RS_Camera::RS_Camera()
 {
-    int width = 640, height = 480, framerate = 30;
+    int width = 848, height = 480, framerate = 30;
     
     pc_vertices = new float3[1000000];
 
@@ -15,15 +15,16 @@ void RS_Camera::init(int w, int h, int fps)
     devices = ctx.query_devices();
 
     std::cout << "Found " << devices.size() << " devices " << std::endl;
+    
     if (devices.size() != 2) {
         std::cout << "[WARNING]Please unplug USB and try again." << std::endl;
         exit (EXIT_FAILURE);
     }
-    
+
     // Setup Pipeline for each device
 	for (auto&& dev : devices)
 	{
-		const char* dev_num = dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER);
+        const char* dev_num = dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER);
 
 		rs2::pipeline pipe(ctx);
 
@@ -34,16 +35,17 @@ void RS_Camera::init(int w, int h, int fps)
 		// D435 & D435i
 		if (strcmp("843112070567", dev_num) == 0 || strcmp("827112071112", dev_num) == 0) {
 			std::cout << "Camera " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected" << std::endl;
-			cfg.enable_stream(RS2_STREAM_DEPTH, width, height, RS2_FORMAT_Z16, framerate);
-			cfg.enable_stream(RS2_STREAM_COLOR, width, height, RS2_FORMAT_RGBA8, framerate);
+			cfg.enable_stream(RS2_STREAM_DEPTH, width, height, RS2_FORMAT_Z16, fps);
+			cfg.enable_stream(RS2_STREAM_COLOR, width, height, RS2_FORMAT_RGB8, fps);
 		}
 		// T265
 		if (strcmp("905312110443", dev_num) == 0) {
+            std::cout << "Camera: " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected" << std::endl;
             cfg.enable_stream(RS2_STREAM_POSE,RS2_FORMAT_6DOF);
-            cfg.disable_stream(RS2_STREAM_FISHEYE, 1);
-            cfg.disable_stream(RS2_STREAM_FISHEYE, 2);
-			std::cout << "Camera: " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected" << std::endl;
+            //cfg.disable_stream(RS2_STREAM_FISHEYE, 1);
+            //cfg.disable_stream(RS2_STREAM_FISHEYE, 2);
 		}
+        
         pipe.start(cfg);
         pipelines.emplace_back(pipe);
 	}
@@ -76,13 +78,13 @@ void RS_Camera::stream()
         
         while(stream_status)
         {
-            read_depth();
             read_pose();
+            read_depth();
             //std::cout << "Shifted Postion(X,Y,Z): " << std::setprecision(5) << std::fixed <<
 			//camera_pose[0] << " " << camera_pose[1] << " " << camera_pose[2] << " " << std::endl;
             //std::cout << "points addr: " << &points << std::endl;
             //std::cout << "inv_C[0][0]: " << inv_C[0][0] << std::endl;
-            std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(1000));
+            std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(2000));
         }
     }
 }
@@ -168,7 +170,7 @@ void RS_Camera::get_rotate_matrix()
         for (int mj = 0; mj < 3; mj++)
             inv_C[mi][mj] = ((C[(mj + 1) % 3][(mi + 1) % 3] * C[(mj + 2) % 3][(mi + 2) % 3]) - (C[(mj + 1) % 3][(mi + 2) % 3] * C[(mj + 2) % 3][(mi + 1) % 3])) / determinant;
     }
-    std::cout << "inv_C[1][1]:" << inv_C[1][1] << std::endl;
+    //std::cout << "inv_C[1][1]:" << inv_C[1][1] << std::endl;
 }
 void RS_Camera::stop()
 {

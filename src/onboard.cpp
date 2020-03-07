@@ -11,13 +11,12 @@ Onboard::~Onboard()
 {
     stop();
 }
+
 void Onboard::update()
 {
     std::cout << "Onboard updating..." << std::endl;
     // run flight controller
 
-    // run sock
-    
     // run camera
     camera.init(width,height,fps);  // config devices and filter
     camera.start(); //start threading stream 
@@ -26,15 +25,26 @@ void Onboard::update()
         << camera.camera_pose[2] << " "         \
         << &camera.inv_C                  \
         << " " << std::endl;
+    
     // run mapper
     Mapper mapper(camera.pc_vertices, camera.points,            \
                   camera.camera_pose, camera.specific_point,  \
                   camera.inv_C, width,height);
     mapper.start();
 
+    // run sock
+    data2GS.init(ip, port_num,   \
+                100, 30, 100,  \
+                mapper.voxelmap, camera.camera_pose);
+
+    // send data to groundstation
+    //std::thread t_send(&Connect::senddata, data2GS,     \
+    //            mapper.mapper_status);
+
     while(onboard_status)
     {
         // share data / data transfer
+        
     }
 }
 

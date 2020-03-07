@@ -1,6 +1,6 @@
 The system is: Linux - 4.18.0-041800-generic - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-Compiler: /usr/bin/c99-gcc 
+Compiler: /usr/bin/cc 
 Build flags: 
 Id flags:  
 
@@ -28,30 +28,30 @@ The CXX compiler identification is GNU, found in "/home/leo/git/mapper_px4/build
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_313a6/fast"
-/usr/bin/make -f CMakeFiles/cmTC_313a6.dir/build.make CMakeFiles/cmTC_313a6.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_7638c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7638c.dir/build.make CMakeFiles/cmTC_7638c.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_313a6.dir/testCCompiler.c.o
-/usr/bin/c99-gcc    -o CMakeFiles/cmTC_313a6.dir/testCCompiler.c.o   -c /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_313a6
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_313a6.dir/link.txt --verbose=1
-/usr/bin/c99-gcc      -rdynamic CMakeFiles/cmTC_313a6.dir/testCCompiler.c.o  -o cmTC_313a6 
+Building C object CMakeFiles/cmTC_7638c.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_7638c.dir/testCCompiler.c.o   -c /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_7638c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7638c.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_7638c.dir/testCCompiler.c.o  -o cmTC_7638c 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a821c/fast"
-/usr/bin/make -f CMakeFiles/cmTC_a821c.dir/build.make CMakeFiles/cmTC_a821c.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_949b4/fast"
+/usr/bin/make -f CMakeFiles/cmTC_949b4.dir/build.make CMakeFiles/cmTC_949b4.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o
-/usr/bin/c99-gcc    -o CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_a821c
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a821c.dir/link.txt --verbose=1
-/usr/bin/c99-gcc     -v -rdynamic CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o  -o cmTC_a821c 
+Building C object CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_949b4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_949b4.dir/link.txt --verbose=1
+/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o  -o cmTC_949b4 
 Using built-in specs.
-COLLECT_GCC=gcc
+COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
 OFFLOAD_TARGET_NAMES=nvptx-none
 OFFLOAD_TARGET_DEFAULT=1
@@ -61,9 +61,9 @@ Thread model: posix
 gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-std=c99' '-v' '-rdynamic' '-o' 'cmTC_a821c' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7UJ0Rk.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_a821c /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-std=c99' '-v' '-rdynamic' '-o' 'cmTC_a821c' '-mtune=generic' '-march=x86-64'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_949b4' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJYBErY.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_949b4 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_949b4' '-mtune=generic' '-march=x86-64'
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
@@ -71,16 +71,16 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_a821c/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_a821c.dir/build.make CMakeFiles/cmTC_a821c.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_949b4/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_949b4.dir/build.make CMakeFiles/cmTC_949b4.dir/build]
   ignore line: [make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/c99-gcc    -o CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_a821c]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a821c.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c99-gcc     -v -rdynamic CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o  -o cmTC_a821c ]
+  ignore line: [Building C object CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_949b4]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_949b4.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o  -o cmTC_949b4 ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=gcc]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
   ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
   ignore line: [OFFLOAD_TARGET_DEFAULT=1]
@@ -90,13 +90,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-std=c99' '-v' '-rdynamic' '-o' 'cmTC_a821c' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7UJ0Rk.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_a821c /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_949b4' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJYBErY.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_949b4 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cc7UJ0Rk.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccJYBErY.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -116,7 +116,7 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_a821c] ==> ignore
+    arg [cmTC_949b4] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
@@ -128,7 +128,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_a821c.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_949b4.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -155,31 +155,91 @@ Parsed C implicit link information from above output:
   implicit fwks: []
 
 
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2f2e2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2f2e2.dir/build.make CMakeFiles/cmTC_2f2e2.dir/build
+make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2f2e2.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_2f2e2.dir/feature_tests.c.o   -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_2f2e2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2f2e2.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_2f2e2.dir/feature_tests.c.o  -o cmTC_2f2e2 
+make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_76797/fast"
+/usr/bin/make -f CMakeFiles/cmTC_76797.dir/build.make CMakeFiles/cmTC_76797.dir/build
+make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_76797.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_76797.dir/feature_tests.c.o   -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_76797
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_76797.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_76797.dir/feature_tests.c.o  -o cmTC_76797 
+make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3930c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3930c.dir/build.make CMakeFiles/cmTC_3930c.dir/build
+make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3930c.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_3930c.dir/feature_tests.c.o   -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_3930c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3930c.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_3930c.dir/feature_tests.c.o  -o cmTC_3930c 
+make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_fbcaa/fast"
-/usr/bin/make -f CMakeFiles/cmTC_fbcaa.dir/build.make CMakeFiles/cmTC_fbcaa.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_e5ec1/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e5ec1.dir/build.make CMakeFiles/cmTC_e5ec1.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_fbcaa.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_fbcaa.dir/testCXXCompiler.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_fbcaa
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fbcaa.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_fbcaa.dir/testCXXCompiler.cxx.o  -o cmTC_fbcaa 
+Building CXX object CMakeFiles/cmTC_e5ec1.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_e5ec1.dir/testCXXCompiler.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_e5ec1
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e5ec1.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_e5ec1.dir/testCXXCompiler.cxx.o  -o cmTC_e5ec1 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_3f299/fast"
-/usr/bin/make -f CMakeFiles/cmTC_3f299.dir/build.make CMakeFiles/cmTC_3f299.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_d4874/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d4874.dir/build.make CMakeFiles/cmTC_d4874.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_3f299
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3f299.dir/link.txt --verbose=1
-/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_3f299 
+Building CXX object CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_d4874
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4874.dir/link.txt --verbose=1
+/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_d4874 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
@@ -191,9 +251,9 @@ Thread model: posix
 gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_3f299' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc01V7nx.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3f299 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_3f299' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_d4874' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccqsstPk.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_d4874 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_d4874' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
@@ -201,14 +261,14 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_3f299/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_3f299.dir/build.make CMakeFiles/cmTC_3f299.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_d4874/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_d4874.dir/build.make CMakeFiles/cmTC_d4874.dir/build]
   ignore line: [make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_3f299]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3f299.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_3f299 ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_d4874]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4874.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_d4874 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
@@ -220,13 +280,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_3f299' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc01V7nx.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3f299 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_d4874' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccqsstPk.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_d4874 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cc01V7nx.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccqsstPk.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -246,7 +306,7 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_3f299] ==> ignore
+    arg [cmTC_d4874] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
@@ -258,7 +318,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_3f299.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_d4874.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -286,14 +346,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_afe53/fast"
-/usr/bin/make -f CMakeFiles/cmTC_afe53.dir/build.make CMakeFiles/cmTC_afe53.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_80373/fast"
+/usr/bin/make -f CMakeFiles/cmTC_80373.dir/build.make CMakeFiles/cmTC_80373.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_afe53.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_afe53.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_afe53
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_afe53.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_afe53.dir/feature_tests.cxx.o  -o cmTC_afe53 
+Building CXX object CMakeFiles/cmTC_80373.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_80373.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_80373
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_80373.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_80373.dir/feature_tests.cxx.o  -o cmTC_80373 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
@@ -359,14 +419,14 @@ make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_026b4/fast"
-/usr/bin/make -f CMakeFiles/cmTC_026b4.dir/build.make CMakeFiles/cmTC_026b4.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_1b63d/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1b63d.dir/build.make CMakeFiles/cmTC_1b63d.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_026b4.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_026b4.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_026b4
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_026b4.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_026b4.dir/feature_tests.cxx.o  -o cmTC_026b4 
+Building CXX object CMakeFiles/cmTC_1b63d.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_1b63d.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_1b63d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1b63d.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_1b63d.dir/feature_tests.cxx.o  -o cmTC_1b63d 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
@@ -432,14 +492,14 @@ make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a6681/fast"
-/usr/bin/make -f CMakeFiles/cmTC_a6681.dir/build.make CMakeFiles/cmTC_a6681.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_db633/fast"
+/usr/bin/make -f CMakeFiles/cmTC_db633.dir/build.make CMakeFiles/cmTC_db633.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_a6681.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_a6681.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_a6681
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a6681.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_a6681.dir/feature_tests.cxx.o  -o cmTC_a6681 
+Building CXX object CMakeFiles/cmTC_db633.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_db633.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_db633
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_db633.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_db633.dir/feature_tests.cxx.o  -o cmTC_db633 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
@@ -505,14 +565,14 @@ make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9df4e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9df4e.dir/build.make CMakeFiles/cmTC_9df4e.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_b8dc2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b8dc2.dir/build.make CMakeFiles/cmTC_b8dc2.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_9df4e.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_9df4e.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_9df4e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9df4e.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_9df4e.dir/feature_tests.cxx.o  -o cmTC_9df4e 
+Building CXX object CMakeFiles/cmTC_b8dc2.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_b8dc2.dir/feature_tests.cxx.o -c /home/leo/git/mapper_px4/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_b8dc2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b8dc2.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_b8dc2.dir/feature_tests.cxx.o  -o cmTC_b8dc2 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
@@ -576,112 +636,112 @@ make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 Determining if the include file pthread.h exists passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_53bdd/fast"
-/usr/bin/make -f CMakeFiles/cmTC_53bdd.dir/build.make CMakeFiles/cmTC_53bdd.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_cc341/fast"
+/usr/bin/make -f CMakeFiles/cmTC_cc341.dir/build.make CMakeFiles/cmTC_cc341.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_53bdd.dir/CheckIncludeFile.c.o
-/usr/bin/c99-gcc    -o CMakeFiles/cmTC_53bdd.dir/CheckIncludeFile.c.o   -c /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_53bdd
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_53bdd.dir/link.txt --verbose=1
-/usr/bin/c99-gcc      -rdynamic CMakeFiles/cmTC_53bdd.dir/CheckIncludeFile.c.o  -o cmTC_53bdd 
+Building C object CMakeFiles/cmTC_cc341.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_cc341.dir/CheckIncludeFile.c.o   -c /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_cc341
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cc341.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_cc341.dir/CheckIncludeFile.c.o  -o cmTC_cc341 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0e294/fast"
-/usr/bin/make -f CMakeFiles/cmTC_0e294.dir/build.make CMakeFiles/cmTC_0e294.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_2e91b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2e91b.dir/build.make CMakeFiles/cmTC_2e91b.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_0e294.dir/CheckFunctionExists.c.o
-/usr/bin/c99-gcc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_0e294.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_0e294
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0e294.dir/link.txt --verbose=1
-/usr/bin/c99-gcc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_0e294.dir/CheckFunctionExists.c.o  -o cmTC_0e294 -lpthread 
+Building C object CMakeFiles/cmTC_2e91b.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_2e91b.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_2e91b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2e91b.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_2e91b.dir/CheckFunctionExists.c.o  -o cmTC_2e91b -lpthread 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function XOpenDisplay exists in the /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0dbeb/fast"
-/usr/bin/make -f CMakeFiles/cmTC_0dbeb.dir/build.make CMakeFiles/cmTC_0dbeb.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_fc92f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_fc92f.dir/build.make CMakeFiles/cmTC_fc92f.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_0dbeb.dir/CheckFunctionExists.c.o
-/usr/bin/c99-gcc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay   -o CMakeFiles/cmTC_0dbeb.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_0dbeb
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0dbeb.dir/link.txt --verbose=1
-/usr/bin/c99-gcc  -DCHECK_FUNCTION_EXISTS=XOpenDisplay    -rdynamic CMakeFiles/cmTC_0dbeb.dir/CheckFunctionExists.c.o  -o cmTC_0dbeb /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so 
+Building C object CMakeFiles/cmTC_fc92f.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay   -o CMakeFiles/cmTC_fc92f.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_fc92f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fc92f.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=XOpenDisplay    -rdynamic CMakeFiles/cmTC_fc92f.dir/CheckFunctionExists.c.o  -o cmTC_fc92f /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function gethostbyname exists passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_1fe05/fast"
-/usr/bin/make -f CMakeFiles/cmTC_1fe05.dir/build.make CMakeFiles/cmTC_1fe05.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_45daf/fast"
+/usr/bin/make -f CMakeFiles/cmTC_45daf.dir/build.make CMakeFiles/cmTC_45daf.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_1fe05.dir/CheckFunctionExists.c.o
-/usr/bin/c99-gcc   -DCHECK_FUNCTION_EXISTS=gethostbyname   -o CMakeFiles/cmTC_1fe05.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_1fe05
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1fe05.dir/link.txt --verbose=1
-/usr/bin/c99-gcc  -DCHECK_FUNCTION_EXISTS=gethostbyname    -rdynamic CMakeFiles/cmTC_1fe05.dir/CheckFunctionExists.c.o  -o cmTC_1fe05 
+Building C object CMakeFiles/cmTC_45daf.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname   -o CMakeFiles/cmTC_45daf.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_45daf
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_45daf.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=gethostbyname    -rdynamic CMakeFiles/cmTC_45daf.dir/CheckFunctionExists.c.o  -o cmTC_45daf 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function connect exists passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_629a9/fast"
-/usr/bin/make -f CMakeFiles/cmTC_629a9.dir/build.make CMakeFiles/cmTC_629a9.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_b2ea9/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b2ea9.dir/build.make CMakeFiles/cmTC_b2ea9.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_629a9.dir/CheckFunctionExists.c.o
-/usr/bin/c99-gcc   -DCHECK_FUNCTION_EXISTS=connect   -o CMakeFiles/cmTC_629a9.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_629a9
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_629a9.dir/link.txt --verbose=1
-/usr/bin/c99-gcc  -DCHECK_FUNCTION_EXISTS=connect    -rdynamic CMakeFiles/cmTC_629a9.dir/CheckFunctionExists.c.o  -o cmTC_629a9 
+Building C object CMakeFiles/cmTC_b2ea9.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=connect   -o CMakeFiles/cmTC_b2ea9.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b2ea9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2ea9.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=connect    -rdynamic CMakeFiles/cmTC_b2ea9.dir/CheckFunctionExists.c.o  -o cmTC_b2ea9 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function remove exists passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e372f/fast"
-/usr/bin/make -f CMakeFiles/cmTC_e372f.dir/build.make CMakeFiles/cmTC_e372f.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_ca930/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ca930.dir/build.make CMakeFiles/cmTC_ca930.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_e372f.dir/CheckFunctionExists.c.o
-/usr/bin/c99-gcc   -DCHECK_FUNCTION_EXISTS=remove   -o CMakeFiles/cmTC_e372f.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_e372f
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e372f.dir/link.txt --verbose=1
-/usr/bin/c99-gcc  -DCHECK_FUNCTION_EXISTS=remove    -rdynamic CMakeFiles/cmTC_e372f.dir/CheckFunctionExists.c.o  -o cmTC_e372f 
+Building C object CMakeFiles/cmTC_ca930.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=remove   -o CMakeFiles/cmTC_ca930.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_ca930
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca930.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=remove    -rdynamic CMakeFiles/cmTC_ca930.dir/CheckFunctionExists.c.o  -o cmTC_ca930 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function shmat exists passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0bdd0/fast"
-/usr/bin/make -f CMakeFiles/cmTC_0bdd0.dir/build.make CMakeFiles/cmTC_0bdd0.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_fa9fa/fast"
+/usr/bin/make -f CMakeFiles/cmTC_fa9fa.dir/build.make CMakeFiles/cmTC_fa9fa.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_0bdd0.dir/CheckFunctionExists.c.o
-/usr/bin/c99-gcc   -DCHECK_FUNCTION_EXISTS=shmat   -o CMakeFiles/cmTC_0bdd0.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_0bdd0
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0bdd0.dir/link.txt --verbose=1
-/usr/bin/c99-gcc  -DCHECK_FUNCTION_EXISTS=shmat    -rdynamic CMakeFiles/cmTC_0bdd0.dir/CheckFunctionExists.c.o  -o cmTC_0bdd0 
+Building C object CMakeFiles/cmTC_fa9fa.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=shmat   -o CMakeFiles/cmTC_fa9fa.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_fa9fa
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fa9fa.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=shmat    -rdynamic CMakeFiles/cmTC_fa9fa.dir/CheckFunctionExists.c.o  -o cmTC_fa9fa 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function IceConnectionNumber exists in the ICE passed with the following output:
 Change Dir: /home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_2a6c8/fast"
-/usr/bin/make -f CMakeFiles/cmTC_2a6c8.dir/build.make CMakeFiles/cmTC_2a6c8.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_e7f26/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e7f26.dir/build.make CMakeFiles/cmTC_e7f26.dir/build
 make[1]: Entering directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_2a6c8.dir/CheckFunctionExists.c.o
-/usr/bin/c99-gcc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber   -o CMakeFiles/cmTC_2a6c8.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_2a6c8
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a6c8.dir/link.txt --verbose=1
-/usr/bin/c99-gcc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber    -rdynamic CMakeFiles/cmTC_2a6c8.dir/CheckFunctionExists.c.o  -o cmTC_2a6c8 -lICE 
+Building C object CMakeFiles/cmTC_e7f26.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber   -o CMakeFiles/cmTC_e7f26.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e7f26
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e7f26.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber    -rdynamic CMakeFiles/cmTC_e7f26.dir/CheckFunctionExists.c.o  -o cmTC_e7f26 -lICE 
 make[1]: Leaving directory '/home/leo/git/mapper_px4/build/CMakeFiles/CMakeTmp'
 
 

@@ -125,6 +125,33 @@ onboard/fast:
 	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/build
 .PHONY : onboard/fast
 
+connect.o: connect.cpp.o
+
+.PHONY : connect.o
+
+# target to build an object file
+connect.cpp.o:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.o
+.PHONY : connect.cpp.o
+
+connect.i: connect.cpp.i
+
+.PHONY : connect.i
+
+# target to preprocess a source file
+connect.cpp.i:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.i
+.PHONY : connect.cpp.i
+
+connect.s: connect.cpp.s
+
+.PHONY : connect.s
+
+# target to generate assembly for a file
+connect.cpp.s:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.s
+.PHONY : connect.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -242,6 +269,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... onboard"
 	@echo "... edit_cache"
+	@echo "... connect.o"
+	@echo "... connect.i"
+	@echo "... connect.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
