@@ -21,6 +21,8 @@ public:
     const int unit_length_x = 5;	//(pixel/cell)
     const int unit_length_y = 5;	//(pixel/cell)
     const int unit_length_z = 5;	//(pixel/cell)
+    float block_unit = block_unit_m;
+    float unit_length = unit_length_x;
 
     //Map scale in real world (pixel per meter)..
     //can use to transfer map from real world to voxel world

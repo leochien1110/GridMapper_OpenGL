@@ -152,6 +152,33 @@ connect.cpp.s:
 	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.s
 .PHONY : connect.cpp.s
 
+glad.o: glad.c.o
+
+.PHONY : glad.o
+
+# target to build an object file
+glad.c.o:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.o
+.PHONY : glad.c.o
+
+glad.i: glad.c.i
+
+.PHONY : glad.i
+
+# target to preprocess a source file
+glad.c.i:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.i
+.PHONY : glad.c.i
+
+glad.s: glad.c.s
+
+.PHONY : glad.s
+
+# target to generate assembly for a file
+glad.c.s:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.s
+.PHONY : glad.c.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -260,6 +287,33 @@ rs_camera.cpp.s:
 	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.s
 .PHONY : rs_camera.cpp.s
 
+scene.o: scene.cpp.o
+
+.PHONY : scene.o
+
+# target to build an object file
+scene.cpp.o:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.o
+.PHONY : scene.cpp.o
+
+scene.i: scene.cpp.i
+
+.PHONY : scene.i
+
+# target to preprocess a source file
+scene.cpp.i:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.i
+.PHONY : scene.cpp.i
+
+scene.s: scene.cpp.s
+
+.PHONY : scene.s
+
+# target to generate assembly for a file
+scene.cpp.s:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.s
+.PHONY : scene.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -272,6 +326,9 @@ help:
 	@echo "... connect.o"
 	@echo "... connect.i"
 	@echo "... connect.s"
+	@echo "... glad.o"
+	@echo "... glad.i"
+	@echo "... glad.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -284,6 +341,9 @@ help:
 	@echo "... rs_camera.o"
 	@echo "... rs_camera.i"
 	@echo "... rs_camera.s"
+	@echo "... scene.o"
+	@echo "... scene.i"
+	@echo "... scene.s"
 .PHONY : help
 
 

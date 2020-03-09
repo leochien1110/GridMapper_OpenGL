@@ -59,6 +59,11 @@ add_executable(onboard main.cpp
                        mapper.cpp
                        connect.h
                        connect.cpp
+                       scene.h
+                       scene.cpp
+                       stb_image.h 
+                       shader_m.h 
+                       glad.c 
                        )
 
 target_link_libraries(onboard PRIVATE thirdparty
@@ -66,7 +71,14 @@ target_link_libraries(onboard PRIVATE thirdparty
                       ${CMAKE_THREAD_LIBS_INIT}
                       ${REALSENSE2_FOUND}
                       ${OpenCV_LIBS} 
-                      ${CMAKE_DL_LIBS})
+                      ${CMAKE_DL_LIBS}
+                      ${OPENGL_gl_LIBRARY}
+                      ${OPENGL_glu_LIBRARY}
+                      ${CMAKE_DL_LIBS}
+                      glfw3
+                      GL
+                      X11
+                      )
 
 #[[
 add_executable(onboard onboard.cpp

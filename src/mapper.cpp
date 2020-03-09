@@ -13,7 +13,7 @@ Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, flo
 
     inv_C = _inv_C;
     
-    specific_point = specific_pt;
+    specific_point = specific_pt;    
    
     /*pc_vertices = new float3[1000000];
     for (int i = 0; i < points.size(); i++)

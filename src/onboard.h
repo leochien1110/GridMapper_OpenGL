@@ -7,6 +7,7 @@
 #include "rs_camera.h"
 #include "mapper.h"
 #include "connect.h"
+#include "scene.h"
 
 class Onboard
 {
@@ -32,6 +33,7 @@ private:
     // Class
     RS_Camera camera;
     Connect data2GS;
+    //Scene scene;
 };
 
-#endif //ONBOARD_H
+#endif  //ONBOARD_H

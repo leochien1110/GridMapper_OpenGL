@@ -6,7 +6,7 @@ Connect::Connect()
 }
 Connect::~Connect()
 {
-
+    end();
 }
 
 void Connect::init(std::string _ip, uint16_t _port_num,     \

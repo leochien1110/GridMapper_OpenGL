@@ -41,6 +41,10 @@ void Onboard::update()
     //std::thread t_send(&Connect::senddata, data2GS,     \
     //            mapper.mapper_status);
 
+    Scene scene(mapper.unit_length, mapper.block_unit,  \
+                camera.half_FOVxz, camera.half_FOVyz);
+    
+
     while(onboard_status)
     {
         // share data / data transfer
