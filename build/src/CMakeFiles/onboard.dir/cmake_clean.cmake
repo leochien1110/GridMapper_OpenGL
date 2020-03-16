@@ -4,8 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/onboard.dir/rs_camera.cpp.o"
   "CMakeFiles/onboard.dir/mapper.cpp.o"
   "CMakeFiles/onboard.dir/connect.cpp.o"
-  "CMakeFiles/onboard.dir/scene.cpp.o"
   "CMakeFiles/onboard.dir/glad.c.o"
+  "CMakeFiles/onboard.dir/scene.cpp.o"
   "onboard.pdb"
   "onboard"
 )

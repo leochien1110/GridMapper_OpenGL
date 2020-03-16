@@ -177,33 +177,9 @@ src/CMakeFiles/onboard.dir/connect.cpp.o.provides: src/CMakeFiles/onboard.dir/co
 src/CMakeFiles/onboard.dir/connect.cpp.o.provides.build: src/CMakeFiles/onboard.dir/connect.cpp.o
 
 
-src/CMakeFiles/onboard.dir/scene.cpp.o: src/CMakeFiles/onboard.dir/flags.make
-src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/scene.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/mapper_px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/CMakeFiles/onboard.dir/scene.cpp.o"
-	cd /home/leo/git/mapper_px4/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/onboard.dir/scene.cpp.o -c /home/leo/git/mapper_px4/src/scene.cpp
-
-src/CMakeFiles/onboard.dir/scene.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/onboard.dir/scene.cpp.i"
-	cd /home/leo/git/mapper_px4/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/git/mapper_px4/src/scene.cpp > CMakeFiles/onboard.dir/scene.cpp.i
-
-src/CMakeFiles/onboard.dir/scene.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/onboard.dir/scene.cpp.s"
-	cd /home/leo/git/mapper_px4/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/git/mapper_px4/src/scene.cpp -o CMakeFiles/onboard.dir/scene.cpp.s
-
-src/CMakeFiles/onboard.dir/scene.cpp.o.requires:
-
-.PHONY : src/CMakeFiles/onboard.dir/scene.cpp.o.requires
-
-src/CMakeFiles/onboard.dir/scene.cpp.o.provides: src/CMakeFiles/onboard.dir/scene.cpp.o.requires
-	$(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.o.provides.build
-.PHONY : src/CMakeFiles/onboard.dir/scene.cpp.o.provides
-
-src/CMakeFiles/onboard.dir/scene.cpp.o.provides.build: src/CMakeFiles/onboard.dir/scene.cpp.o
-
-
 src/CMakeFiles/onboard.dir/glad.c.o: src/CMakeFiles/onboard.dir/flags.make
 src/CMakeFiles/onboard.dir/glad.c.o: ../src/glad.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/mapper_px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object src/CMakeFiles/onboard.dir/glad.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/mapper_px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object src/CMakeFiles/onboard.dir/glad.c.o"
 	cd /home/leo/git/mapper_px4/build/src && /usr/bin/c99-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/onboard.dir/glad.c.o   -c /home/leo/git/mapper_px4/src/glad.c
 
 src/CMakeFiles/onboard.dir/glad.c.i: cmake_force
@@ -225,6 +201,30 @@ src/CMakeFiles/onboard.dir/glad.c.o.provides: src/CMakeFiles/onboard.dir/glad.c.
 src/CMakeFiles/onboard.dir/glad.c.o.provides.build: src/CMakeFiles/onboard.dir/glad.c.o
 
 
+src/CMakeFiles/onboard.dir/scene.cpp.o: src/CMakeFiles/onboard.dir/flags.make
+src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/scene.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/mapper_px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object src/CMakeFiles/onboard.dir/scene.cpp.o"
+	cd /home/leo/git/mapper_px4/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/onboard.dir/scene.cpp.o -c /home/leo/git/mapper_px4/src/scene.cpp
+
+src/CMakeFiles/onboard.dir/scene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/onboard.dir/scene.cpp.i"
+	cd /home/leo/git/mapper_px4/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/git/mapper_px4/src/scene.cpp > CMakeFiles/onboard.dir/scene.cpp.i
+
+src/CMakeFiles/onboard.dir/scene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/onboard.dir/scene.cpp.s"
+	cd /home/leo/git/mapper_px4/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/git/mapper_px4/src/scene.cpp -o CMakeFiles/onboard.dir/scene.cpp.s
+
+src/CMakeFiles/onboard.dir/scene.cpp.o.requires:
+
+.PHONY : src/CMakeFiles/onboard.dir/scene.cpp.o.requires
+
+src/CMakeFiles/onboard.dir/scene.cpp.o.provides: src/CMakeFiles/onboard.dir/scene.cpp.o.requires
+	$(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.o.provides.build
+.PHONY : src/CMakeFiles/onboard.dir/scene.cpp.o.provides
+
+src/CMakeFiles/onboard.dir/scene.cpp.o.provides.build: src/CMakeFiles/onboard.dir/scene.cpp.o
+
+
 # Object files for target onboard
 onboard_OBJECTS = \
 "CMakeFiles/onboard.dir/main.cpp.o" \
@@ -232,8 +232,8 @@ onboard_OBJECTS = \
 "CMakeFiles/onboard.dir/rs_camera.cpp.o" \
 "CMakeFiles/onboard.dir/mapper.cpp.o" \
 "CMakeFiles/onboard.dir/connect.cpp.o" \
-"CMakeFiles/onboard.dir/scene.cpp.o" \
-"CMakeFiles/onboard.dir/glad.c.o"
+"CMakeFiles/onboard.dir/glad.c.o" \
+"CMakeFiles/onboard.dir/scene.cpp.o"
 
 # External object files for target onboard
 onboard_EXTERNAL_OBJECTS =
@@ -243,31 +243,60 @@ src/onboard: src/CMakeFiles/onboard.dir/onboard.cpp.o
 src/onboard: src/CMakeFiles/onboard.dir/rs_camera.cpp.o
 src/onboard: src/CMakeFiles/onboard.dir/mapper.cpp.o
 src/onboard: src/CMakeFiles/onboard.dir/connect.cpp.o
-src/onboard: src/CMakeFiles/onboard.dir/scene.cpp.o
 src/onboard: src/CMakeFiles/onboard.dir/glad.c.o
+src/onboard: src/CMakeFiles/onboard.dir/scene.cpp.o
 src/onboard: src/CMakeFiles/onboard.dir/build.make
 src/onboard: /usr/local/lib/librealsense2.so
-src/onboard: /usr/local/lib/libopencv_dnn.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_ml.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_objdetect.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_shape.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_stitching.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_superres.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_videostab.so.3.4.5
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_stitching.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_superres.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_videostab.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_aruco.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_bgsegm.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_bioinspired.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_ccalib.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_cvv.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_dnn_objdetect.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_dpm.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_face.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_freetype.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_fuzzy.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_hfs.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_img_hash.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_line_descriptor.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_optflow.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_reg.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_rgbd.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_saliency.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_stereo.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_structured_light.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_surface_matching.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_tracking.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_xfeatures2d.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_ximgproc.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_xobjdetect.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_xphoto.so.3.4.10
 src/onboard: /usr/lib/x86_64-linux-gnu/libGL.so
 src/onboard: /usr/lib/x86_64-linux-gnu/libGLU.so
 src/onboard: /usr/lib/x86_64-linux-gnu/libGL.so
 src/onboard: /usr/lib/x86_64-linux-gnu/libGLU.so
-src/onboard: /usr/local/lib/libopencv_calib3d.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_features2d.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_flann.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_highgui.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_photo.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_video.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_videoio.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_imgcodecs.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_imgproc.so.3.4.5
-src/onboard: /usr/local/lib/libopencv_core.so.3.4.5
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_shape.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_highgui.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_videoio.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_phase_unwrapping.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_video.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_datasets.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_plot.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_text.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_dnn.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_ml.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_imgcodecs.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_objdetect.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_calib3d.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_features2d.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_flann.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_photo.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_imgproc.so.3.4.10
+src/onboard: /home/leo/git/opencv/build/lib/libopencv_core.so.3.4.10
 src/onboard: src/CMakeFiles/onboard.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leo/git/mapper_px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable onboard"
 	cd /home/leo/git/mapper_px4/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/onboard.dir/link.txt --verbose=$(VERBOSE)
@@ -282,8 +311,8 @@ src/CMakeFiles/onboard.dir/requires: src/CMakeFiles/onboard.dir/onboard.cpp.o.re
 src/CMakeFiles/onboard.dir/requires: src/CMakeFiles/onboard.dir/rs_camera.cpp.o.requires
 src/CMakeFiles/onboard.dir/requires: src/CMakeFiles/onboard.dir/mapper.cpp.o.requires
 src/CMakeFiles/onboard.dir/requires: src/CMakeFiles/onboard.dir/connect.cpp.o.requires
-src/CMakeFiles/onboard.dir/requires: src/CMakeFiles/onboard.dir/scene.cpp.o.requires
 src/CMakeFiles/onboard.dir/requires: src/CMakeFiles/onboard.dir/glad.c.o.requires
+src/CMakeFiles/onboard.dir/requires: src/CMakeFiles/onboard.dir/scene.cpp.o.requires
 
 .PHONY : src/CMakeFiles/onboard.dir/requires
 

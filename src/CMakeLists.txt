@@ -59,11 +59,11 @@ add_executable(onboard main.cpp
                        mapper.cpp
                        connect.h
                        connect.cpp
-                       scene.h
-                       scene.cpp
                        stb_image.h 
                        shader_m.h 
                        glad.c 
+                       scene.h
+                       scene.cpp
                        )
 
 target_link_libraries(onboard PRIVATE thirdparty
@@ -78,6 +78,9 @@ target_link_libraries(onboard PRIVATE thirdparty
                       glfw3
                       GL
                       X11
+                      Xrandr
+                      Xi
+                      dl
                       )
 
 #[[

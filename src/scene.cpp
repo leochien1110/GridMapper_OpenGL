@@ -1,4 +1,19 @@
+#define STB_IMAGE_IMPLEMENTATION 
 #include "scene.h"
+
+glm::vec3 Scene::cameraPos = glm::vec3(0.0f, -5.0f, 10.0f);
+glm::vec3 Scene::cameraFront = glm::vec3(0.0f, -0.5f, -1.0f);
+
+bool Scene::firstMouse = true;
+float Scene::yaw = -90.0f; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float Scene::pitch = -30.0f;
+float Scene::lastX = 800.0f / 2.0;
+float Scene::lastY = 600.0 / 2.0;
+float Scene::fov = 45.0f;
+bool Scene::rotation_started = false;
+bool Scene::viewpoint = true;
+int Scene::start_x = 0;
+int Scene::start_y = 0;
 
 Scene::Scene(int unit_length_x, float block_unit_m, float half_FOVxz, float half_FOVyz)
 {
@@ -8,18 +23,25 @@ Scene::Scene(int unit_length_x, float block_unit_m, float half_FOVxz, float half
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = new glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Voxel 3D", NULL, NULL);
-    
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Voxel 3D", NULL, NULL);
+    if (window == NULL)
+	{
+		std::cout << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		exit;
+	}
+
 	// Filed of view
 	f1_2 = (unit_length_x / block_unit_m) * sqrt(pow(1, 2) / (pow(tan(half_FOVxz), 2) + pow(tan(half_FOVyz), 2) + 1));
 	f1_0 = tan(half_FOVxz)*f1_2;
 	f1_1 = tan(half_FOVyz)*f1_2;
 	float f1[3] = { f1_0, f1_1, f1_2 };
+
 }
 
 Scene::~Scene()
 {
-
+	//delete window;
 }
 
 void Scene::processInput(GLFWwindow *window)
@@ -68,7 +90,7 @@ void Scene::mouse_button_callback(GLFWwindow * window, int button, int action, i
 	}
 }
 
-void mouse_position_callback(GLFWwindow * window, double xpos, double ypos)
+void Scene::mouse_position_callback(GLFWwindow * window, double xpos, double ypos)
 {
 	if (rotation_started) {
 		if (firstMouse)	// this bool variable is initially set to true
@@ -187,7 +209,7 @@ void Scene::glInit(GLFWwindow * window)
 	//glFrontFace(GL_CW);
 }
 
-void Scene::glSetup(unsigned int VAO, unsigned int VBO, float Vertices[], unsigned int AttribSize1, unsigned int AttribSize2, unsigned int Stride, unsigned int VertexOffset)
+void Scene::glSetup(unsigned int VAO, unsigned int VBO, float *Vertices, unsigned int AttribSize1, unsigned int AttribSize2, unsigned int Stride, unsigned int VertexOffset)
 {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);

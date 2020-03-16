@@ -12,7 +12,7 @@
 #include <iostream> 
 #include <thread>
 #include <mutex>
-
+#include "data.h"
 class Connect
 {
 public:
@@ -21,6 +21,7 @@ public:
     ~Connect();
     
     void init(std::string,uint16_t,int,int,int,char (*_map)[30][100],float *);
+    void start();
     void end();
     void senddata(bool);
     void recvdata();

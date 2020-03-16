@@ -63,6 +63,11 @@ void Connect::init(std::string _ip, uint16_t _port_num,     \
     }
 }
 
+void Connect::start()
+{
+
+}
+
 void Connect::end()
 {
     close(sockfd);

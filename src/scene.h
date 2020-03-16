@@ -6,8 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GLFW/glfw3.h>
-
-//#define STB_IMAGE_IMPLEMENTATION    
+#include <iostream> 
 #include "stb_image.h"
 #include "shader_m.h"
 
@@ -23,14 +22,14 @@ public:
     void glInit(GLFWwindow * window);
     void glSetup(unsigned int VAO, unsigned int VBO, float Vertices[], unsigned int AttribSize1,
         unsigned int AttribSize2, unsigned int Stride, unsigned int VertexOffset);
-    void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+    static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     unsigned int loadTexture(char const * path);
 
     //Input Setup
     void processInput(GLFWwindow *window);
-    void mouse_button_callback(GLFWwindow * window, int button, int action, int mode);
-    void mouse_position_callback(GLFWwindow * window, double xpos, double ypos);
-    void scroll_callback(GLFWwindow * window, double xoffset, double yoffset);
+    static void mouse_button_callback(GLFWwindow * window, int button, int action, int mode);
+    static void mouse_position_callback(GLFWwindow * window, double xpos, double ypos);
+    static void scroll_callback(GLFWwindow * window, double xoffset, double yoffset);
     void mouseLeftPressEvent(GLFWwindow * window, double xpos, double ypos);
     void mouseLeftReleaseEvent();
     void mouseLeftDragEvent(GLFWwindow * window, double xpos, double ypos);
@@ -40,8 +39,8 @@ public:
     const unsigned int SCR_HEIGHT = 600;
 
     // Camera movement
-    glm::vec3 cameraPos = glm::vec3(0.0f, -5.0f, 10.0f);
-    glm::vec3 cameraFront = glm::vec3(0.0f, -0.5f, -1.0f);
+    static glm::vec3 cameraPos;
+    static glm::vec3 cameraFront;
     glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
     // Source light
@@ -50,20 +49,19 @@ public:
     //
     GLFWwindow* window;
 
-
 private:
 
     // Mouse setting
-    bool firstMouse = true;
-    float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-    float pitch = -30.0f;
-    float lastX = 800.0f / 2.0;
-    float lastY = 600.0 / 2.0;
-    float fov = 45.0f;
-    bool rotation_started = false;
-    bool viewpoint = true;
-    int start_x = 0;
-    int start_y = 0;
+    static bool firstMouse;
+    static float yaw;
+    static float pitch;
+    static float lastX;
+    static float lastY;
+    static float fov;
+    static bool rotation_started;
+    static bool viewpoint;
+    static int start_x;
+    static int start_y;
 
     // Filed of view
     float f1_2;

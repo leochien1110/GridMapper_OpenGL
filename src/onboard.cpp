@@ -19,7 +19,7 @@ void Onboard::update()
 
     // run camera
     camera.init(width,height,fps);  // config devices and filter
-    camera.start(); //start threading stream 
+    camera.start(data); //start threading stream 
     std::cout << camera.camera_pose[0] << " "   \
         << camera.camera_pose[1] << " "         \
         << camera.camera_pose[2] << " "         \
@@ -30,7 +30,7 @@ void Onboard::update()
     Mapper mapper(camera.pc_vertices, camera.points,            \
                   camera.camera_pose, camera.specific_point,  \
                   camera.inv_C, width,height);
-    mapper.start();
+    mapper.start(data);
 
     // run sock
     data2GS.init(ip, port_num,   \
@@ -44,7 +44,7 @@ void Onboard::update()
     Scene scene(mapper.unit_length, mapper.block_unit,  \
                 camera.half_FOVxz, camera.half_FOVyz);
     
-
+    scene.start(data);
     while(onboard_status)
     {
         // share data / data transfer
