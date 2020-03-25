@@ -1,6 +1,6 @@
 #include "mapper.h"
 
-Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, float * specific_pt, float _inv_C[3][3], int w, int h) : width(w), height(h)
+Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, float * specific_pt, float _inv_C[3][3], int w, int h) 
 {    
     std::cout << "Welcome to Mapper :)" << std::endl;
     //std::cout << "points addr: " << points << std::endl;
@@ -355,6 +355,172 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 
 		initial_voxelmap[cube[0]][cube[1]][cube[2]] = 1;
 		voxelmap_old[cube[0]][cube[1]][cube[2]] = voxelmap[cube[0]][cube[1]][cube[2]];	//set this value as old data in next loop 
+	}
+}
+void Mapper::shift_map(int axis)
+{
+    int shift_unit = mps * unit_length_x;
+	switch (axis)
+	{
+	case 0:		//x-axis
+		// For Lower Limit
+		if(shift_unit > 0){	//camera.y < 4, shift = +1, camera.y = camera.y + shift, v[i][j][k] = v[i][j-5][k]
+			printf("shift_unit(x) > 0");
+			// Shift Maps
+			for (int i = grid_x - 1; i > shift_unit - 1; i--) {	//i = 99~5
+				for (int j = 0; j < grid_y; j++) {	// j = 29~5
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = voxelmap[i - shift_unit][j][k];
+						voxelmap_old[i][j][k] = voxelmap_old[i - shift_unit][j][k];
+						initial_voxelmap[i][j][k] = initial_voxelmap[i - shift_unit][j][k];
+					}
+				}
+			}		
+			// Initialize new voxels
+			for (int i = shift_unit - 1; i >= 0; i--) {	//i = 4~0
+				for (int j = 0; j < grid_y; j++) {
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = 127;
+						voxelmap_old[i][j][k] = 127;
+						initial_voxelmap[i][j][k] = 0;
+					}
+				}
+			}
+
+		}
+		// For Upper Limit
+		else	// shift_unit <= 0
+		{
+			printf("shift_unit(x) < 0");
+			// For Lower Limit
+			// Shift Maps
+			for (int i = 0; i < grid_x - abs(shift_unit); i++) {	//i = 0~94
+				for (int j = 0; j < grid_y; j++) {
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = voxelmap[i - shift_unit][j][k];
+						voxelmap_old[i][j][k] = voxelmap_old[i - shift_unit][j][k];
+						initial_voxelmap[i][j][k] = initial_voxelmap[i - shift_unit][j][k];
+					}
+				}
+			}
+			// Initialize new voxels
+			for (int i = grid_x - abs(shift_unit); i < grid_x; i++) {	// i = 95~99
+				for (int j = 0; j < grid_y; j++) {
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = 127;
+						voxelmap_old[i][j][k] = 127;
+						initial_voxelmap[i][j][k] = 0;
+					}
+				}
+			}
+		}
+		break;
+	case 1:		//y-axis
+		// For Lower Limit
+		if(shift_unit > 0){	//camera.y < 4, shift = +1, camera.y = camera.y + shift, v[i][j][k] = v[i][j-5][k]
+			printf("shift_unit(y) > 0");
+			// Shift Maps
+			for (int i = 0; i < grid_x; i++) {
+				for (int j = grid_y - 1; j > shift_unit - 1; j--) {	// j = 29~5
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = voxelmap[i][j - shift_unit][k];
+						voxelmap_old[i][j][k] = voxelmap_old[i][j - shift_unit][k];
+						initial_voxelmap[i][j][k] = initial_voxelmap[i][j - shift_unit][k];
+					}
+				}
+			}		
+			// Initialize new voxels
+			for (int i = 0; i < grid_x; i++) {
+				for (int j = shift_unit - 1; j >= 0; j--) {	// j = 0~4
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = 127;
+						voxelmap_old[i][j][k] = 127;
+						initial_voxelmap[i][j][k] = 0;
+					}
+				}
+			}
+
+		}
+
+		// For Upper Limit
+		else	// shift_unit <= 0
+		{
+//			printf("shift_unit(y) < 0");
+			// Shift Maps
+			for (int i = 0; i < grid_x; i++) {
+				for (int j = 0; j < grid_y - abs(shift_unit); j++) {	// j = 0~24
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = voxelmap[i][j - shift_unit][k];
+						voxelmap_old[i][j][k] = voxelmap_old[i][j - shift_unit][k];
+						initial_voxelmap[i][j][k] = initial_voxelmap[i][j - shift_unit][k];
+					}
+				}
+			}
+			// Initialize new voxels
+			for (int i = 0; i < grid_x; i++) {
+				for (int j = grid_y - abs(shift_unit); j < grid_y; j++) {	// j = 25~29
+					for (int k = 0; k < grid_z; k++) {
+						voxelmap[i][j][k] = 127;
+						voxelmap_old[i][j][k] = 127;
+						initial_voxelmap[i][j][k] = 0;
+					}
+				}
+			}
+		}	
+		break;
+	case 2:		//z-axis
+		// For Lower Limit
+		if(shift_unit > 0){	//camera.y < 4, shift = +1, camera.y = camera.y + shift, v[i][j][k] = v[i][j-5][k]
+//			printf("shift_unit(z) > 0");
+			// Shift Maps
+			for (int i = 0; i < grid_x; i++) {
+				for (int j = 0; j < grid_y; j++) {
+					for (int k = grid_z - 1; k > shift_unit - 1; k--) {	//k = 99~5
+						voxelmap[i][j][k] = voxelmap[i][j][k - shift_unit];
+						voxelmap_old[i][j][k] = voxelmap_old[i][j][k - shift_unit];
+						initial_voxelmap[i][j][k] = initial_voxelmap[i][j][k - shift_unit];
+					}
+				}
+			}		
+			// Initialize new voxels
+			for (int i = 0; i < grid_x; i++) {
+				for (int j = 0; j < grid_y; j++) {
+					for (int k = shift_unit - 1; k >= 0; k--) {	//k = 4~0
+						voxelmap[i][j][k] = 127;
+						voxelmap_old[i][j][k] = 127;
+						initial_voxelmap[i][j][k] = 0;
+					}
+				}
+			}
+
+		}
+
+		// For Upper Limit
+		else	// shift_unit <= 0
+		{
+//			printf("shift_unit(z) < 0");
+			// Shift Maps
+			for (int i = 0; i < grid_x; i++) {
+				for (int j = 0; j < grid_y; j++) {
+					for (int k = 0; k < grid_z - abs(shift_unit); k++) {	//k = 0~94
+						voxelmap[i][j][k] = voxelmap[i][j][k - shift_unit];
+						voxelmap_old[i][j][k] = voxelmap_old[i][j][k - shift_unit];
+						initial_voxelmap[i][j][k] = initial_voxelmap[i][j][k - shift_unit];
+					}
+				}
+			}
+			// Initialize new voxels
+			for (int i = 0; i < grid_x; i++) {
+				for (int j =0; j < grid_y; j++) {
+					for (int k = grid_z - abs(shift_unit); k < grid_z; k++) {	//k = 95~99
+						voxelmap[i][j][k] = 127;
+						voxelmap_old[i][j][k] = 127;
+						initial_voxelmap[i][j][k] = 0;
+					}
+				}
+			}
+		}
+		break;	
 	}
 }
 

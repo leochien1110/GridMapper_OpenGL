@@ -10,32 +10,7 @@
 #include <math.h>
 #include <thread>
 #include <mutex>
-
-struct float4 {
-	float w, x, y, z;
-	float4 operator*(float t);
-
-	float4 operator-(float t);
-
-	void operator*=(float t);
-
-	void operator=(const float4 &other);
-
-	void add(float t1, float t2, float t3, float t4);
-};
-
-struct float3 {
-	float x, y, z;
-	float3 operator*(float t);
-
-	float3 operator-(float t);
-
-	void operator*=(float t);
-
-	void operator=(const float3 &other);
-
-	void add(float t1, float t2, float t3);
-};
+#include "data.h"   //strcut float3 & float4
 
 class RS_Camera
 {

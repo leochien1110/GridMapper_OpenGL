@@ -7,6 +7,7 @@ src/CMakeFiles/onboard.dir/glad.c.o: ../src/glad.c
 
 src/CMakeFiles/onboard.dir/connect.cpp.o: ../src/connect.cpp
 src/CMakeFiles/onboard.dir/connect.cpp.o: ../src/connect.h
+src/CMakeFiles/onboard.dir/connect.cpp.o: ../src/data.h
 
 src/CMakeFiles/onboard.dir/data.cpp.o: ../src/data.cpp
 src/CMakeFiles/onboard.dir/data.cpp.o: ../src/data.h
@@ -269,6 +270,7 @@ src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/../../librealsense/include/libre
 src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/../../librealsense/include/librealsense2/rs.h
 src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/../../librealsense/include/librealsense2/rs.hpp
 src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/../../librealsense/include/librealsense2/rsutil.h
+src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/data.h
 src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/mapper.cpp
 src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/mapper.h
 src/CMakeFiles/onboard.dir/mapper.cpp.o: ../src/rs_camera.h
@@ -531,6 +533,7 @@ src/CMakeFiles/onboard.dir/rs_camera.cpp.o: ../src/../../librealsense/include/li
 src/CMakeFiles/onboard.dir/rs_camera.cpp.o: ../src/../../librealsense/include/librealsense2/rs.h
 src/CMakeFiles/onboard.dir/rs_camera.cpp.o: ../src/../../librealsense/include/librealsense2/rs.hpp
 src/CMakeFiles/onboard.dir/rs_camera.cpp.o: ../src/../../librealsense/include/librealsense2/rsutil.h
+src/CMakeFiles/onboard.dir/rs_camera.cpp.o: ../src/data.h
 src/CMakeFiles/onboard.dir/rs_camera.cpp.o: ../src/rs_camera.cpp
 src/CMakeFiles/onboard.dir/rs_camera.cpp.o: ../src/rs_camera.h
 
@@ -738,6 +741,7 @@ src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/../thirdparty/include/glm/vec2.hp
 src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/../thirdparty/include/glm/vec3.hpp
 src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/../thirdparty/include/glm/vec4.hpp
 src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/../thirdparty/include/glm/vector_relational.hpp
+src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/data.h
 src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/scene.cpp
 src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/scene.h
 src/CMakeFiles/onboard.dir/scene.cpp.o: ../src/shader_m.h

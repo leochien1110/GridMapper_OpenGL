@@ -9,6 +9,7 @@
 #include <iostream> 
 #include "stb_image.h"
 #include "shader_m.h"
+#include "data.h"
 
 class Scene
 {
@@ -57,7 +58,7 @@ private:
     char (*map)[30][100];
     float *camera_pose;
     float *camera_scaled_pose;
-    int grid_x = 100, grid_y = 30, grid_z = 100;
+    //int grid_x = 100, grid_y = 30, grid_z = 100;
 
     // Mouse setting
     static bool firstMouse;

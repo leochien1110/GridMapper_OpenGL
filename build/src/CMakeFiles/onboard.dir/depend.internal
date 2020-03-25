@@ -8,6 +8,7 @@ src/CMakeFiles/onboard.dir/glad.c.o
 src/CMakeFiles/onboard.dir/connect.cpp.o
  /home/leo/git/mapper_px4/src/connect.cpp
  /home/leo/git/mapper_px4/src/connect.h
+ /home/leo/git/mapper_px4/src/data.h
 src/CMakeFiles/onboard.dir/data.cpp.o
  /home/leo/git/mapper_px4/src/data.cpp
  /home/leo/git/mapper_px4/src/data.h
@@ -270,6 +271,7 @@ src/CMakeFiles/onboard.dir/mapper.cpp.o
  ../src/../../librealsense/include/librealsense2/rs.h
  ../src/../../librealsense/include/librealsense2/rs.hpp
  ../src/../../librealsense/include/librealsense2/rsutil.h
+ /home/leo/git/mapper_px4/src/data.h
  /home/leo/git/mapper_px4/src/mapper.cpp
  /home/leo/git/mapper_px4/src/mapper.h
  /home/leo/git/mapper_px4/src/rs_camera.h
@@ -532,6 +534,7 @@ src/CMakeFiles/onboard.dir/rs_camera.cpp.o
  ../src/../../librealsense/include/librealsense2/rs.h
  ../src/../../librealsense/include/librealsense2/rs.hpp
  ../src/../../librealsense/include/librealsense2/rsutil.h
+ /home/leo/git/mapper_px4/src/data.h
  /home/leo/git/mapper_px4/src/rs_camera.cpp
  /home/leo/git/mapper_px4/src/rs_camera.h
 src/CMakeFiles/onboard.dir/scene.cpp.o
@@ -739,6 +742,7 @@ src/CMakeFiles/onboard.dir/scene.cpp.o
  ../src/../thirdparty/include/glm/vec3.hpp
  ../src/../thirdparty/include/glm/vec4.hpp
  ../src/../thirdparty/include/glm/vector_relational.hpp
+ /home/leo/git/mapper_px4/src/data.h
  /home/leo/git/mapper_px4/src/scene.cpp
  /home/leo/git/mapper_px4/src/scene.h
  /home/leo/git/mapper_px4/src/shader_m.h

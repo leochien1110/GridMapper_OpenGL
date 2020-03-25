@@ -18,6 +18,7 @@ void RS_Camera::init()
     std::cout << "**********************" << std::endl;
     std::cout << "RS_Camera Initializing" << std::endl;
     std::cout << "**********************" << std::endl;
+
     // Check avaible cameras
     devices = ctx.query_devices();
 
@@ -207,6 +208,7 @@ void RS_Camera::get_rotate_matrix()
     }
     //std::cout << "inv_C[1][1]:" << inv_C[1][1] << std::endl;
 }
+
 void RS_Camera::stop()
 {
     std::cout << "Stop RS_Camera Streaming" << std::endl;

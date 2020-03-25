@@ -1685,10 +1685,16 @@ thread
 -
 mutex
 -
+data.h
+/home/leo/git/mapper_px4/src/data.h
 
 /home/leo/git/mapper_px4/src/data.cpp
 data.h
 /home/leo/git/mapper_px4/src/data.h
+stdio.h
+-
+math.h
+-
 
 /home/leo/git/mapper_px4/src/data.h
 
@@ -1731,6 +1737,8 @@ mutex
 -
 rs_camera.h
 /home/leo/git/mapper_px4/src/rs_camera.h
+data.h
+/home/leo/git/mapper_px4/src/data.h
 
 /home/leo/git/mapper_px4/src/onboard.cpp
 onboard.h
@@ -1775,6 +1783,8 @@ thread
 -
 mutex
 -
+data.h
+/home/leo/git/mapper_px4/src/data.h
 
 /home/leo/git/mapper_px4/src/scene.cpp
 scene.h
@@ -1795,6 +1805,8 @@ stb_image.h
 /home/leo/git/mapper_px4/src/stb_image.h
 shader_m.h
 /home/leo/git/mapper_px4/src/shader_m.h
+data.h
+/home/leo/git/mapper_px4/src/data.h
 
 /home/leo/git/mapper_px4/src/shader_m.h
 glad/glad.h

@@ -9,6 +9,7 @@
 #include <mutex>
 
 #include "rs_camera.h"
+#include "data.h"
 
 class Mapper
 {
@@ -31,17 +32,13 @@ public:
     const float mapscale_z = unit_length_z / block_unit_m;	//
     float camera_scaled_pose[3] = { 0 };
     
-    static const int grid_x = 100;
-    static const int grid_y = 30;
-    static const int grid_z = 100;
+    //static const int grid_x = 100;
+    //static const int grid_y = 30;
+    //static const int grid_z = 100;
 
     char voxelmap[grid_x][grid_y][grid_z];
     char voxelmap_old[grid_x][grid_y][grid_z];
     bool initial_voxelmap[grid_x][grid_y][grid_z];
-
-    // Resolution
-    const int width;
-    const int height;
 
     // ray tracing parameter
     double coarray[3];
@@ -53,6 +50,9 @@ public:
     const int reduced_res = reduced_w * reduced_h;
     const int reduced_ratio_square = reduced_ratio * reduced_ratio;
     int si, sj, sn, ri, rj;
+    
+    // Map shift para
+    int mps = 0;
 
     // func
     void start();
@@ -60,6 +60,7 @@ public:
     void reduce_resolution();
     void ray_tracing(float *);
     void render_vmap(bool, int [], float, int, bool, bool);
+    void shift_map(int);
     void stop();
     bool mapper_status;
     

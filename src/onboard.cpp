@@ -5,7 +5,11 @@ Onboard::Onboard(std::string gs_ip)
     ip = gs_ip;
     std::cout << "ip: " << ip << std::endl;
     onboard_status = true;
-    std::cout << "[grid_x]:" << grid_x << std::endl;
+    
+    std::cout << "ob.dc.specific_row:" << specific_row << std::endl;
+    specific_row = 14;
+    std::cout << "ob.dc.a:" << Data::a << std::endl;
+    Data::a = 444;
 }
 
 Onboard::~Onboard()
@@ -17,13 +21,17 @@ Onboard::~Onboard()
 void Onboard::update()
 {
     std::cout << "Onboard updating...\n" << std::endl;
+    std::cout << "ob.updata.specific_row:" << specific_row << std::endl;
+    specific_row = 13;
+    std::cout << "ob.updata.a:" << Data::a << std::endl;
+    Data::a = 555;
     // run flight controller
 
     // run camera
     camera.init();  // config devices and filter
     camera.start();
     //camera.start(data); //start threading stream 
-    std::cout << camera.camera_pose[0] << " "   \
+    //std::cout << camera.camera_pose[0] << " "   \
         << camera.camera_pose[1] << " "         \
         << camera.camera_pose[2] << " "         \
         << &camera.inv_C                  \
