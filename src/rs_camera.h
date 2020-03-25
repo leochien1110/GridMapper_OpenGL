@@ -46,7 +46,7 @@ public:
         stop();
     }
 
-    void init(int,int,int);
+    void init();
     void start();   // read data
     void stream();
     void read_depth();
@@ -95,6 +95,11 @@ private:
     // Class
     std::vector<rs2::pipeline>  pipelines;  //pipe for D435 and T265
     
+    // Sensors
+    rs2::sensor depth_sensor;
+	rs2::sensor color_sensor;
+	rs2::sensor pose_sensor;
+
     //rs2::config cfg;    // Setup configuration
     rs2::device_list devices;
 	rs2::context   ctx;    // realsense context

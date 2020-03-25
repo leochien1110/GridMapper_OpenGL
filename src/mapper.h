@@ -29,7 +29,8 @@ public:
     const float mapscale_x = unit_length_x / block_unit_m;	//
     const float mapscale_y = unit_length_y / block_unit_m;
     const float mapscale_z = unit_length_z / block_unit_m;	//
-
+    float camera_scaled_pose[3] = { 0 };
+    
     static const int grid_x = 100;
     static const int grid_y = 30;
     static const int grid_z = 100;
@@ -64,7 +65,7 @@ public:
     
 private:
     // float
-    float camera_scaled_pose[3] = { 0 };
+    
     float *camera_pose;
     float *specific_point;
     float (*inv_C)[3];

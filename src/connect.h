@@ -12,7 +12,7 @@
 #include <iostream> 
 #include <thread>
 #include <mutex>
-#include "data.h"
+//#include "data.h"
 class Connect
 {
 public:
@@ -41,9 +41,10 @@ public:
     
 private:
     bool socket_connect = false;
-    char ***map;
+    char (*map)[30][100];
     float *camera_pose;
     int grid_x = 100, grid_y = 30, grid_z = 100;
+    char voxel_map[100][30][100];
     std::mutex mutex;
 };
 

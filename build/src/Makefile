@@ -152,6 +152,33 @@ connect.cpp.s:
 	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.s
 .PHONY : connect.cpp.s
 
+data.o: data.cpp.o
+
+.PHONY : data.o
+
+# target to build an object file
+data.cpp.o:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.o
+.PHONY : data.cpp.o
+
+data.i: data.cpp.i
+
+.PHONY : data.i
+
+# target to preprocess a source file
+data.cpp.i:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.i
+.PHONY : data.cpp.i
+
+data.s: data.cpp.s
+
+.PHONY : data.s
+
+# target to generate assembly for a file
+data.cpp.s:
+	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.s
+.PHONY : data.cpp.s
+
 glad.o: glad.c.o
 
 .PHONY : glad.o
@@ -326,6 +353,9 @@ help:
 	@echo "... connect.o"
 	@echo "... connect.i"
 	@echo "... connect.s"
+	@echo "... data.o"
+	@echo "... data.i"
+	@echo "... data.s"
 	@echo "... glad.o"
 	@echo "... glad.i"
 	@echo "... glad.s"

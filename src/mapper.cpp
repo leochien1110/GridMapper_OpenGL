@@ -71,12 +71,13 @@ void Mapper::stream()
     std::cout << "Start Mapping..." << std::endl;
     while(mapper_status)
     {
+        /*
         std::cout << camera_pose[0] << " "  \
             << camera_pose[1] << " "        \
             << camera_pose[2] << " "        \
             << pc_points.size()                 \
             << " " << std::endl;
-        
+        */
         camera_scaled_pose[0] = camera_pose[0] * mapscale_x;
         camera_scaled_pose[1] = camera_pose[1] * mapscale_y;
         camera_scaled_pose[2] = camera_pose[2] * mapscale_z;
@@ -359,7 +360,7 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 
 void Mapper::stop()
 {
-    std::cout << "Mapper stop streaming" << std::endl;
+    std::cout << "Stop Mapper streaming" << std::endl;
     if(streamThread.joinable()){
         streamThread.join();
         std::cout << "mapper streamThread released" << std::endl;

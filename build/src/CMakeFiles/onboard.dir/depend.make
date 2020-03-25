@@ -8,6 +8,9 @@ src/CMakeFiles/onboard.dir/glad.c.o: ../src/glad.c
 src/CMakeFiles/onboard.dir/connect.cpp.o: ../src/connect.cpp
 src/CMakeFiles/onboard.dir/connect.cpp.o: ../src/connect.h
 
+src/CMakeFiles/onboard.dir/data.cpp.o: ../src/data.cpp
+src/CMakeFiles/onboard.dir/data.cpp.o: ../src/data.h
+
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/../../librealsense/include/librealsense2/h/rs_config.h
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/../../librealsense/include/librealsense2/h/rs_context.h
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/../../librealsense/include/librealsense2/h/rs_device.h
@@ -235,6 +238,7 @@ src/CMakeFiles/onboard.dir/main.cpp.o: ../src/../thirdparty/include/glm/vec3.hpp
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/../thirdparty/include/glm/vec4.hpp
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/../thirdparty/include/glm/vector_relational.hpp
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/connect.h
+src/CMakeFiles/onboard.dir/main.cpp.o: ../src/data.h
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/main.cpp
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/mapper.h
 src/CMakeFiles/onboard.dir/main.cpp.o: ../src/onboard.h
@@ -496,6 +500,7 @@ src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/../thirdparty/include/glm/vec3.
 src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/../thirdparty/include/glm/vec4.hpp
 src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/../thirdparty/include/glm/vector_relational.hpp
 src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/connect.h
+src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/data.h
 src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/mapper.h
 src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/onboard.cpp
 src/CMakeFiles/onboard.dir/onboard.cpp.o: ../src/onboard.h

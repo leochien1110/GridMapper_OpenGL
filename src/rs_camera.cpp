@@ -1,16 +1,23 @@
 #include "rs_camera.h"
+#include <unistd.h>
 
 RS_Camera::RS_Camera()
 {
-    int width = 848, height = 480, framerate = 30;
+    printf("RS_Camera called!\n");
+    width = 848;
+    height = 480;
+    framerate = 30;
     
     pc_vertices = new float3[1000000];
 
     stream_status = false;
 
 }
-void RS_Camera::init(int w, int h, int fps)
+void RS_Camera::init()
 {
+    std::cout << "**********************" << std::endl;
+    std::cout << "RS_Camera Initializing" << std::endl;
+    std::cout << "**********************" << std::endl;
     // Check avaible cameras
     devices = ctx.query_devices();
 
@@ -20,36 +27,64 @@ void RS_Camera::init(int w, int h, int fps)
         std::cout << "[WARNING]Please unplug USB and try again." << std::endl;
         exit (EXIT_FAILURE);
     }
-
+    
     // Setup Pipeline for each device
 	for (auto&& dev : devices)
 	{
-        const char* dev_num = dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER);
-
+        const char* dev_name = dev.get_info(RS2_CAMERA_INFO_NAME);
+		printf("dev_name:%s\n",dev_name);
+		const char* dev_num = dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER);
 		rs2::pipeline pipe(ctx);
+
+        // Assign Sensor
+		auto advanced_sensors = dev.query_sensors();
+
+        std::cout << "Sensor List:" << std::endl;
+		for (auto&& sensor : advanced_sensors) {
+			std::string module_name = sensor.get_info(RS2_CAMERA_INFO_NAME);
+			std::cout << module_name << std::endl;
+
+			if (module_name == "Stereo Module") {
+				depth_sensor = sensor;
+			} else if (module_name == "RGB Camera") {
+				color_sensor = sensor;
+			} else if (module_name == "Tracking Module") {
+				pose_sensor = sensor;
+			}
+		}
 
 		// Setup configuration
 		rs2::config cfg;
 		cfg.enable_device(dev_num);
-
-		// D435 & D435i
-		if (strcmp("843112070567", dev_num) == 0 || strcmp("827112071112", dev_num) == 0) {
-			std::cout << "Camera " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected" << std::endl;
-			cfg.enable_stream(RS2_STREAM_DEPTH, width, height, RS2_FORMAT_Z16, fps);
-			cfg.enable_stream(RS2_STREAM_COLOR, width, height, RS2_FORMAT_RGB8, fps);
+        // D435 & D435i
+		if (strcmp("Intel RealSense D435", dev_name) == 0 || strcmp("Intel RealSense D435I", dev_name) == 0) {
+			std::cout << "Camera " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected\n" << std::endl;
+			// Stream Enable
+            cfg.enable_stream(RS2_STREAM_DEPTH, width, height, RS2_FORMAT_Z16, framerate);
+			cfg.enable_stream(RS2_STREAM_COLOR, width, height, RS2_FORMAT_BGR8, framerate);
+            // Sensor Function Enable
+            depth_sensor.set_option(rs2_option::RS2_OPTION_VISUAL_PRESET,rs2_rs400_visual_preset::RS2_RS400_VISUAL_PRESET_HIGH_ACCURACY);
 		}
 		// T265
-		if (strcmp("905312110443", dev_num) == 0) {
-            std::cout << "Camera: " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected" << std::endl;
+		if (strcmp("Intel RealSense T265", dev_name) == 0) {
+            // Stream Enable
             cfg.enable_stream(RS2_STREAM_POSE,RS2_FORMAT_6DOF);
-            //cfg.disable_stream(RS2_STREAM_FISHEYE, 1);
-            //cfg.disable_stream(RS2_STREAM_FISHEYE, 2);
+            cfg.disable_stream(RS2_STREAM_FISHEYE, 1);
+            cfg.disable_stream(RS2_STREAM_FISHEYE, 2);
+			std::cout << "Camera: " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected\n" << std::endl;
+			// Sensor Function Enable
+            pose_sensor.set_option(RS2_OPTION_ENABLE_MAPPING, 1.f);
+            pose_sensor.set_option(RS2_OPTION_ENABLE_RELOCALIZATION, 1.f);
+            pose_sensor.set_option(RS2_OPTION_ENABLE_POSE_JUMPING, 1.f);
 		}
-        
         pipe.start(cfg);
-        pipelines.emplace_back(pipe);
+		pipelines.emplace_back(pipe);
+
 	}
-    
+
+
+    std::cout << "Setting Filters..." << std::endl;
+    std::cout << std::endl;
     // Filter config
     deci_filter.set_option(RS2_OPTION_FILTER_MAGNITUDE, 2);
 	thhd_filter.set_option(RS2_OPTION_MAX_DISTANCE, 10); //max depth range
@@ -61,7 +96,7 @@ void RS_Camera::init(int w, int h, int fps)
 void RS_Camera::start()
 {
     if(!stream_status){
-        std::cout << "Starting RealSense Streaming Thread" << std::endl;
+        std::cout << "Starting RS_Camera Streaming Thread" << std::endl;
         streamThread = std::thread(&RS_Camera::stream, this);
     }
 }
@@ -174,7 +209,8 @@ void RS_Camera::get_rotate_matrix()
 }
 void RS_Camera::stop()
 {
-    std::cout << "Stop Streaming" << std::endl;
+    std::cout << "Stop RS_Camera Streaming" << std::endl;
+    stream_status = false;
     if(streamThread.joinable()){
         streamThread.join();
         std::cout << "rs_camera streamThread released" << std::endl;

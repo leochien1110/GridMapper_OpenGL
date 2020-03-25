@@ -8,6 +8,9 @@ src/CMakeFiles/onboard.dir/glad.c.o
 src/CMakeFiles/onboard.dir/connect.cpp.o
  /home/leo/git/mapper_px4/src/connect.cpp
  /home/leo/git/mapper_px4/src/connect.h
+src/CMakeFiles/onboard.dir/data.cpp.o
+ /home/leo/git/mapper_px4/src/data.cpp
+ /home/leo/git/mapper_px4/src/data.h
 src/CMakeFiles/onboard.dir/main.cpp.o
  ../src/../../librealsense/include/librealsense2/h/rs_config.h
  ../src/../../librealsense/include/librealsense2/h/rs_context.h
@@ -236,6 +239,7 @@ src/CMakeFiles/onboard.dir/main.cpp.o
  ../src/../thirdparty/include/glm/vec4.hpp
  ../src/../thirdparty/include/glm/vector_relational.hpp
  /home/leo/git/mapper_px4/src/connect.h
+ /home/leo/git/mapper_px4/src/data.h
  /home/leo/git/mapper_px4/src/main.cpp
  /home/leo/git/mapper_px4/src/mapper.h
  /home/leo/git/mapper_px4/src/onboard.h
@@ -497,6 +501,7 @@ src/CMakeFiles/onboard.dir/onboard.cpp.o
  ../src/../thirdparty/include/glm/vec4.hpp
  ../src/../thirdparty/include/glm/vector_relational.hpp
  /home/leo/git/mapper_px4/src/connect.h
+ /home/leo/git/mapper_px4/src/data.h
  /home/leo/git/mapper_px4/src/mapper.h
  /home/leo/git/mapper_px4/src/onboard.cpp
  /home/leo/git/mapper_px4/src/onboard.h

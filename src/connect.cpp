@@ -2,7 +2,7 @@
 
 Connect::Connect()
 {
-    printf("Connect Class called!\n");
+    printf("Connect called!\n");
 }
 Connect::~Connect()
 {
@@ -17,18 +17,20 @@ void Connect::init(std::string _ip, uint16_t _port_num,     \
     ip.assign(_ip);
     port_num = _port_num;
 
-    /*map = new char**[grid_x];
-    for(int i = 0; i < grid_x; ++i){
-        map[i] = new char*[grid_y];
+    //map = new char**[grid_x];
+    /*for(int i = 0; i < grid_x; ++i){
+        //map[i] = new char*[grid_y];
         for(int j = 0; j < grid_y; ++j){
-            map[i][j] = new char[grid_z];
+            //map[i][j] = new char[grid_z];
             for(int k = 0; k < grid_z; ++k){
-                map[i][j][k] = 0;
+                //map[i][j][k] = 0;
+                voxel_map[i][j][k] = map[i][j][k];
             }
         }
     }*/
-    //map = _map;
-    std::cout << "_map: " << _map << std::endl;
+    map = _map;
+
+    std::cout << "_map: " << map[20][10][20] << std::endl;
     camera_pose = _camera_pose;
 
     // convert ip type (string->char[])

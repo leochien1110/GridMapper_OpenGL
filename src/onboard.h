@@ -8,6 +8,7 @@
 #include "mapper.h"
 #include "connect.h"
 #include "scene.h"
+#include "data.h"
 
 class Onboard
 {

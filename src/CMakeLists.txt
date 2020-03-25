@@ -64,6 +64,8 @@ add_executable(onboard main.cpp
                        glad.c 
                        scene.h
                        scene.cpp
+                       data.h
+                       data.cpp
                        )
 
 target_link_libraries(onboard PRIVATE thirdparty

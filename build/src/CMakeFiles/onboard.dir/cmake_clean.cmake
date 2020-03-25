@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/onboard.dir/connect.cpp.o"
   "CMakeFiles/onboard.dir/glad.c.o"
   "CMakeFiles/onboard.dir/scene.cpp.o"
+  "CMakeFiles/onboard.dir/data.cpp.o"
   "onboard.pdb"
   "onboard"
 )

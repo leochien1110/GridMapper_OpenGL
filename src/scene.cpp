@@ -17,7 +17,9 @@ int Scene::start_y = 0;
 
 Scene::Scene(int unit_length_x, float block_unit_m, float half_FOVxz, float half_FOVyz)
 {
-    // glfw: initialize and configure(version 3.3)
+    std::cout << "Scene called" << std::endl;
+
+	// glfw: initialize and configure(version 3.3)
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -30,6 +32,7 @@ Scene::Scene(int unit_length_x, float block_unit_m, float half_FOVxz, float half
 		glfwTerminate();
 		exit;
 	}
+	glInit(window);
 
 	// Filed of view
 	f1_2 = (unit_length_x / block_unit_m) * sqrt(pow(1, 2) / (pow(tan(half_FOVxz), 2) + pow(tan(half_FOVyz), 2) + 1));
@@ -208,7 +211,302 @@ void Scene::glInit(GLFWwindow * window)
 	//glCullFace(GL_FRONT);
 	//glFrontFace(GL_CW);
 }
+void Scene::update(float * _camera_pose, \
+				   int _grid_x, int _grid_y, int _grid_z,  \
+				   char (*_map)[30][100], float * _camera_scaled_pose,	\
+				   int unit_length_x)
+{
+	map = _map;
+	camera_pose = _camera_pose;
+	camera_scaled_pose = _camera_scaled_pose;
+	int map_shift[3] = {0};
+	map_shift[0] = cameraPos[9];
+	map_shift[1] = cameraPos[10];
+	map_shift[2] = cameraPos[11];
+	// build and compile shader program
+	Shader lightingShader("../res/texture02.vs", "../res/texture02.fs");
+	Shader planeshader("../res/grid.vs", "../res/grid.fs");
 
+	// -----------
+	// Voxel Cells
+	// -----------
+	// first, configure the cube's VAO (and VBO)
+	unsigned int VBO, cubeVAO;
+	glGenVertexArrays(1, &cubeVAO);
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindVertexArray(cubeVAO);
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// normal attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	// texture attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
+	// second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
+	unsigned int lightVAO;
+	glGenVertexArrays(1, &lightVAO);
+	glBindVertexArray(lightVAO);
+	// we only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need (it's already bound, but we do it again for educational purposes)
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// load textures (we now use a utility function to keep the code more organized)
+	// -----------------------------------------------------------------------------
+	unsigned int diffuseMap = loadTexture("../res/wall.jpg");
+
+	// -----
+	// Plane
+	// -----
+	const int gridlines = 202;
+	float planeVertices[(gridlines + 2) * 2 * 6];
+	int gridlinecount = 0;
+	for (int k = 0; k < gridlines; k += 2) {
+		//-----------------
+		planeVertices[6 * k + 0] = 0.0f;
+		planeVertices[6 * k + 1] = 0.0f;
+		planeVertices[6 * k + 2] = -0.5*k;
+		planeVertices[6 * k + 3] = 1.0f;
+		planeVertices[6 * k + 4] = 1.0f;
+		planeVertices[6 * k + 5] = 1.0f;
+
+		planeVertices[6 * (k + 1) + 0] = 100.0;
+		planeVertices[6 * (k + 1) + 1] = 0.0f;
+		planeVertices[6 * (k + 1) + 2] = -0.5*k;
+		planeVertices[6 * (k + 1) + 3] = 1.0f;
+		planeVertices[6 * (k + 1) + 4] = 1.0f;
+		planeVertices[6 * (k + 1) + 5] = 1.0f;	//last 131
+		//std::cout << planeVertices[6 * k + 0] << "," << planeVertices[6 * k + 2] << ";" << planeVertices[6 * (k + 1) + 0] << "," << planeVertices[6 * (k + 1) + 2] << std::endl;
+		gridlinecount++;
+		//||||||||||||||||||||
+		planeVertices[6 * k + 0 + 6 * (gridlines)] = 0.5*k;	//1st 132
+		planeVertices[6 * k + 1 + 6 * (gridlines)] = 0.0f;
+		planeVertices[6 * k + 2 + 6 * (gridlines)] = 0.0f;
+		planeVertices[6 * k + 3 + 6 * (gridlines)] = 1.0f;
+		planeVertices[6 * k + 4 + 6 * (gridlines)] = 1.0f;
+		planeVertices[6 * k + 5 + 6 * (gridlines)] = 1.0f;
+
+		planeVertices[6 * (k + 1) + 0 + 6 * (gridlines)] = 0.5*k;
+		planeVertices[6 * (k + 1) + 1 + 6 * (gridlines)] = 0.0f;
+		planeVertices[6 * (k + 1) + 2 + 6 * (gridlines)] = -100.0;
+		planeVertices[6 * (k + 1) + 3 + 6 * (gridlines)] = 1.0f;
+		planeVertices[6 * (k + 1) + 4 + 6 * (gridlines)] = 1.0f;
+		planeVertices[6 * (k + 1) + 5 + 6 * (gridlines)] = 1.0f;	//263
+		//std::cout << planeVertices[6 * k + 0 + 6 * (gridlines + 2)] << "," << planeVertices[6 * k + 2 + 6 * (gridlines + 2)] << ";" << planeVertices[6 * (k + 1) + 0 + 6 * (gridlines + 2)] << "," << planeVertices[6 * (k + 1) + 2 + 6 * (gridlines + 2)] << std::endl;
+		gridlinecount++;
+	}
+	unsigned int planeVAO, planeVBO;
+	glGenVertexArrays(1, &planeVAO);
+	glGenBuffers(1, &planeVBO);
+	glBindVertexArray(planeVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, planeVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), planeVertices, GL_STATIC_DRAW);
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);	//(x,y,z,R,G,B),each float occupy 4 byte
+	glEnableVertexAttribArray(0);
+	// color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));	//last variable is the offset of the color data
+	glEnableVertexAttribArray(1);
+	glBindVertexArray(0);
+	
+	// ----
+	// Axis
+	// ----	
+	unsigned int axisVAO, axisVBO;
+	glGenVertexArrays(1, &axisVAO);
+	glGenBuffers(1, &axisVBO);
+	glBindVertexArray(axisVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, axisVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(axisVertices), axisVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glBindVertexArray(0);
+
+	// -------------
+	// Field of View
+	// -------------
+	unsigned int fovVAO, fovVBO;
+	glGenVertexArrays(1, &fovVAO);
+	glGenBuffers(1, &fovVBO);
+	glBindVertexArray(fovVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, fovVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(fovVertices), fovVertices, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glBindVertexArray(0);
+
+	while(!glfwWindowShouldClose(window))
+	{
+		processInput(window);	//mouse and keyboard input
+
+		//opengl camera view
+		if (viewpoint == true) {
+			fov = 75;
+			glm::vec3 front;
+			front.x = -cos(camera_pose[3]) * sin(-camera_pose[4]);
+			front.y = sin(camera_pose[3]);
+			front.z = -cos(camera_pose[3]) * cos(-camera_pose[4]);
+			cameraFront = glm::normalize(front);
+			cameraPos = glm::vec3(camera_scaled_pose[0] / unit_length_x - map_shift[0]*5,
+				-camera_scaled_pose[1] / unit_length_x + map_shift[1]*5,
+				-camera_scaled_pose[2] / unit_length_x  + map_shift[2]*5 + 0.1);
+			cameraPos -= front;
+		}
+
+		//Plane
+		const int gridlines = 202;
+		float planeVertices[(gridlines + 2) * 2 * 6];
+		int gridlinecount = 0;
+		for (int k = 0; k < gridlines; k += 2) {
+			//-----------------
+			planeVertices[6 * k + 0] = 0.0f;
+			planeVertices[6 * k + 1] = -specific_row;
+			planeVertices[6 * k + 2] = -0.5*k;
+			planeVertices[6 * k + 3] = 1.0f;
+			planeVertices[6 * k + 4] = 1.0f;
+			planeVertices[6 * k + 5] = 1.0f;
+
+			planeVertices[6 * (k + 1) + 0] = 100.0;
+			planeVertices[6 * (k + 1) + 1] = -specific_row;
+			planeVertices[6 * (k + 1) + 2] = -0.5*k;
+			planeVertices[6 * (k + 1) + 3] = 1.0f;
+			planeVertices[6 * (k + 1) + 4] = 1.0f;
+			planeVertices[6 * (k + 1) + 5] = 1.0f;	//last 131
+			//std::cout << planeVertices[6 * k + 0] << "," << planeVertices[6 * k + 2] << ";" << planeVertices[6 * (k + 1) + 0] << "," << planeVertices[6 * (k + 1) + 2] << std::endl;
+			gridlinecount++;
+			//||||||||||||||||||||
+			planeVertices[6 * k + 0 + 6 * (gridlines)] = 0.5*k;	//1st 132
+			planeVertices[6 * k + 1 + 6 * (gridlines)] = -specific_row;
+			planeVertices[6 * k + 2 + 6 * (gridlines)] = 0.0f;
+			planeVertices[6 * k + 3 + 6 * (gridlines)] = 1.0f;
+			planeVertices[6 * k + 4 + 6 * (gridlines)] = 1.0f;
+			planeVertices[6 * k + 5 + 6 * (gridlines)] = 1.0f;
+
+			planeVertices[6 * (k + 1) + 0 + 6 * (gridlines)] = 0.5*k;
+			planeVertices[6 * (k + 1) + 1 + 6 * (gridlines)] = -specific_row;
+			planeVertices[6 * (k + 1) + 2 + 6 * (gridlines)] = -100.0;
+			planeVertices[6 * (k + 1) + 3 + 6 * (gridlines)] = 1.0f;
+			planeVertices[6 * (k + 1) + 4 + 6 * (gridlines)] = 1.0f;
+			planeVertices[6 * (k + 1) + 5 + 6 * (gridlines)] = 1.0f;	//263
+			//std::cout << planeVertices[6 * k + 0 + 6 * (gridlines + 2)] << "," << planeVertices[6 * k + 2 + 6 * (gridlines + 2)] << ";" << planeVertices[6 * (k + 1) + 0 + 6 * (gridlines + 2)] << "," << planeVertices[6 * (k + 1) + 2 + 6 * (gridlines + 2)] << std::endl;
+			gridlinecount++;
+		}
+		unsigned int planeVAO, planeVBO;
+		glGenVertexArrays(1, &planeVAO);
+		glGenBuffers(1, &planeVBO);
+		glBindVertexArray(planeVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, planeVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), planeVertices, GL_STATIC_DRAW);
+		// position attribute
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);	//(x,y,z,R,G,B),each float occupy 4 byte
+		glEnableVertexAttribArray(0);
+		// color attribute
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));	//last variable is the offset of the color data
+		glEnableVertexAttribArray(1);
+		glBindVertexArray(0);
+
+		// render
+		// ------glbgRender(color);
+		glClearColor(0.3f, 0.5f, 0.6f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// activate shader
+		planeshader.use();
+
+		// view/projection transformations
+		glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 300.0f);
+		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		planeshader.setMat4("projection", projection);
+		planeshader.setMat4("view", view);
+
+		// render floor--------------floor_render();
+		glm::mat4 plane = glm::mat4(1.0f);
+		glBindVertexArray(planeVAO);
+		plane = glm::translate(plane, glm::vec3(- map_shift[0]*5, map_shift[1]*5, map_shift[2]*5));
+		planeshader.setMat4("model", plane);
+		glDrawArrays(GL_LINES, 0, gridlinecount * 2);
+		glBindVertexArray(0);
+
+		// render axes-------------axis_render();
+		glm::mat4 axis = glm::mat4(1.0f);
+		glBindVertexArray(axisVAO);
+		planeshader.setMat4("model", axis);
+		glDrawArrays(GL_LINES, 0, 6);
+		glBindVertexArray(0);
+
+		// render fov-------------fov_render();
+		glm::mat4 glfov = glm::mat4(1.0f);
+		glBindVertexArray(fovVAO);
+		glfov = glm::translate(glfov, glm::vec3(camera_scaled_pose[0] / unit_length_x - map_shift[0]*5, 
+			-camera_scaled_pose[1]/ unit_length_x  + map_shift[1]*5, -camera_scaled_pose[2] / unit_length_x + map_shift[2]*5));
+		//312
+		glfov = glm::rotate(glfov, camera_pose[4], glm::vec3(0, -1, 0));	//2
+		glfov = glm::rotate(glfov, camera_pose[5], glm::vec3(0, 0, -1));	//3
+		glfov = glm::rotate(glfov, camera_pose[3], glm::vec3(1, 0, 0));	//1
+
+		planeshader.setMat4("model", glfov);
+		glDrawArrays(GL_LINES, 0, 16);
+		glBindVertexArray(0);
+
+		// activate shader for textured boxes
+		// be sure to activate shader when setting uniforms/drawing objects
+		// shader configuration
+		// --------------------
+		lightingShader.use();
+		lightingShader.setInt("material.diffuse", 0);
+		lightingShader.setVec3("light.position", lightPos);
+		lightingShader.setVec3("viewPos", cameraPos);
+
+		// light properties
+		lightingShader.setVec3("light.ambient", 0.4f, 0.4f, 0.4f);
+		lightingShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+		lightingShader.setVec3("light.specular", 0.2f, 0.2f, 0.2f);
+
+		// material propertiesspecific_row
+		lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		lightingShader.setFloat("material.shininess", 8.0f);
+
+		lightingShader.setMat4("projection", projection);
+		lightingShader.setMat4("view", view);
+
+		// render boxes
+		glBindVertexArray(cubeVAO);
+		for (int j = 0; j < grid_y; j++) {
+			for (int k = 0; k < grid_z; k++) {
+				for (int i = 0; i < grid_x; i++) {
+					if (map[i][j][k] != 127) {
+						if (map[i][j][k] >= 180) {
+
+							// calculate the model matrix for each object and pass it to shader bedore drawing
+							glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+							model = glm::translate(model,
+								glm::vec3((i + 0.5) - map_shift[0]*5, -(j + 0.5)+ map_shift[1]*5, -(k + 0.5)+ map_shift[2]*5));
+							//glm::vec3 scale = { probability, probability, probability};
+							//model = glm::scale(model, scale);
+							lightingShader.setMat4("model", model);
+							glDrawArrays(GL_TRIANGLES, 0, 36);
+						}
+					}
+				}
+			}
+		}
+
+		glBindVertexArray(0);
+		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+		// -------------------------------------------------------------------------------
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+}
 void Scene::glSetup(unsigned int VAO, unsigned int VBO, float *Vertices, unsigned int AttribSize1, unsigned int AttribSize2, unsigned int Stride, unsigned int VertexOffset)
 {
 	glGenVertexArrays(1, &VAO);
