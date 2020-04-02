@@ -31,14 +31,14 @@ void Onboard::update()
     camera.init();  // config devices and filter
     camera.start();
     //camera.start(data); //start threading stream 
-    //std::cout << camera.camera_pose[0] << " "   \
+    std::cout << camera.camera_pose[0] << " "   \
         << camera.camera_pose[1] << " "         \
         << camera.camera_pose[2] << " "         \
-        << &camera.inv_C                  \
+        << camera.pc_vertices                  \
         << " " << std::endl;
     
     // run mapper
-    Mapper mapper(camera.pc_vertices, camera.points,            \
+    Mapper mapper(camera.pc_vertices, &camera.points_size,            \
                   camera.camera_pose, camera.specific_point,  \
                   camera.inv_C, width,height);
     //mapper.start(data);
@@ -55,7 +55,7 @@ void Onboard::update()
 
     Scene scene(mapper.unit_length, mapper.block_unit,  \
                 camera.half_FOVxz, camera.half_FOVyz);
-    //scene.update(camera.camera_pose,    \
+    scene.update(camera.camera_pose,    \
                 100, 30, 100, mapper.voxelmap,  \
                 mapper.camera_scaled_pose, mapper.unit_length_x);
     //scene.start(data);

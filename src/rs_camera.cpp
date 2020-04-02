@@ -116,11 +116,12 @@ void RS_Camera::stream()
         {
             read_pose();
             read_depth();
+            //std::cout << "pc_vertices:" << pc_vertices << std::endl;
             //std::cout << "Shifted Postion(X,Y,Z): " << std::setprecision(5) << std::fixed <<
 			//camera_pose[0] << " " << camera_pose[1] << " " << camera_pose[2] << " " << std::endl;
             //std::cout << "points addr: " << &points << std::endl;
             //std::cout << "inv_C[0][0]: " << inv_C[0][0] << std::endl;
-            std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(2000));
+            //std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(2000));
         }
     }
 }
@@ -137,7 +138,7 @@ void RS_Camera::read_depth()
     points = pc.calculate(depth);   // heavy function :(
     auto vertices = points.get_vertices();
     depth = depth.apply_filter(color_map);
-    
+    points_size =  points.size();
     for (int i = 0; i < points.size(); i++)
     {
         pc_vertices[i].x = vertices[i].x;

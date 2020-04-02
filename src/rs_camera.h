@@ -33,7 +33,7 @@ public:
 
     float3 *pc_vertices;
     rs2::points points;
-
+    int points_size;
     //******************
     // Camera Parameters
     //******************

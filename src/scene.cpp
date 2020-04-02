@@ -39,7 +39,7 @@ Scene::Scene(int unit_length_x, float block_unit_m, float half_FOVxz, float half
 	f1_0 = tan(half_FOVxz)*f1_2;
 	f1_1 = tan(half_FOVyz)*f1_2;
 	float f1[3] = { f1_0, f1_1, f1_2 };
-
+	printf("Scene done!\n");
 }
 
 Scene::~Scene()
@@ -213,20 +213,20 @@ void Scene::glInit(GLFWwindow * window)
 }
 void Scene::update(float * _camera_pose, \
 				   int _grid_x, int _grid_y, int _grid_z,  \
-				   char (*_map)[30][100], float * _camera_scaled_pose,	\
+				   unsigned char (*_map)[30][100], float * _camera_scaled_pose,	\
 				   int unit_length_x)
 {
 	map = _map;
 	camera_pose = _camera_pose;
 	camera_scaled_pose = _camera_scaled_pose;
 	int map_shift[3] = {0};
-	map_shift[0] = cameraPos[9];
-	map_shift[1] = cameraPos[10];
-	map_shift[2] = cameraPos[11];
+
+	map_shift[0] = camera_pose[9];
+	map_shift[1] = camera_pose[10];
+	map_shift[2] = camera_pose[11];
 	// build and compile shader program
 	Shader lightingShader("../res/texture02.vs", "../res/texture02.fs");
 	Shader planeshader("../res/grid.vs", "../res/grid.fs");
-
 	// -----------
 	// Voxel Cells
 	// -----------

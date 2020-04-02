@@ -11,7 +11,7 @@ Connect::~Connect()
 
 void Connect::init(std::string _ip, uint16_t _port_num,     \
                     int _grid_x, int _grid_y, int _grid_z,  \
-                    char (*_map)[30][100], float * _camera_pose)
+                    unsigned char (*_map)[30][100], float * _camera_pose)
 {
     std::cout << "_ip: " << _ip << std::endl;
     ip.assign(_ip);

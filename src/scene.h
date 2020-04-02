@@ -26,7 +26,7 @@ public:
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     unsigned int loadTexture(char const * path);
 
-    void update(float *, int,int,int, char (*_map)[30][100], float *, int);
+    void update(float *, int,int,int,unsigned char (*_map)[30][100], float *, int);
     //Input Setup
     void processInput(GLFWwindow *window);
     static void mouse_button_callback(GLFWwindow * window, int button, int action, int mode);
@@ -55,7 +55,7 @@ private:
     int specific_row = 15;
     // Streaming
     bool scene_stream = false;
-    char (*map)[30][100];
+    unsigned char (*map)[30][100];
     float *camera_pose;
     float *camera_scaled_pose;
     //int grid_x = 100, grid_y = 30, grid_z = 100;

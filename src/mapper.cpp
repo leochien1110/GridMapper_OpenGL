@@ -1,6 +1,6 @@
 #include "mapper.h"
 
-Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, float * specific_pt, float _inv_C[3][3], int w, int h) 
+Mapper::Mapper(float3 * vertices, int *points_size, float * _camera_pose, float * specific_pt, float _inv_C[3][3], int w, int h) 
 {    
     std::cout << "Welcome to Mapper :)" << std::endl;
     //std::cout << "points addr: " << points << std::endl;
@@ -8,9 +8,10 @@ Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, flo
     // pointer to camera.camera_pose address
     camera_pose = _camera_pose;
 
+    //pc_vertices = *vertices;
     pc_vertices = vertices;
-    pc_points = points;
-
+    pc_points = points_size;
+    std::cout << "*pc_points:" << *pc_points << std::endl;
     inv_C = _inv_C;
     
     specific_point = specific_pt;    
@@ -39,7 +40,6 @@ Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, flo
     //***************
     // Initialization
     //***************
-
     // voxelmap
 	for (int i = 0; i < grid_x; i++) {
 		for (int j = 0; j < grid_y; j++) {
@@ -47,6 +47,9 @@ Mapper::Mapper(float3 * vertices, rs2::points &points, float * _camera_pose, flo
 				voxelmap[i][j][k] = 127;
 				voxelmap_old[i][j][k] = 127;
 				initial_voxelmap[i][j][k] = 0;
+                //printf("voxelmap[i][j][k]: %u\n",  \
+                    voxelmap[i][j][k]);
+                
 			}
 		}
 	}
@@ -71,25 +74,34 @@ void Mapper::stream()
     std::cout << "Start Mapping..." << std::endl;
     while(mapper_status)
     {
-        /*
-        std::cout << camera_pose[0] << " "  \
+        //std::cout << camera_pose[0] << " "  \
             << camera_pose[1] << " "        \
             << camera_pose[2] << " "        \
-            << pc_points.size()                 \
+            << *pc_points                 \
             << " " << std::endl;
-        */
+        //std::cout << "pc_vertices:" << pc_vertices << std::endl;
         camera_scaled_pose[0] = camera_pose[0] * mapscale_x;
         camera_scaled_pose[1] = camera_pose[1] * mapscale_y;
         camera_scaled_pose[2] = camera_pose[2] * mapscale_z;
         
+        //std::cout << camera_pose[0] << " "  \
+            << camera_pose[1] << " "        \
+            << camera_pose[2] << " "        \
+            << camera_scaled_pose[0] << " "        \
+            << camera_scaled_pose[1] << " "        \
+            << camera_scaled_pose[2] << " "        \
+            << *pc_points                 \
+            << " " << std::endl;
+
         reduce_resolution();
 
         //----------------------------
 		// Create a 3D Voxel Map Point
 		//----------------------------
-        float v[3];	//voxel map coordinate
-        ray_tracing(v);
-        std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(500));
+        //float v[3];	//voxel map coordinate
+        ray_tracing();
+
+        //std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(500));
     }
 }
 
@@ -101,7 +113,7 @@ void Mapper::reduce_resolution()
         reduced_vertices[i].z = 10;
     }
     
-    for (int i = 0; i < pc_points.size(); i++)
+    for (int i = 0; i < *pc_points; i++)
     {
         if(pc_vertices[i].z){
             int ri = 0;
@@ -112,14 +124,17 @@ void Mapper::reduce_resolution()
                 reduced_vertices[ri].x = pc_vertices[i].x;
                 reduced_vertices[ri].y = pc_vertices[i].y;
                 reduced_vertices[ri].z = pc_vertices[i].z;
+                //printf("reduced_vertices[ri].x:%f\n",reduced_vertices[ri].x);
             }
         }
         
     }
 }
 
-void Mapper::ray_tracing(float v[3])
+void Mapper::ray_tracing()
 {
+    float v[3];
+    //printf("reduced_res:%d\n",reduced_res);
     for (int i = 0; i < reduced_res; i++)
     {
         if (pc_vertices[i].z)
@@ -152,16 +167,29 @@ void Mapper::ray_tracing(float v[3])
             v[0] = camera_scaled_pose[0] + coarray[0];
             v[1] = camera_scaled_pose[1] + coarray[1];
             v[2] = camera_scaled_pose[2] + coarray[2];
-
+            
             /*******************************************/
             /**********Occupancy Indicator(rect)********/
             /*******************************************/
-            /* Free Cell */
+            // Ray traversal
             int r[3];						//ray 
             float r_length;					//unit ray_length
             int length_factor;				//use to extend r_length
             float dx, dy, dz;				//unit ray x - vector
             float r_distance = sqrt(pow(coarray[0], 2) + pow(coarray[1], 2) + pow(coarray[2], 2));	//ray_distance
+
+            /* Occupied Cell */
+            int obj_cube[3];
+            obj_cube[0] = v[0] / unit_length_x;
+            obj_cube[1] = v[1] / unit_length_y;
+            obj_cube[2] = v[2] / unit_length_z;
+
+
+            if (obj_cube[0] >= grid_x || obj_cube[1] >= grid_y || obj_cube[2] >= grid_z || obj_cube[0] < 0 || obj_cube[1] < 0 || obj_cube[2] < 0
+                || obj_cube[0] - 1 < 0 || obj_cube[1] - 1 < 0 || obj_cube[2] - 1 < 0)
+                continue;
+            //mapping!!
+            render_vmap(true, obj_cube, r_distance, 1, false, false);
 
             //Ray property
             double c_m_xz = 1;
@@ -181,7 +209,7 @@ void Mapper::ray_tracing(float v[3])
                 }
             }
 
-            //Make sure the ray direction is correct
+            //Make sure that the ray direction is correct
             int unit_length_dir = unit_length_x;
             if (coarray[c_index] < 0)
                 unit_length_dir *= -1;
@@ -264,6 +292,11 @@ void Mapper::ray_tracing(float v[3])
                 if (abs(c_m_zy) >= 1)	angle45_zy = true;
                 if (abs(c_m_zy) < 1)	angle45_zy = false;
 
+                //x-y plane
+                //if (abs(c_m_xy) >= 1)	angle45_xy = true;
+                //if (abs(c_m_xy) < 1)	angle45_xy = false;
+                //if (abs(c_m_xy) < 1)	angle45_xy = false;
+
                 //Assign Maximum axis as unit_length
                 if (c_index == 0) {
                     dx = unit_length_dir;
@@ -281,16 +314,17 @@ void Mapper::ray_tracing(float v[3])
                     dy = dz * c_m_zy;
                 }
             }
+            //std::cout << "dx,dy,dz=" << dx << "," << dy << "," << dz << std::endl;
 
             //compare unit ray vector length and original obj distance
             r_length = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2));
             length_factor = r_distance / r_length;
 
             //make sure free cell won't occupy obstacle cell
-            if (dz >= 0 || dy >= 0)
-                length_factor = length_factor - 1;
+            //if (dz >= 0 || dy >= 0)
+            //	length_factor = length_factor - 1;
 
-            //draw occupancy rectangle
+            /* Free Cell */
             for (int k = 0; k < length_factor; k++) {
                 //voxel map origin(pixel)
                 r[0] = camera_scaled_pose[0] + dx * k;
@@ -302,27 +336,18 @@ void Mapper::ray_tracing(float v[3])
                 ray_cube[0] = r[0] / unit_length_x;
                 ray_cube[1] = r[1] / unit_length_y;
                 ray_cube[2] = r[2] / unit_length_z;
-                
+
                 //check if cell is beyond boundary (for fix boundary only)
                 if (ray_cube[0] >= grid_x || ray_cube[1] >= grid_y || ray_cube[2] >= grid_z || ray_cube[0] < 0 || ray_cube[1] < 0 || ray_cube[2] < 0
-                    || ray_cube[0] - 1 < 0 || ray_cube[1] - 1 < 0 || ray_cube[2] - 1 < 0){
-                     continue;
-                } 
-
-                // assign free value to the cell
+                    || ray_cube[0] - 1 < 0 || ray_cube[1] - 1 < 0 || ray_cube[2] - 1 < 0)
+                    continue;
+                
+                // Keep ray away from obstacle cells
+                if(ray_cube[0] == obj_cube[0] && ray_cube[1] == obj_cube[1] && ray_cube[2] == obj_cube[2])
+                    continue;
+                //free cell mapping!!
                 render_vmap(false, ray_cube, r_length, k, angle45_xz, angle45_zy);
             }
-
-            //3D object detect
-            int obj_cube[3];
-            obj_cube[0] = v[0] / unit_length_x;
-            obj_cube[1] = v[1] / unit_length_y;
-            obj_cube[2] = v[2] / unit_length_z;
-            if (obj_cube[0] >= grid_x || obj_cube[1] >= grid_y || obj_cube[2] >= grid_z || obj_cube[0] < 0 || obj_cube[1] < 0 || obj_cube[2] < 0
-                || obj_cube[0] - 1 < 0 || obj_cube[1] - 1 < 0 || obj_cube[2] - 1 < 0)
-                continue;
-            // assign occupied value to the cell
-            render_vmap(true, obj_cube, r_distance, 1, false, false);
         }
     }
 }
@@ -331,10 +356,15 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 {
     float K;
 	//std::lock_guard<std::mutex> mlock(mutex_t_m2g);
-
+    //std::cout << cube[0] << " "  \
+        << cube[1] << " "        \
+        << cube[2] << " "        \
+        << std::endl;
+    //printf("voxelmap[cube[0]][cube[1]][cube[2]]: %c\n",  \
+        voxelmap[cube[0]][cube[1]][cube[2]]);
     // occupied cell
 	if (voxelmap[cube[0]][cube[1]][cube[2]] <= 255 && occupied == true) {
-		K = 128 * k  * r_distance / (width / 2);
+		K = 64 * k  * r_distance / (width / 2);
 
 		voxelmap[cube[0]][cube[1]][cube[2]] =
 			(voxelmap_old[cube[0]][cube[1]][cube[2]] * (255 - K) + (255) * K) / 255;
@@ -346,7 +376,7 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 	}
 	//false = free cell
 	else if (voxelmap[cube[0]][cube[1]][cube[2]] > 0 && occupied == false) {
-		K = 32 * k  * r_distance / (width / 2);
+		K = 16 * k  * r_distance / (width / 2);
 		voxelmap[cube[0]][cube[1]][cube[2]] =
 			(voxelmap_old[cube[0]][cube[1]][cube[2]] * (255 - K) + 1 * K) / 255;
 

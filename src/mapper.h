@@ -14,7 +14,7 @@
 class Mapper
 {
 public:
-    Mapper(float3 *, rs2::points &, float *, float *, float [3][3], int, int);
+    Mapper(float3 *, int *, float *, float *, float [3][3], int, int);
     ~Mapper();
 
     //Voxel map size
@@ -36,15 +36,15 @@ public:
     //static const int grid_y = 30;
     //static const int grid_z = 100;
 
-    char voxelmap[grid_x][grid_y][grid_z];
-    char voxelmap_old[grid_x][grid_y][grid_z];
+    unsigned char voxelmap[grid_x][grid_y][grid_z];
+    unsigned char voxelmap_old[grid_x][grid_y][grid_z];
     bool initial_voxelmap[grid_x][grid_y][grid_z];
 
     // ray tracing parameter
     double coarray[3];
 
     // Reduced resolution
-    static const int reduced_ratio = 10;	//1,2,4,8,10,16,20
+    static const int reduced_ratio = 8;	//1,2,4,8,10,16,20
     const int reduced_w = width / reduced_ratio;
     const int reduced_h = height / reduced_ratio;
     const int reduced_res = reduced_w * reduced_h;
@@ -58,7 +58,7 @@ public:
     void start();
     void stream();
     void reduce_resolution();
-    void ray_tracing(float *);
+    void ray_tracing();
     void render_vmap(bool, int [], float, int, bool, bool);
     void shift_map(int);
     void stop();
@@ -72,8 +72,8 @@ private:
     float (*inv_C)[3];
     //float inv_C[3][3];
     //vertices;
-    rs2::points pc_points;
-    float3 *pc_vertices;
+    int *pc_points;
+    float3 * pc_vertices;
     float3 *reduced_vertices;
 
     //Threading
