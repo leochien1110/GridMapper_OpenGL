@@ -4,13 +4,8 @@
 RS_Camera::RS_Camera()
 {
     printf("RS_Camera called!\n");
-    width = 848;
-    height = 480;
-    framerate = 30;
-    
-    pc_vertices = new float3[1000000];
 
-    stream_status = false;
+    camera_stream = false;
 
 }
 void RS_Camera::init()
@@ -96,7 +91,7 @@ void RS_Camera::init()
 
 void RS_Camera::start()
 {
-    if(!stream_status){
+    if(!camera_stream){
         std::cout << "Starting RS_Camera Streaming Thread" << std::endl;
         streamThread = std::thread(&RS_Camera::stream, this);
     }
@@ -104,24 +99,22 @@ void RS_Camera::start()
 
 void RS_Camera::stream()
 {
-    if(stream_status)
+    if(camera_stream)
     {
         std::cout << "stream thread is running" << std::endl;
     }
     else
     {
-        stream_status = true;
+        camera_stream = true;
         
-        while(stream_status)
+        while(camera_stream)
         {
             read_pose();
             read_depth();
-            //std::cout << "pc_vertices:" << pc_vertices << std::endl;
-            //std::cout << "Shifted Postion(X,Y,Z): " << std::setprecision(5) << std::fixed <<
-			//camera_pose[0] << " " << camera_pose[1] << " " << camera_pose[2] << " " << std::endl;
-            //std::cout << "points addr: " << &points << std::endl;
-            //std::cout << "inv_C[0][0]: " << inv_C[0][0] << std::endl;
-            //std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(2000));
+            //std::cout << camera_pose[0] << " "  \
+                << camera_pose[1] << " "        \
+                << camera_pose[2] << " "        \
+                << " " << std::endl;
         }
     }
 }
@@ -158,10 +151,8 @@ void RS_Camera::read_pose()
         q.x = -pose_data.rotation.z;
         q.y = pose_data.rotation.x;
         q.z = -pose_data.rotation.y;
-
         // Conver quaternion to euler angle
         float3 angle = Quat2Euler();
-
         // Local Position
         camera_state[0] = pose_data.translation.x;	//X
         camera_state[1] = -pose_data.translation.y;	//Y
@@ -213,12 +204,12 @@ void RS_Camera::get_rotate_matrix()
 void RS_Camera::stop()
 {
     std::cout << "Stop RS_Camera Streaming" << std::endl;
-    stream_status = false;
+    camera_stream = false;
     if(streamThread.joinable()){
         streamThread.join();
         std::cout << "rs_camera streamThread released" << std::endl;
     }
-    delete pc_vertices;
+    //delete pc_vertices;
 }
 
 float3 RS_Camera::Quat2Euler()

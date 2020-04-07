@@ -14,7 +14,7 @@
 class Mapper
 {
 public:
-    Mapper(float3 *, int *, float *, float *, float [3][3], int, int);
+    Mapper();
     ~Mapper();
 
     //Voxel map size
@@ -30,15 +30,15 @@ public:
     const float mapscale_x = unit_length_x / block_unit_m;	//
     const float mapscale_y = unit_length_y / block_unit_m;
     const float mapscale_z = unit_length_z / block_unit_m;	//
-    float camera_scaled_pose[3] = { 0 };
+    //float camera_scaled_pose[3] = { 0 };
     
     //static const int grid_x = 100;
     //static const int grid_y = 30;
     //static const int grid_z = 100;
 
-    unsigned char voxelmap[grid_x][grid_y][grid_z];
-    unsigned char voxelmap_old[grid_x][grid_y][grid_z];
-    bool initial_voxelmap[grid_x][grid_y][grid_z];
+    //unsigned char voxelmap[grid_x][grid_y][grid_z];
+    //unsigned char voxelmap_old[grid_x][grid_y][grid_z];
+    //bool initial_voxelmap[grid_x][grid_y][grid_z];
 
     // ray tracing parameter
     double coarray[3];
@@ -67,13 +67,13 @@ public:
 private:
     // float
     
-    float *camera_pose;
-    float *specific_point;
-    float (*inv_C)[3];
+    //float *camera_pose;
+    //float *specific_point;
+    //float (*inv_C)[3];
     //float inv_C[3][3];
     //vertices;
-    int *pc_points;
-    float3 * pc_vertices;
+    //int *pc_points;
+    //float3 * pc_vertices;
     float3 *reduced_vertices;
 
     //Threading

@@ -31,9 +31,10 @@ public:
     void stop();
     float3 Quat2Euler();
 
-    float3 *pc_vertices;
+    //float3 *pc_vertices;
     rs2::points points;
-    int points_size;
+    //int points_size;
+
     //******************
     // Camera Parameters
     //******************
@@ -42,10 +43,10 @@ public:
     // attitude :phi,theat,psi
     // local    :X,Y,Z
     // shift_map:sx,sy,sz
-    float camera_pose[12] = { 0 };
+    //float camera_pose[12] = { 0 };
     
-    float init_camera_global_pos[3] = { 10, 3, 10};
-    float specific_point[3]; //for FOV
+    //float init_camera_global_pos[3] = { 10, 3, 10};
+    //float specific_point[3]; //for FOV
     rs2_intrinsics intr;
     float FOV[2];
     float half_FOVxz;
@@ -53,12 +54,12 @@ public:
     float cm_fovxz;
 
     // rotation matrix
-    float inv_C[3][3];
+    //float inv_C[3][3];
 
 private:
 
     // int
-    int width, height, framerate;
+    //int width, height, framerate;
     
     // float 
     float camera_state[9] = { 0 };

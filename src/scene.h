@@ -14,7 +14,7 @@
 class Scene
 {
 public:
-    Scene(int,float,float,float);
+    Scene();
     ~Scene();
 
     //---------------------
@@ -26,7 +26,7 @@ public:
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     unsigned int loadTexture(char const * path);
 
-    void update(float *, int,int,int,unsigned char (*_map)[30][100], float *, int);
+    void update();
     //Input Setup
     void processInput(GLFWwindow *window);
     static void mouse_button_callback(GLFWwindow * window, int button, int action, int mode);
@@ -55,9 +55,9 @@ private:
     int specific_row = 15;
     // Streaming
     bool scene_stream = false;
-    unsigned char (*map)[30][100];
-    float *camera_pose;
-    float *camera_scaled_pose;
+    //unsigned char (*map)[30][100];
+    //float *camera_pose;
+    //float *camera_scaled_pose;
     //int grid_x = 100, grid_y = 30, grid_z = 100;
 
     // Mouse setting
@@ -73,10 +73,10 @@ private:
     static int start_y;
 
     // Filed of view
-    float f1_2;
-    float f1_0;
-    float f1_1;
-    float f1[3];
+    //float f1_2;
+    //float f1_0;
+    //float f1_1;
+    //float f1[3];
 
     float vertices[288] = {
         // positions          // normals           // texture coords

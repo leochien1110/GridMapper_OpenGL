@@ -1,7 +1,9 @@
 #ifndef DATA_H
 #define DATA_H
 
-// building dimension
+#include <librealsense2/rs.hpp>
+
+// building dimension in meter
 #define LENGTH 20
 #define HEIGHT 6
 #define WIDTH 20
@@ -51,9 +53,12 @@ extern unsigned int specific_row;
 //-----------------
 // Camera Pose (meter)
 extern float max_distance;
-extern float init_camera_global_pos[3];	
 // X,Y,Z,phi,theta,psi,x,y,z,shift(x,y,z)
 extern float camera_pose[12]; 
+extern float init_camera_global_pos[3];
+extern float camera_scaled_pose[3];
+extern float specific_point[3]; //for FOV
+extern float inv_C[3][3];
 extern float4 q;    // Rotation quaternion
 
 // Camera resolution
@@ -61,7 +66,6 @@ extern const int width;     //1280,848,640,480, 424
 extern const int height;    //720,480,360,270,240
 extern const int resolution;
 extern const int framerate;
-
 
 // Field of View
 extern float FOVxz;
@@ -74,11 +78,20 @@ extern float f1_0;
 extern float f1_1;
 extern float f1[3];
 
-// Voxel Map Data array
-extern unsigned char voxel_map_logodd[grid_x][grid_y][grid_z];
-extern unsigned char voxel_map_logodd_old[grid_x][grid_y][grid_z];
-extern bool initial_voxel_map[grid_x][grid_y][grid_z];
+// Point cloud
+extern float3 pc_vertices[1000000];
+extern int points_size;
 
+// Voxel Map Data array
+extern unsigned char voxelmap[grid_x][grid_y][grid_z];
+extern unsigned char voxelmap_old[grid_x][grid_y][grid_z];
+extern bool init_voxelmap[grid_x][grid_y][grid_z];
+
+// Loop Status
+extern bool camera_stream;
+extern bool mapper_stream;
+extern bool connect_stream;
+extern bool mapper_status;
 
 struct vehicleState{
     float x;

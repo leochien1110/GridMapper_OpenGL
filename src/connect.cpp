@@ -9,9 +9,7 @@ Connect::~Connect()
     end();
 }
 
-void Connect::init(std::string _ip, uint16_t _port_num,     \
-                    int _grid_x, int _grid_y, int _grid_z,  \
-                    unsigned char (*_map)[30][100], float * _camera_pose)
+void Connect::init(std::string _ip, uint16_t _port_num)
 {
     std::cout << "_ip: " << _ip << std::endl;
     ip.assign(_ip);
@@ -28,10 +26,10 @@ void Connect::init(std::string _ip, uint16_t _port_num,     \
             }
         }
     }*/
-    map = _map;
+    //map = _map;
 
-    std::cout << "_map: " << map[20][10][20] << std::endl;
-    camera_pose = _camera_pose;
+    //std::cout << "_map: " << map[20][10][20] << std::endl;
+    //camera_pose = _camera_pose;
 
     // convert ip type (string->char[])
     char char_ip[ip.length()+1];
@@ -57,17 +55,24 @@ void Connect::init(std::string _ip, uint16_t _port_num,     \
     err = connect(sockfd,(struct sockaddr *)&serverInfo,sizeof(serverInfo));
     if(err==-1){
         printf("Connection error\n");
-        socket_connect = false;
+        connect_stream = false;
     }
     else{
         printf("Connected!\n");
-        socket_connect = true;
+        connect_stream = true;
     }
 }
 
 void Connect::start()
 {
+    if(connect_stream == false){
+        std::cout << "Stop to send data!" << std::endl;
+        return;
+    }
+    
 
+    std::cout << "Start to send data" << std::endl;
+    streamThread = std::thread(&Connect::senddata, this);
 }
 
 void Connect::end()
@@ -76,10 +81,10 @@ void Connect::end()
     printf("Socket Closed!\n");
 }
 
-void Connect::senddata(bool mapper_status)
+void Connect::senddata()
 {
-    while(mapper_status){
-			if(!socket_connect){
+    while(mapper_stream){
+			if(!connect_stream){
 				printf("\033[1A"); //go back to previous row
 				printf("\033[K");  //flush
 				printf("\033[1A");
@@ -116,7 +121,7 @@ void Connect::sendmap()
     for (int i = 0; i < grid_x; i++) {
         for (int j = 0; j < grid_y; j++) {
             for (int k = 0; k < grid_z; k++) {
-                buf[i][j][k] = map[i][j][k];
+                buf[i][j][k] = voxelmap[i][j][k];
             }
         }
     }
@@ -155,13 +160,13 @@ int Connect::process_sending(void * sendbuf, int SIZE, bool flag)
     if(sen == -1){
         //std::cout << "\r" << "Sending error!!\n" << std::flush;
         printf("Sending error!\n");
-        socket_connect = false;
+        connect_stream = false;
         end();
     }
     else if(sen == 0){
         //std::cout << "\r" << "Sending disconnected!\n" << std::flush;
         printf("Sending disconnected!\n");
-        socket_connect = false;
+        connect_stream = false;
         end();
     }
 }

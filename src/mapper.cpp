@@ -1,20 +1,20 @@
 #include "mapper.h"
 
-Mapper::Mapper(float3 * vertices, int *points_size, float * _camera_pose, float * specific_pt, float _inv_C[3][3], int w, int h) 
+Mapper::Mapper() 
 {    
     std::cout << "Welcome to Mapper :)" << std::endl;
     //std::cout << "points addr: " << points << std::endl;
 
     // pointer to camera.camera_pose address
-    camera_pose = _camera_pose;
+    //camera_pose = _camera_pose;
 
     //pc_vertices = *vertices;
-    pc_vertices = vertices;
-    pc_points = points_size;
-    std::cout << "*pc_points:" << *pc_points << std::endl;
-    inv_C = _inv_C;
+    //pc_vertices = vertices;
+    //points_size = points_size;
+    std::cout << "points_size:" << points_size << std::endl;
+    //inv_C = _inv_C;
     
-    specific_point = specific_pt;    
+    //specific_point = specific_pt;    
    
     /*pc_vertices = new float3[1000000];
     for (int i = 0; i < points.size(); i++)
@@ -46,7 +46,7 @@ Mapper::Mapper(float3 * vertices, int *points_size, float * _camera_pose, float 
 			for (int k = 0; k < grid_z; k++) {
 				voxelmap[i][j][k] = 127;
 				voxelmap_old[i][j][k] = 127;
-				initial_voxelmap[i][j][k] = 0;
+				init_voxelmap[i][j][k] = 0;
                 //printf("voxelmap[i][j][k]: %u\n",  \
                     voxelmap[i][j][k]);
                 
@@ -61,8 +61,8 @@ Mapper::~Mapper()
 }
 void Mapper ::start()
 {
-    if(!mapper_status){
-        mapper_status = true;
+    if(!mapper_stream){
+        mapper_stream = true;
         std::cout << "Starting Mapper Streaming Thread" << std::endl;
         streamThread = std::thread(&Mapper::stream, this);
     }
@@ -72,26 +72,19 @@ void Mapper::stream()
 {
     std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(2000));
     std::cout << "Start Mapping..." << std::endl;
-    while(mapper_status)
+    while(mapper_stream)
     {
-        //std::cout << camera_pose[0] << " "  \
-            << camera_pose[1] << " "        \
-            << camera_pose[2] << " "        \
-            << *pc_points                 \
-            << " " << std::endl;
+        //std::cout << '\r' << std::setiosflags(std::ios::fixed)  \
+            << std::setprecision(3)                     \
+            << std::setw(2) << camera_pose[0] << " "                    \
+            << std::setw(2) << camera_pose[1] << " "                    \
+            << std::setw(2) << camera_pose[2] << " "                    \
+            << std::setw(2) << points_size << " "                       \
+            << std::flush;
         //std::cout << "pc_vertices:" << pc_vertices << std::endl;
         camera_scaled_pose[0] = camera_pose[0] * mapscale_x;
         camera_scaled_pose[1] = camera_pose[1] * mapscale_y;
         camera_scaled_pose[2] = camera_pose[2] * mapscale_z;
-        
-        //std::cout << camera_pose[0] << " "  \
-            << camera_pose[1] << " "        \
-            << camera_pose[2] << " "        \
-            << camera_scaled_pose[0] << " "        \
-            << camera_scaled_pose[1] << " "        \
-            << camera_scaled_pose[2] << " "        \
-            << *pc_points                 \
-            << " " << std::endl;
 
         reduce_resolution();
 
@@ -113,7 +106,7 @@ void Mapper::reduce_resolution()
         reduced_vertices[i].z = 10;
     }
     
-    for (int i = 0; i < *pc_points; i++)
+    for (int i = 0; i < points_size; i++)
     {
         if(pc_vertices[i].z){
             int ri = 0;
@@ -371,7 +364,7 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 		if (voxelmap[cube[0]][cube[1]][cube[2]] > 255)
 			voxelmap[cube[0]][cube[1]][cube[2]] = 255;
 
-		initial_voxelmap[cube[0]][cube[1]][cube[2]] = 1;
+		init_voxelmap[cube[0]][cube[1]][cube[2]] = 1;
 		voxelmap_old[cube[0]][cube[1]][cube[2]] = voxelmap[cube[0]][cube[1]][cube[2]];	//set this value as old data in next loop 
 	}
 	//false = free cell
@@ -383,7 +376,7 @@ void Mapper::render_vmap(bool occupied, int cube[], float r_distance, int k, boo
 		if (voxelmap[cube[0]][cube[1]][cube[2]] < 0.1)
 			voxelmap[cube[0]][cube[1]][cube[2]] = 0;
 
-		initial_voxelmap[cube[0]][cube[1]][cube[2]] = 1;
+		init_voxelmap[cube[0]][cube[1]][cube[2]] = 1;
 		voxelmap_old[cube[0]][cube[1]][cube[2]] = voxelmap[cube[0]][cube[1]][cube[2]];	//set this value as old data in next loop 
 	}
 }
@@ -402,7 +395,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = voxelmap[i - shift_unit][j][k];
 						voxelmap_old[i][j][k] = voxelmap_old[i - shift_unit][j][k];
-						initial_voxelmap[i][j][k] = initial_voxelmap[i - shift_unit][j][k];
+						init_voxelmap[i][j][k] = init_voxelmap[i - shift_unit][j][k];
 					}
 				}
 			}		
@@ -412,7 +405,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = 127;
 						voxelmap_old[i][j][k] = 127;
-						initial_voxelmap[i][j][k] = 0;
+						init_voxelmap[i][j][k] = 0;
 					}
 				}
 			}
@@ -429,7 +422,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = voxelmap[i - shift_unit][j][k];
 						voxelmap_old[i][j][k] = voxelmap_old[i - shift_unit][j][k];
-						initial_voxelmap[i][j][k] = initial_voxelmap[i - shift_unit][j][k];
+						init_voxelmap[i][j][k] = init_voxelmap[i - shift_unit][j][k];
 					}
 				}
 			}
@@ -439,7 +432,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = 127;
 						voxelmap_old[i][j][k] = 127;
-						initial_voxelmap[i][j][k] = 0;
+						init_voxelmap[i][j][k] = 0;
 					}
 				}
 			}
@@ -455,7 +448,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = voxelmap[i][j - shift_unit][k];
 						voxelmap_old[i][j][k] = voxelmap_old[i][j - shift_unit][k];
-						initial_voxelmap[i][j][k] = initial_voxelmap[i][j - shift_unit][k];
+						init_voxelmap[i][j][k] = init_voxelmap[i][j - shift_unit][k];
 					}
 				}
 			}		
@@ -465,7 +458,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = 127;
 						voxelmap_old[i][j][k] = 127;
-						initial_voxelmap[i][j][k] = 0;
+						init_voxelmap[i][j][k] = 0;
 					}
 				}
 			}
@@ -482,7 +475,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = voxelmap[i][j - shift_unit][k];
 						voxelmap_old[i][j][k] = voxelmap_old[i][j - shift_unit][k];
-						initial_voxelmap[i][j][k] = initial_voxelmap[i][j - shift_unit][k];
+						init_voxelmap[i][j][k] = init_voxelmap[i][j - shift_unit][k];
 					}
 				}
 			}
@@ -492,7 +485,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z; k++) {
 						voxelmap[i][j][k] = 127;
 						voxelmap_old[i][j][k] = 127;
-						initial_voxelmap[i][j][k] = 0;
+						init_voxelmap[i][j][k] = 0;
 					}
 				}
 			}
@@ -508,7 +501,7 @@ void Mapper::shift_map(int axis)
 					for (int k = grid_z - 1; k > shift_unit - 1; k--) {	//k = 99~5
 						voxelmap[i][j][k] = voxelmap[i][j][k - shift_unit];
 						voxelmap_old[i][j][k] = voxelmap_old[i][j][k - shift_unit];
-						initial_voxelmap[i][j][k] = initial_voxelmap[i][j][k - shift_unit];
+						init_voxelmap[i][j][k] = init_voxelmap[i][j][k - shift_unit];
 					}
 				}
 			}		
@@ -518,7 +511,7 @@ void Mapper::shift_map(int axis)
 					for (int k = shift_unit - 1; k >= 0; k--) {	//k = 4~0
 						voxelmap[i][j][k] = 127;
 						voxelmap_old[i][j][k] = 127;
-						initial_voxelmap[i][j][k] = 0;
+						init_voxelmap[i][j][k] = 0;
 					}
 				}
 			}
@@ -535,7 +528,7 @@ void Mapper::shift_map(int axis)
 					for (int k = 0; k < grid_z - abs(shift_unit); k++) {	//k = 0~94
 						voxelmap[i][j][k] = voxelmap[i][j][k - shift_unit];
 						voxelmap_old[i][j][k] = voxelmap_old[i][j][k - shift_unit];
-						initial_voxelmap[i][j][k] = initial_voxelmap[i][j][k - shift_unit];
+						init_voxelmap[i][j][k] = init_voxelmap[i][j][k - shift_unit];
 					}
 				}
 			}
@@ -545,7 +538,7 @@ void Mapper::shift_map(int axis)
 					for (int k = grid_z - abs(shift_unit); k < grid_z; k++) {	//k = 95~99
 						voxelmap[i][j][k] = 127;
 						voxelmap_old[i][j][k] = 127;
-						initial_voxelmap[i][j][k] = 0;
+						init_voxelmap[i][j][k] = 0;
 					}
 				}
 			}
@@ -561,6 +554,6 @@ void Mapper::stop()
         streamThread.join();
         std::cout << "mapper streamThread released" << std::endl;
     }
-    delete pc_vertices;
+    //delete pc_vertices;
     delete reduced_vertices;
 }

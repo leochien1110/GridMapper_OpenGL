@@ -20,7 +20,7 @@ public:
 
 private:
     // int
-    int width = 848, height = 480, fps = 30;
+    //int width = 848, height = 480, fps = 30;
 
     // string
     std::string ip;
@@ -32,8 +32,8 @@ private:
     bool onboard_status;
 
     // Class
-    RS_Camera camera;
-    Connect data2GS;
+    Data data;
+    
     //Scene scene;
 };
 

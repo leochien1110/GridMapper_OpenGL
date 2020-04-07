@@ -15,7 +15,7 @@ bool Scene::viewpoint = true;
 int Scene::start_x = 0;
 int Scene::start_y = 0;
 
-Scene::Scene(int unit_length_x, float block_unit_m, float half_FOVxz, float half_FOVyz)
+Scene::Scene()
 {
     std::cout << "Scene called" << std::endl;
 
@@ -211,14 +211,11 @@ void Scene::glInit(GLFWwindow * window)
 	//glCullFace(GL_FRONT);
 	//glFrontFace(GL_CW);
 }
-void Scene::update(float * _camera_pose, \
-				   int _grid_x, int _grid_y, int _grid_z,  \
-				   unsigned char (*_map)[30][100], float * _camera_scaled_pose,	\
-				   int unit_length_x)
+void Scene::update()
 {
-	map = _map;
-	camera_pose = _camera_pose;
-	camera_scaled_pose = _camera_scaled_pose;
+	//map = _map;
+	//camera_pose = _camera_pose;
+	//camera_scaled_pose = _camera_scaled_pose;
 	int map_shift[3] = {0};
 
 	map_shift[0] = camera_pose[9];
@@ -483,8 +480,8 @@ void Scene::update(float * _camera_pose, \
 		for (int j = 0; j < grid_y; j++) {
 			for (int k = 0; k < grid_z; k++) {
 				for (int i = 0; i < grid_x; i++) {
-					if (map[i][j][k] != 127) {
-						if (map[i][j][k] >= 180) {
+					if (voxelmap[i][j][k] != 127) {
+						if (voxelmap[i][j][k] >= 180) {
 
 							// calculate the model matrix for each object and pass it to shader bedore drawing
 							glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
