@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GLFW/glfw3.h>
 #include <iostream> 
+#include <thread>
 #include "stb_image.h"
 #include "shader_m.h"
 #include "data.h"
@@ -25,8 +26,9 @@ public:
         unsigned int AttribSize2, unsigned int Stride, unsigned int VertexOffset);
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     unsigned int loadTexture(char const * path);
-
+    void start();
     void update();
+    void stop();
     //Input Setup
     void processInput(GLFWwindow *window);
     static void mouse_button_callback(GLFWwindow * window, int button, int action, int mode);
@@ -53,7 +55,10 @@ public:
 
 private:
     int specific_row = 15;
+    int map_shift[3] = {0};
+    
     // Streaming
+    std::thread streamThread;
     bool scene_stream = false;
     //unsigned char (*map)[30][100];
     //float *camera_pose;

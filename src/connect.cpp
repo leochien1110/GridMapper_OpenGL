@@ -11,10 +11,9 @@ Connect::~Connect()
 
 void Connect::init(std::string _ip, uint16_t _port_num)
 {
-    std::cout << "_ip: " << _ip << std::endl;
     ip.assign(_ip);
     port_num = _port_num;
-
+    
     //map = new char**[grid_x];
     /*for(int i = 0; i < grid_x; ++i){
         //map[i] = new char*[grid_y];
@@ -33,8 +32,11 @@ void Connect::init(std::string _ip, uint16_t _port_num)
 
     // convert ip type (string->char[])
     char char_ip[ip.length()+1];
-    //std::strcpy(char_ip, ip.c_str()); 
-    std::copy(ip.begin(), ip.end(), char_ip);
+    std::strcpy(char_ip, ip.c_str()); 
+    //std::copy(ip.begin(), ip.end(), char_ip);
+    std::cout << "char_ip: " << char_ip << \
+    "    port:" << port_num << std::endl;
+
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd == -1){
@@ -69,8 +71,6 @@ void Connect::start()
         std::cout << "Stop to send data!" << std::endl;
         return;
     }
-    
-
     std::cout << "Start to send data" << std::endl;
     streamThread = std::thread(&Connect::senddata, this);
 }
@@ -79,32 +79,37 @@ void Connect::end()
 {
     close(sockfd);
     printf("Socket Closed!\n");
+     if(streamThread.joinable()){
+        streamThread.join();
+        std::cout << "Connect streamThread released" << std::endl;
+    }
 }
 
 void Connect::senddata()
 {
     while(mapper_stream){
-			if(!connect_stream){
-				printf("\033[1A"); //go back to previous row
-				printf("\033[K");  //flush
-				printf("\033[1A");
-				printf("\033[K");
-				printf("\033[1A");
-        		printf("\033[K");
-				end();
-				printf("Reinitializing...\n");
-				//init();
-				std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(100));
-			}
-			else{
-				clock_t t01;
-				sendmap();
-				sendcam();
-				clock_t t04;
-				//double duration = t04 - t01;
-				//std::cout<< "\r" << "time spend: " << duration << std::flush;
-			}
-		}
+        if(!connect_stream){
+            printf("\033[1A"); //go back to previous row
+            printf("\033[K");  //flush
+            printf("\033[1A");
+            printf("\033[K");
+            printf("\033[1A");
+            printf("\033[K");
+            end();
+            printf("Reinitializing...\n");
+            //init();
+            std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(100));
+        }
+        else{
+            clock_t t01;
+            sendmap();
+            sendcam();
+            clock_t t04;
+            //double duration = t04 - t01;
+            //std::cout<< "\r" << "time spend: " << duration << std::flush;
+        }
+        //std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(10));
+    }
 }
 
 void Connect::recvdata()
@@ -133,11 +138,12 @@ void Connect::sendmap()
 
 void Connect::sendcam()
 {
-    float buf[9];
+    float buf[12];
     int buf_size = sizeof(buf);
+
     //std::lock_guard<std::mutex> mlcok(mutex_t_c2g);
     mutex.lock();
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 12; i++) {
         buf[i]=camera_pose[i];
     }
     mutex.unlock();
@@ -152,7 +158,7 @@ int Connect::process_sending(void * sendbuf, int SIZE, bool flag)
         sen = send(sockfd, sendbuf, SIZE, 0);
     }
     else if(flag == 1){
-        sen = send(sockfd, sendbuf, SIZE, MSG_DONTWAIT);
+        sen = send(sockfd, sendbuf, SIZE, 0);//MSG_DONTWAIT);
     }
     //mutex_t.unlock();
     //std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(1));
@@ -169,6 +175,7 @@ int Connect::process_sending(void * sendbuf, int SIZE, bool flag)
         connect_stream = false;
         end();
     }
+    return sen;
 }
 
 int Connect::process_receiving(void * recvbuf, int SIZE)

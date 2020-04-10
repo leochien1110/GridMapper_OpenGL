@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <signal.h>
 #include <string.h>
+#include <cstring>
 #include <unistd.h>
 #include <iostream> 
 #include <thread>

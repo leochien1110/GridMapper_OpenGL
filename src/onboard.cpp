@@ -5,7 +5,9 @@ Onboard::Onboard(std::string gs_ip)
     ip = gs_ip;
     std::cout << "ip: " << ip << std::endl;
     onboard_status = true;
-    
+    port_num = 7777;
+
+    // Test gobal variables
     std::cout << "ob.dc.specific_row:" << specific_row << std::endl;
     specific_row = 14;
     std::cout << "ob.dc.a:" << Data::a << std::endl;
@@ -52,16 +54,24 @@ void Onboard::update()
 
     scene.update();
 
-    while(camera_stream && mapper_stream && connect_stream)
+    /*
+    while(camera_stream && mapper_stream && connect_stream && scene_stream)
     {
         // mapper running~~~
         std::cout << "Mapper is Healthy :)" << std::endl;
+        std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(500));
     }
+    */
 
     // Stop program
     camera_stream = false;
     mapper_stream = false;
     connect_stream = false;
+    scene_stream = false;
+    camera.stop();
+    
+    scene.stop();
+    std::cout << "leaving onboard..." << std::endl;
 }
 
 void Onboard::stop()

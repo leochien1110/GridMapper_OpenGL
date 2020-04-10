@@ -92,6 +92,7 @@ extern bool camera_stream;
 extern bool mapper_stream;
 extern bool connect_stream;
 extern bool mapper_status;
+extern bool scene_stream;
 
 struct vehicleState{
     float x;

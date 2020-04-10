@@ -56,6 +56,7 @@ bool camera_stream;
 bool mapper_stream;
 bool connect_stream;
 bool mapper_status;
+bool scene_stream;
 
 Data::Data()
 {

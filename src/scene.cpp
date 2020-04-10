@@ -33,7 +33,7 @@ Scene::Scene()
 		exit;
 	}
 	glInit(window);
-
+	scene_stream = false;
 	// Filed of view
 	f1_2 = (unit_length_x / block_unit_m) * sqrt(pow(1, 2) / (pow(tan(half_FOVxz), 2) + pow(tan(half_FOVyz), 2) + 1));
 	f1_0 = tan(half_FOVxz)*f1_2;
@@ -44,6 +44,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	stop();
 	//delete window;
 }
 
@@ -211,13 +212,20 @@ void Scene::glInit(GLFWwindow * window)
 	//glCullFace(GL_FRONT);
 	//glFrontFace(GL_CW);
 }
+
+void Scene::start()
+{
+	//update();
+	streamThread = std::thread(&Scene::update,this);
+}
+
 void Scene::update()
 {
 	//map = _map;
 	//camera_pose = _camera_pose;
 	//camera_scaled_pose = _camera_scaled_pose;
-	int map_shift[3] = {0};
-
+	//int map_shift[3] = {0};
+	scene_stream = true;
 	map_shift[0] = camera_pose[9];
 	map_shift[1] = camera_pose[10];
 	map_shift[2] = camera_pose[11];
@@ -340,7 +348,7 @@ void Scene::update()
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glBindVertexArray(0);
-
+	
 	while(!glfwWindowShouldClose(window))
 	{
 		processInput(window);	//mouse and keyboard input
@@ -503,7 +511,18 @@ void Scene::update()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+	scene_stream = false;
 }
+
+void Scene::stop()
+{
+	if(streamThread.joinable()){
+        streamThread.join();
+        std::cout << "scene streamThread released" << std::endl;
+    }
+	std::cout << "scene stoped" << std::endl;
+}
+
 void Scene::glSetup(unsigned int VAO, unsigned int VBO, float *Vertices, unsigned int AttribSize1, unsigned int AttribSize2, unsigned int Stride, unsigned int VertexOffset)
 {
 	glGenVertexArrays(1, &VAO);
