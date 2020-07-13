@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream> 
 #include <thread>
+#include <mutex>
 #include "stb_image.h"
 #include "shader_m.h"
 #include "data.h"
@@ -53,6 +54,9 @@ public:
     //
     GLFWwindow* window;
 
+    // Save map
+
+
 private:
     int specific_row = 15;
     int map_shift[3] = {0};
@@ -82,6 +86,9 @@ private:
     //float f1_0;
     //float f1_1;
     //float f1[3];
+
+    //Threading
+    std::mutex mutex;
 
     float vertices[288] = {
         // positions          // normals           // texture coords

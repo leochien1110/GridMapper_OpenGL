@@ -2,6 +2,7 @@
 #define MAPPER_H
 
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <string.h>
 #include <math.h>
@@ -11,6 +12,8 @@
 #include "rs_camera.h"
 #include "data.h"
 
+#define PI 3.14159265358979323846
+
 class Mapper
 {
 public:
@@ -18,18 +21,18 @@ public:
     ~Mapper();
 
     //Voxel map size
-    const float block_unit_m = 0.2;	//(meter/cell)
-    const int unit_length_x = 5;	//(pixel/cell)
-    const int unit_length_y = 5;	//(pixel/cell)
-    const int unit_length_z = 5;	//(pixel/cell)
-    float block_unit = block_unit_m;
-    float unit_length = unit_length_x;
+    //const float block_unit_m = 0.2;	//(meter/cell)
+    //const int unit_length_x = 5;	//(pixel/cell)
+    //const int unit_length_y = 5;	//(pixel/cell)
+    //const int unit_length_z = 5;	//(pixel/cell)
+    //float block_unit = block_unit_m;
+    //float unit_length = unit_length_x;
 
     //Map scale in real world (pixel per meter)..
     //can use to transfer map from real world to voxel world
-    const float mapscale_x = unit_length_x / block_unit_m;	//
-    const float mapscale_y = unit_length_y / block_unit_m;
-    const float mapscale_z = unit_length_z / block_unit_m;	//
+    //const float mapscale_x = unit_length_x / block_unit_m;	//
+    //const float mapscale_y = unit_length_y / block_unit_m;
+    //const float mapscale_z = unit_length_z / block_unit_m;	//
     //float camera_scaled_pose[3] = { 0 };
     
     //static const int grid_x = 100;
@@ -42,6 +45,7 @@ public:
 
     // ray tracing parameter
     double coarray[3];
+    float pc_localpos[3];
 
     // Reduced resolution
     static const int reduced_ratio = 8;	//1,2,4,8,10,16,20
@@ -54,14 +58,31 @@ public:
     // Map shift para
     int mps = 0;
 
+    // Camera pixel pose
+    float camera_pixel_pose[3];
+
+    // D435 sensor parameters
+    float baseline = 0.05;
+    float focallen = 0.5*width/tan(half_FOVxz);
+    float subpixel = 0.08;
+    float sensor_para = subpixel/baseline/focallen;
+    float p_min = 0.1; // inverse sensor model
+    // d^2*reduced_ratio^2/86^2; 86px within 0.2m square @1m
+    float pixel_density = 86*86/reduced_ratio/reduced_ratio;
+
     // func
     void start();
     void stream();
     void reduce_resolution();
-    void ray_tracing();
-    void render_vmap(bool, int [], float, int, bool, bool);
+    void map_update();
+    void ray_traversal(int raydir[], float ray_m[], int dist[],float z_m, float obj_distance);
+    void line_drawing(float position[], float ray_length, int dist[], float z_m);
+    void render_vmap(bool type, int cube[], float r_distance, float z_m, float obj_distance);
     void shift_map(int);
     void stop();
+    void savelog();
+    double exp_fast(double);
+
     bool mapper_status;
     
 private:
@@ -75,6 +96,9 @@ private:
     //int *pc_points;
     //float3 * pc_vertices;
     float3 *reduced_vertices;
+
+    // log file
+    std::ofstream fileID;
 
     //Threading
     std::mutex mutex;

@@ -34,7 +34,7 @@ void Onboard::update()
     Connect data2GS;
     Mapper mapper;
     Scene scene;
-
+    
     // run flight controller
 
     // run camera
@@ -52,7 +52,7 @@ void Onboard::update()
     data2GS.init(ip, port_num);
     data2GS.start();
 
-    scene.update();
+    scene.update(); // Press esc in the window to end the program
 
     /*
     while(camera_stream && mapper_stream && connect_stream && scene_stream)

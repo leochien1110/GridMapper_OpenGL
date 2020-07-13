@@ -104,6 +104,7 @@ void Connect::senddata()
             clock_t t01;
             sendmap();
             sendcam();
+            sendshift();
             clock_t t04;
             //double duration = t04 - t01;
             //std::cout<< "\r" << "time spend: " << duration << std::flush;
@@ -126,7 +127,7 @@ void Connect::sendmap()
     for (int i = 0; i < grid_x; i++) {
         for (int j = 0; j < grid_y; j++) {
             for (int k = 0; k < grid_z; k++) {
-                buf[i][j][k] = voxelmap[i][j][k];
+                buf[i][j][k] = voxel_map_logodd[i][j][k];
             }
         }
     }
@@ -144,12 +145,29 @@ void Connect::sendcam()
     //std::lock_guard<std::mutex> mlcok(mutex_t_c2g);
     mutex.lock();
     for (int i = 0; i < 12; i++) {
-        buf[i]=camera_pose[i];
+        buf[i]=camera_global_pose[i];
     }
     mutex.unlock();
     if(err != -1){
         process_sending(buf, buf_size, 1);
     }	
+}
+
+void Connect::sendshift()
+{
+    int buf[3];
+		int buf_size = sizeof(buf);
+		//std::lock_guard<std::mutex> mlcok(mutex_t_s2g);
+		mutex.lock();
+		for (int i = 0; i < 3; i++) {
+			buf[i]=map_shift[i];
+		}
+		if(err != -1){
+			process_sending(buf, buf_size, 0);
+		}
+        mutex.unlock();		
+		//printf("sendshift sent: %d\n", sen);
+		std::cout << map_shift[0] << " " << map_shift[1] << " " << map_shift[2] << " " << std::endl;
 }
 
 int Connect::process_sending(void * sendbuf, int SIZE, bool flag)
@@ -158,7 +176,7 @@ int Connect::process_sending(void * sendbuf, int SIZE, bool flag)
         sen = send(sockfd, sendbuf, SIZE, 0);
     }
     else if(flag == 1){
-        sen = send(sockfd, sendbuf, SIZE, 0);//MSG_DONTWAIT);
+        sen = send(sockfd, sendbuf, SIZE, MSG_DONTWAIT);//MSG_DONTWAIT);
     }
     //mutex_t.unlock();
     //std::this_thread::sleep_for(std::chrono::duration<int, std::milli>(1));

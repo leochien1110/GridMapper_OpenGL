@@ -5,12 +5,16 @@
 #include <librealsense2/rsutil.h>
 
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include <thread>
 #include <mutex>
 #include "data.h"   //strcut float3 & float4
+
+using namespace std::chrono;
 
 class RS_Camera
 {
@@ -24,11 +28,15 @@ public:
     void init();
     void start();   // read data
     void stream();
+    void tracking();    // record positions
     void read_depth();
     void read_pose();
     void fov(rs2::frame &);
     void get_rotate_matrix();
     void stop();
+    void log_init();
+    void savelog();
+    
     float3 Quat2Euler();
 
     //float3 *pc_vertices;
@@ -89,11 +97,14 @@ private:
 	rs2::spatial_filter spat_filter;
 	rs2::temporal_filter temp_filter;
 	rs2::hole_filling_filter hole_filter;
-    
+
     //Threading
     std::mutex mutex;
     std::thread streamThread;
     bool stream_status;
+
+    // log file
+    std::ofstream fileID;
 };
 
 #endif //RS_CAMERA_H

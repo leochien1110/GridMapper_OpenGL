@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 
+const char * map_dir = "../../logger/map/10030100_07132020.log";
+
 //--------------------
 // Voxel Map Parameter
 //--------------------
@@ -11,15 +13,20 @@ unsigned int unit_length_x = 5;
 unsigned int unit_length_y = 5;
 unsigned int unit_length_z = 5;
 unsigned int specific_row = 15; //initial visualized layer
+const float mapscale_x = unit_length_x / block_unit_m;	//
+const float mapscale_y = unit_length_y / block_unit_m;
+const float mapscale_z = unit_length_z / block_unit_m;	//
 
 //-----------------
 // Camera Parameter
 //-----------------
 // Camera Pose (meter)
-float max_distance = 12;
+float max_distance = 16;
+float min_distance = 0.3;
 // X,Y,Z,phi,theta,psi,x,y,z,shift(x,y,z)
-float camera_pose[12] = { 0 };
-float init_camera_global_pos[3] = { 10 , 3 , 10 };	
+float camera_global_pose[12] = { 0 };
+float init_camera_global_pos[3] = { 10 , 3 , 10 };
+float camera_pixel_pose[3] = { 0 };
 float camera_scaled_pose[3] = { 0 };
 float specific_point[3]; //for FOV
 float inv_C[3][3];
@@ -46,10 +53,21 @@ float f1[3] = { f1_0, f1_1, f1_2 };
 float3 pc_vertices[1000000];
 int points_size;
 
+// Trajectory
+float3 traj;
+float3 traj_color;
+std::vector<float> scale_trajectory;
+std::vector<float> trajectory;
+uint64_t time_stmp;
+
 // Voxel Map Data array
-unsigned char voxelmap[grid_x][grid_y][grid_z] = { 0 };
-unsigned char voxelmap_old[grid_x][grid_y][grid_z] = { 0 };
-bool init_voxelmap[grid_x][grid_y][grid_z] = { 0 };
+unsigned char voxel_map_logodd[grid_x][grid_y][grid_z] = { 0 };
+unsigned char voxel_map_logodd_old[grid_x][grid_y][grid_z] = { 0 };
+bool initial_voxel_map[grid_x][grid_y][grid_z] = { 0 };
+
+// Map shift
+int map_shift[3] = { 0 };	// (0,0,0), once the camera is close to boundary, shift the whole cells
+int mps = 0;				// map shift step
 
 // Loop Status
 bool camera_stream;

@@ -25,7 +25,7 @@ private:
     // string
     std::string ip;
     uint16_t port_num;
-
+    
     // char
 
     // bool

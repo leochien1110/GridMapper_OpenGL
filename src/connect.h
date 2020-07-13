@@ -29,6 +29,7 @@ public:
     void recvdata();
     void sendmap();
     void sendcam();
+    void sendshift();
     int process_sending(void * sendbuf, int SIZE, bool flag);
     int process_receiving(void * recvbuf, int SIZE);
 

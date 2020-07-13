@@ -53,7 +53,7 @@ void Scene::processInput(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	// moving mode
-	float cameraSpeed = 1.0f; // adjust accordingly
+	float cameraSpeed = 1.0f; // camera moving speed
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		cameraPos += cameraSpeed * cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -62,9 +62,23 @@ void Scene::processInput(GLFWwindow *window)
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS){
+		FILE *fp;
+		fp = fopen(map_dir, "w");
+		fprintf(fp, "");
+		for (int k = 0; k < grid_z; k++) {
+			for (int j = 0; j < grid_y; j++) {
+				for (int i = 0; i < grid_x; i++) {
+					fprintf(fp, "%i,", voxel_map_logodd[i][j][k]);
+				}
+			}
+		}
+		printf("m pressed, Map saved!\n");
+	}
+	// Change Texture
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
 		unsigned int diffuseMap = loadTexture("../res/creeper.jpg");
-	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
 		unsigned int diffuseMap = loadTexture("../res/wall.jpg");
 	lightPos = cameraPos + glm::vec3(2.0f, 0.0f, -0.5f);
 }
@@ -222,13 +236,13 @@ void Scene::start()
 void Scene::update()
 {
 	//map = _map;
-	//camera_pose = _camera_pose;
+	//camera_global_pose = _camera_global_pose;
 	//camera_scaled_pose = _camera_scaled_pose;
 	//int map_shift[3] = {0};
 	scene_stream = true;
-	map_shift[0] = camera_pose[9];
-	map_shift[1] = camera_pose[10];
-	map_shift[2] = camera_pose[11];
+	map_shift[0] = camera_global_pose[9];
+	map_shift[1] = camera_global_pose[10];
+	map_shift[2] = camera_global_pose[11];
 	// build and compile shader program
 	Shader lightingShader("../res/texture02.vs", "../res/texture02.fs");
 	Shader planeshader("../res/grid.vs", "../res/grid.fs");
@@ -357,18 +371,18 @@ void Scene::update()
 		if (viewpoint == true) {
 			fov = 75;
 			glm::vec3 front;
-			front.x = -cos(camera_pose[3]) * sin(-camera_pose[4]);
-			front.y = sin(camera_pose[3]);
-			front.z = -cos(camera_pose[3]) * cos(-camera_pose[4]);
+			front.x = -cos(camera_global_pose[3]) * sin(-camera_global_pose[4]);
+			front.y = sin(camera_global_pose[3]);
+			front.z = -cos(camera_global_pose[3]) * cos(-camera_global_pose[4]);
 			cameraFront = glm::normalize(front);
-			cameraPos = glm::vec3(camera_scaled_pose[0] / unit_length_x - map_shift[0]*5,
-				-camera_scaled_pose[1] / unit_length_x + map_shift[1]*5,
-				-camera_scaled_pose[2] / unit_length_x  + map_shift[2]*5 + 0.1);
+			cameraPos = glm::vec3(camera_pixel_pose[0] / unit_length_x - map_shift[0] / block_unit_m,
+				-camera_pixel_pose[1] / unit_length_y + map_shift[1] / block_unit_m,
+				-camera_pixel_pose[2] / unit_length_x + map_shift[2] / block_unit_m + 0.1);
 			cameraPos -= front;
 		}
-
+		
 		//Plane
-		const int gridlines = 202;
+		const int gridlines = 2*grid_x+2;
 		float planeVertices[(gridlines + 2) * 2 * 6];
 		int gridlinecount = 0;
 		for (int k = 0; k < gridlines; k += 2) {
@@ -380,7 +394,7 @@ void Scene::update()
 			planeVertices[6 * k + 4] = 1.0f;
 			planeVertices[6 * k + 5] = 1.0f;
 
-			planeVertices[6 * (k + 1) + 0] = 100.0;
+			planeVertices[6 * (k + 1) + 0] = grid_x;
 			planeVertices[6 * (k + 1) + 1] = -specific_row;
 			planeVertices[6 * (k + 1) + 2] = -0.5*k;
 			planeVertices[6 * (k + 1) + 3] = 1.0f;
@@ -398,7 +412,7 @@ void Scene::update()
 
 			planeVertices[6 * (k + 1) + 0 + 6 * (gridlines)] = 0.5*k;
 			planeVertices[6 * (k + 1) + 1 + 6 * (gridlines)] = -specific_row;
-			planeVertices[6 * (k + 1) + 2 + 6 * (gridlines)] = -100.0;
+			planeVertices[6 * (k + 1) + 2 + 6 * (gridlines)] = -grid_x;
 			planeVertices[6 * (k + 1) + 3 + 6 * (gridlines)] = 1.0f;
 			planeVertices[6 * (k + 1) + 4 + 6 * (gridlines)] = 1.0f;
 			planeVertices[6 * (k + 1) + 5 + 6 * (gridlines)] = 1.0f;	//263
@@ -434,6 +448,7 @@ void Scene::update()
 		planeshader.setMat4("view", view);
 
 		// render floor--------------floor_render();
+		glLineWidth(1.0f);
 		glm::mat4 plane = glm::mat4(1.0f);
 		glBindVertexArray(planeVAO);
 		plane = glm::translate(plane, glm::vec3(- map_shift[0]*5, map_shift[1]*5, map_shift[2]*5));
@@ -442,26 +457,52 @@ void Scene::update()
 		glBindVertexArray(0);
 
 		// render axes-------------axis_render();
+		glLineWidth(5.0f);
 		glm::mat4 axis = glm::mat4(1.0f);
 		glBindVertexArray(axisVAO);
 		planeshader.setMat4("model", axis);
 		glDrawArrays(GL_LINES, 0, 6);
 		glBindVertexArray(0);
 
+		// traj VAO : it has to be close to render part and locked to keep the vector size
+		mutex.lock();
+		unsigned int trajVAO, trajVBO;
+		glGenVertexArrays(1, &trajVAO);
+		glGenBuffers(1, &trajVBO);
+		glBindVertexArray(trajVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, trajVBO);
+		glBufferData(GL_ARRAY_BUFFER, scale_trajectory.size() * sizeof(float), &scale_trajectory[0], GL_DYNAMIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+		glBindVertexArray(0);
+
+		// render traj------------traj_render();
+		glLineWidth(3.0f);
+		glm::mat4 gltraj = glm::mat4(1.0f);
+		glBindVertexArray(trajVAO);
+		planeshader.setMat4("model",gltraj);
+		glDrawArrays(GL_LINE_STRIP,0,scale_trajectory.size()/6);
+		glBindVertexArray(0);
+		mutex.unlock();
+		
+
 		// render fov-------------fov_render();
+		glLineWidth(2.0f);
 		glm::mat4 glfov = glm::mat4(1.0f);
 		glBindVertexArray(fovVAO);
 		glfov = glm::translate(glfov, glm::vec3(camera_scaled_pose[0] / unit_length_x - map_shift[0]*5, 
 			-camera_scaled_pose[1]/ unit_length_x  + map_shift[1]*5, -camera_scaled_pose[2] / unit_length_x + map_shift[2]*5));
 		//312
-		glfov = glm::rotate(glfov, camera_pose[4], glm::vec3(0, -1, 0));	//2
-		glfov = glm::rotate(glfov, camera_pose[5], glm::vec3(0, 0, -1));	//3
-		glfov = glm::rotate(glfov, camera_pose[3], glm::vec3(1, 0, 0));	//1
+		glfov = glm::rotate(glfov, camera_global_pose[4], glm::vec3(0, -1, 0));	//2
+		glfov = glm::rotate(glfov, camera_global_pose[5], glm::vec3(0, 0, -1));	//3
+		glfov = glm::rotate(glfov, camera_global_pose[3], glm::vec3(1, 0, 0));	//1
 
 		planeshader.setMat4("model", glfov);
 		glDrawArrays(GL_LINES, 0, 16);
 		glBindVertexArray(0);
-
+		
 		// activate shader for textured boxes
 		// be sure to activate shader when setting uniforms/drawing objects
 		// shader configuration
@@ -488,8 +529,8 @@ void Scene::update()
 		for (int j = 0; j < grid_y; j++) {
 			for (int k = 0; k < grid_z; k++) {
 				for (int i = 0; i < grid_x; i++) {
-					if (voxelmap[i][j][k] != 127) {
-						if (voxelmap[i][j][k] >= 180) {
+					if (voxel_map_logodd[i][j][k] != 127) {
+						if (voxel_map_logodd[i][j][k] >= 180) {
 
 							// calculate the model matrix for each object and pass it to shader bedore drawing
 							glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first

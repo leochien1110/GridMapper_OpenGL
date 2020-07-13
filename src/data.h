@@ -12,6 +12,8 @@
 #define grid_y 30
 #define grid_z 100
 
+extern const char * map_dir;
+
 struct float4 {
 	float w, x, y, z;
 	float4 operator*(float t);
@@ -47,15 +49,19 @@ extern unsigned int unit_length_x;
 extern unsigned int unit_length_y;
 extern unsigned int unit_length_z;
 extern unsigned int specific_row;
-
+extern const float mapscale_x;
+extern const float mapscale_y;
+extern const float mapscale_z;
 //-----------------
 // Camera Parameter
 //-----------------
 // Camera Pose (meter)
 extern float max_distance;
+extern float min_distance;
 // X,Y,Z,phi,theta,psi,x,y,z,shift(x,y,z)
-extern float camera_pose[12]; 
+extern float camera_global_pose[12]; 
 extern float init_camera_global_pos[3];
+extern float camera_pixel_pose[3];
 extern float camera_scaled_pose[3];
 extern float specific_point[3]; //for FOV
 extern float inv_C[3][3];
@@ -82,10 +88,20 @@ extern float f1[3];
 extern float3 pc_vertices[1000000];
 extern int points_size;
 
+// Trajectory
+extern float3 traj;
+extern float3 traj_color;
+extern std::vector<float> scale_trajectory;
+extern std::vector<float> trajectory;
+extern uint64_t time_stmp;
+
 // Voxel Map Data array
-extern unsigned char voxelmap[grid_x][grid_y][grid_z];
-extern unsigned char voxelmap_old[grid_x][grid_y][grid_z];
-extern bool init_voxelmap[grid_x][grid_y][grid_z];
+extern unsigned char voxel_map_logodd[grid_x][grid_y][grid_z];
+extern unsigned char voxel_map_logodd_old[grid_x][grid_y][grid_z];
+extern bool initial_voxel_map[grid_x][grid_y][grid_z];
+
+extern int map_shift[3];
+extern int mps;
 
 // Loop Status
 extern bool camera_stream;
