@@ -7,8 +7,8 @@ glm::vec3 Scene::cameraFront = glm::vec3(0.0f, -0.5f, -1.0f);
 bool Scene::firstMouse = true;
 float Scene::yaw = -90.0f; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 float Scene::pitch = -30.0f;
-float Scene::lastX = 800.0f / 2.0;
-float Scene::lastY = 600.0 / 2.0;
+float Scene::lastX = SCR_WIDTH / 2.0;
+float Scene::lastY = SCR_HEIGHT / 2.0;
 float Scene::fov = 45.0f;
 bool Scene::rotation_started = false;
 bool Scene::viewpoint = true;
@@ -76,19 +76,31 @@ void Scene::processInput(GLFWwindow *window)
 		printf("m pressed, Map saved!\n");
 	}
 	// Change Texture
-	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
-		unsigned int diffuseMap = loadTexture("../res/creeper.jpg");
-	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
-		unsigned int diffuseMap = loadTexture("../res/wall.jpg");
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS){
+		texture_index = 0;
+	}
+	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS){
+		texture_index = 1;
+	}
 	lightPos = cameraPos + glm::vec3(2.0f, 0.0f, -0.5f);
 }
 
 void Scene::mouse_button_callback(GLFWwindow * window, int button, int action, int mode)
 {
+#ifdef GUI
+	ImGuiIO &io = ImGui::GetIO();
+    (void)io;
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS && !io.WantCaptureMouse) {
+		//std::cout << "Left Key Pressed!" << std::endl;
+		rotation_started = true;
+	}
+#else
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 		//std::cout << "Left Key Pressed!" << std::endl;
 		rotation_started = true;
 	}
+#endif //GUI
+
 	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
 		//std::cout << "Right Key Pressed!" << std::endl;
 		//move viewpoint to realsense position
@@ -97,8 +109,8 @@ void Scene::mouse_button_callback(GLFWwindow * window, int button, int action, i
 		}
 		else if (viewpoint == true) {
 			viewpoint = false;
-			cameraPos = glm::vec3(0.0f, -5.0f, 10.0f);
-			fov = 45;
+			cameraPos = cameraPos + glm::vec3(0.0f, 0.0f, 2.0f);
+			fov = 60;
 		}
 	}
 	else if (button == GLFW_RELEASE) {
@@ -142,8 +154,6 @@ void Scene::mouse_position_callback(GLFWwindow * window, double xpos, double ypo
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	cameraFront = glm::normalize(front);
-
-
 }
 
 void Scene::scroll_callback(GLFWwindow * window, double xoffset, double yoffset)
@@ -275,9 +285,32 @@ void Scene::update()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
+	// Dear Imgui
+#ifdef GUI
+	clear_color = ImVec4(0.1f, 0.1f, 0.1f, 1.00f);
+	const char* glsl_version = "#version 130";
+	// Setup Dear ImGui context
+	ImGui::CreateContext();
+    
+    ImGui::StyleColorsDark();
+
+	 // Setup Platform/Renderer bindings
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
+
+	show_2d_map = true;
+    show_demo_window = true;
+	show_another_window = false;
+	//ImVec4 clear_color = ImVec4(0.3f, 0.5f, 0.60f, 1.00f);
+	
+ 	window_size_2d = ImVec2(500,500); //2d map size
+#endif //GUI
+	
 	// load textures (we now use a utility function to keep the code more organized)
 	// -----------------------------------------------------------------------------
-	unsigned int diffuseMap = loadTexture("../res/wall.jpg");
+	//Texture
+	unsigned int wallTexture = loadTexture("../res/wall_b.jpg");			//index = 0
+	unsigned int creeperTexture  = loadTexture("../res/creeper.jpg");	//index = 1
 
 	// -----
 	// Plane
@@ -367,6 +400,92 @@ void Scene::update()
 	{
 		processInput(window);	//mouse and keyboard input
 
+		// OpenCV 2D Map
+		//--------------
+		Mat grid2dmap(v_x, v_z, CV_8UC3, Scalar(255, 255, 255));	//xz
+		// Draw grid
+		for (int i = 1; i < grid_z; i++) {
+			line(grid2dmap, Point(i * unit_length_x, 0), Point(i * unit_length_x, v_x), Scalar(0, 0, 0), 1);
+		}
+		for (int i = 1; i < grid_x; i++) {
+			line(grid2dmap, Point(0, i * unit_length_z), Point(v_z, i * unit_length_z), Scalar(0, 0, 0), 1);
+		}
+
+		for (int k = 0; k < grid_z; k++) {
+			for (int i = 0; i < grid_x; i++) {
+				//std::cout << left;
+				//std::cout << setprecision(3) << std::setw(5) << voxel_map_logodd[i][specific_row][k];		//show log_odd map in cmd window
+				if (voxel_map_logodd[i][specific_row][k] != 127) {
+					rectangle(grid2dmap, Point(i * unit_length_x, k * unit_length_z), Point((i + 1) * unit_length_x, (k + 1) * unit_length_z),
+						Scalar(voxel_map_logodd[i][specific_row][k], 255 - voxel_map_logodd[i][specific_row][k], 255 - voxel_map_logodd[i][specific_row][k]), -1);	//BGR
+					//new statement
+					//initial_voxel_map[i][specific_row][k] = 0;					
+				}
+				//std::cout << omp_get_num_threads() << std::endl;
+			}
+			//std::cout << std::endl;
+		}
+
+		/* Roatation */
+		// Rotation matrix & Inverse rotation matrix
+		float determinant = 0;
+		float C[3][3] = { {cos(camera_global_pose[4])*cos(camera_global_pose[5]), cos(camera_global_pose[4])*sin(camera_global_pose[5]), -sin(camera_global_pose[4])},
+		{(-cos(camera_global_pose[3])*sin(camera_global_pose[5]) + sin(camera_global_pose[3])*sin(camera_global_pose[4])*cos(camera_global_pose[5])), cos(camera_global_pose[3])*cos(camera_global_pose[5]) + sin(camera_global_pose[3])*sin(camera_global_pose[4])*sin(camera_global_pose[5]), sin(camera_global_pose[3])*cos(camera_global_pose[4])},
+		{sin(camera_global_pose[3])*sin(camera_global_pose[5]) + cos(camera_global_pose[3])*sin(camera_global_pose[4])*cos(camera_global_pose[5]), (-sin(camera_global_pose[3])*cos(camera_global_pose[5]) + cos(camera_global_pose[3])*sin(camera_global_pose[4])*sin(camera_global_pose[5])), cos(camera_global_pose[3])*cos(camera_global_pose[4])} };
+
+		// Inverse Rotation matrix
+		float inv_C[3][3];
+		for (int i = 0; i < 3; i++)
+			determinant = determinant + (C[0][i] * (C[1][(i + 1) % 3] * C[2][(i + 2) % 3] - C[1][(i + 2) % 3] * C[2][(i + 1) % 3]));
+		for (int mi = 0; mi < 3; mi++) {
+			for (int mj = 0; mj < 3; mj++)
+				inv_C[mi][mj] = ((C[(mj + 1) % 3][(mi + 1) % 3] * C[(mj + 2) % 3][(mi + 2) % 3]) - (C[(mj + 1) % 3][(mi + 2) % 3] * C[(mj + 2) % 3][(mi + 1) % 3])) / determinant;
+		}
+
+		//Right(+-+)
+		f1R[0] = f1[0];
+		f1R[1] = -f1[1];
+		f1R[2] = f1[2];
+		//Left(--+)
+		f1L[0] = -f1[0];
+		f1L[1] = -f1[1];
+		f1L[2] = f1[2];
+
+		// FOV conversion
+		float f1L[3], f1R[3], f2L[3], f2R[3];
+		float f1Rc[3] = { 0,0,0 };
+		float f1Lc[3] = { 0,0,0 };
+		float f2Rc[3] = { 0,0,0 };
+		float f2Lc[3] = { 0,0,0 };
+
+		//f1' = Cc/c' * f1
+		for (int l = 0; l < 3; l++) {
+			for (int m = 0; m < 3; m++) {
+				f1Rc[l] += inv_C[l][m] * f1R[m];
+				f1Lc[l] += inv_C[l][m] * f1L[m];
+			}
+		}
+
+		for (int i = 0; i < 3; i++) {
+			f1Rc[i] += camera_scaled_pose[i];
+			f1Lc[i] += camera_scaled_pose[i];
+		}
+
+		/* Draw the FOV(x-z plane) */
+
+		Point FOV_R(f1Rc[0], f1Rc[2]);	//12m is the max range
+		Point FOV_L(f1Lc[0], f1Lc[2]);	//12m is the max range
+
+		line(grid2dmap, Point(camera_scaled_pose[0], camera_scaled_pose[2]), FOV_R, Scalar(0, 255, 0), 2);
+		line(grid2dmap, Point(camera_scaled_pose[0], camera_scaled_pose[2]), FOV_L, Scalar(0, 0, 255), 2);
+		circle(grid2dmap, Point(camera_scaled_pose[0], camera_scaled_pose[2]), 3, Scalar(0, 0, 0), 2);
+		// Create OpenCV matrix of size (w,h) from the colorized depth data
+
+		//flip img
+		flip(grid2dmap, grid2dmap, 0);
+
+		// OpenGL 3D Map
+		//--------------
 		//opengl camera view
 		if (viewpoint == true) {
 			fov = 75;
@@ -524,6 +643,16 @@ void Scene::update()
 		lightingShader.setMat4("projection", projection);
 		lightingShader.setMat4("view", view);
 
+		// setup texture index
+		if(texture_index == 0){
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, wallTexture);
+		}
+		else if(texture_index == 1){
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, creeperTexture);
+		}
+
 		// render boxes
 		glBindVertexArray(cubeVAO);
 		for (int j = 0; j < grid_y; j++) {
@@ -547,12 +676,94 @@ void Scene::update()
 		}
 
 		glBindVertexArray(0);
+
+#ifdef GUI
+		ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		unsigned int texture_2d = matToTexture(grid2dmap,GL_LINEAR,GL_LINEAR,GL_CLAMP_TO_EDGE);
+		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+        //if (show_demo_window)
+        //   ImGui::ShowDemoWindow(&show_demo_window);
+		// 1. Show Connect Infomation
+//#ifndef READFILE
+		{
+			ImGui::Begin("Connect Info");
+			ImGui::Text("Connection		");	ImGui::SameLine();
+			if (connect_stream)
+				ImGui::TextColored(ImVec4(0.f, 1.f, 0.24f, 1.f), "Connected");
+			else
+				ImGui::TextColored(ImVec4(1.f, 0.f, 0.f, 1.f), "Disconnected");
+			
+			ImGui::Text("CAMERA STATE	  ");	ImGui::SameLine();
+			if (camera_stream)
+				ImGui::TextColored(ImVec4(0.f, 1.f, 0.24f, 1.f), "Connected");
+			else
+				ImGui::TextColored(ImVec4(1.f, 0.f, 0.f, 1.f), "Disconnected");
+			
+			ImGui::Text("Mapper	 	   ");	ImGui::SameLine();
+			if (mapper_status)
+				ImGui::TextColored(ImVec4(0.f, 1.f, 0.24f, 1.f), "Connected");
+			else
+				ImGui::TextColored(ImVec4(1.f, 0.f, 0.f, 1.f), "Disconnected");
+			ImGui::End();
+		}
+		
+        // 2. Show Map Infomation
+        {
+            static float f = 0.0f;
+            static int counter = 0;
+			
+            ImGui::Begin("Map Info");                          // Create a window called "Hello, world!" and append into it.
+			ImGui::Text("Refresh rate: average %.2f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			ImGui::Checkbox("2D Map", &show_2d_map);
+			if(show_2d_map){
+				ImGui::Text("2D Map Size (%i, %i)", (int)window_size_2d.x, (int)window_size_2d.y);
+				ImGui::SliderInt("Layer",&specific_row,0,grid_y);
+				ImGui::Image((void*)(intptr_t)texture_2d, window_size_2d);
+			}
+            ImGui::Text("This is some useless text.");               // Display some text (you can use a format strings too)
+            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+            ImGui::Checkbox("Another Window", &show_another_window);
+            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+            if (ImGui::Button("Click me plz~"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+                counter++;
+            ImGui::SameLine();
+            ImGui::Text("counter = %d", counter);
+
+            ImGui::End();
+        }
+		
+        // 3. Show another simple window.
+        if (show_another_window)
+        {
+            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+            ImGui::Text("Hello from another window!");
+            if (ImGui::Button("Close Me"))
+                show_another_window = false;
+            ImGui::End();
+        }
+		
+		ImGui::Render();
+        int display_w, display_h;
+        glfwGetFramebufferSize(window, &display_w, &display_h);
+        //glViewport(0, 0, display_w, display_h);
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		glDeleteTextures(1, &texture_2d);
+#endif //GUI
+
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 	scene_stream = false;
+#ifdef GUI
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+#endif
 }
 
 void Scene::stop()
@@ -627,4 +838,65 @@ unsigned int Scene::loadTexture(char const * path)
 	}
 
 	return textureID;
+}
+
+//Mat to GL texture
+unsigned int Scene::matToTexture(cv::Mat &mat, GLenum minFilter, GLenum magFilter, GLenum wrapFilter)
+{
+    // Generate a number for our textureID's unique handle
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+
+    // Bind to our texture handle
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    // Catch silly-mistake texture interpolation method for magnification
+    if (magFilter == GL_LINEAR_MIPMAP_LINEAR ||
+        magFilter == GL_LINEAR_MIPMAP_NEAREST ||
+        magFilter == GL_NEAREST_MIPMAP_LINEAR ||
+        magFilter == GL_NEAREST_MIPMAP_NEAREST)
+    {
+        cout << "You can't use MIPMAPs for magnification - setting filter to GL_LINEAR" << endl;
+        magFilter = GL_LINEAR;
+    }
+
+    // Set texture interpolation methods for minification and magnification
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
+
+    // Set texture clamping method
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapFilter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapFilter);
+
+    // Set incoming texture format to:
+    // GL_BGR       for CV_CAP_OPENNI_BGR_IMAGE,
+    // GL_LUMINANCE for CV_CAP_OPENNI_DISPARITY_MAP,
+    // Work out other mappings as required ( there's a list in comments in main() )
+    GLenum inputColourFormat = GL_BGR;
+    if (mat.channels() == 1)
+    {
+        inputColourFormat = GL_RG;
+    }
+
+    // Create the texture
+    glTexImage2D(GL_TEXTURE_2D,     // Type of texture
+        0,                 // Pyramid level (for mip-mapping) - 0 is the top level
+        GL_RGB,            // Internal colour format to convert to
+        mat.cols,          // Image width  i.e. 640 for Kinect in standard mode
+        mat.rows,          // Image height i.e. 480 for Kinect in standard mode
+        0,                 // Border width in pixels (can either be 1 or 0)
+        inputColourFormat, // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
+        GL_UNSIGNED_BYTE,  // Image data type
+        mat.ptr());        // The actual image data itself
+
+    // If we're using mipmaps then generate them. Note: This requires OpenGL 3.0 or higher
+    if (minFilter == GL_LINEAR_MIPMAP_LINEAR ||
+        minFilter == GL_LINEAR_MIPMAP_NEAREST ||
+        minFilter == GL_NEAREST_MIPMAP_LINEAR ||
+        minFilter == GL_NEAREST_MIPMAP_NEAREST)
+    {
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+	glBindTexture(GL_TEXTURE_2D, 0);
+    return textureID;
 }

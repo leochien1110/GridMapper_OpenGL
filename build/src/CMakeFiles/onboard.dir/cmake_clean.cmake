@@ -7,6 +7,12 @@ file(REMOVE_RECURSE
   "CMakeFiles/onboard.dir/glad.c.o"
   "CMakeFiles/onboard.dir/scene.cpp.o"
   "CMakeFiles/onboard.dir/data.cpp.o"
+  "CMakeFiles/onboard.dir/imgui/imgui.cpp.o"
+  "CMakeFiles/onboard.dir/imgui/imgui_draw.cpp.o"
+  "CMakeFiles/onboard.dir/imgui/imgui_demo.cpp.o"
+  "CMakeFiles/onboard.dir/imgui/imgui_widgets.cpp.o"
+  "CMakeFiles/onboard.dir/imgui/imgui_impl_opengl3.cpp.o"
+  "CMakeFiles/onboard.dir/imgui/imgui_impl_glfw.cpp.o"
   "onboard.pdb"
   "onboard"
 )

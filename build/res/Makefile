@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/git/mapper_px4
+CMAKE_SOURCE_DIR = /home/leo/git/darpa_gnc/mapper
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/git/mapper_px4/build
+CMAKE_BINARY_DIR = /home/leo/git/darpa_gnc/mapper/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/leo/git/mapper_px4/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/mapper_px4/build/CMakeFiles /home/leo/git/mapper_px4/build/res/CMakeFiles/progress.marks
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 res/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/mapper_px4/build/CMakeFiles 0
+	cd /home/leo/git/darpa_gnc/mapper/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/darpa_gnc/mapper/build/CMakeFiles /home/leo/git/darpa_gnc/mapper/build/res/CMakeFiles/progress.marks
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 res/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/darpa_gnc/mapper/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 res/clean
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 res/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,17 +97,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 res/preinstall
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 res/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 res/preinstall
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 res/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/leo/git/mapper_px4/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/leo/git/darpa_gnc/mapper/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -129,6 +129,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/leo/git/mapper_px4/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/leo/git/darpa_gnc/mapper/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

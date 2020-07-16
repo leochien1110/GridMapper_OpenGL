@@ -12,6 +12,7 @@
 #include <time.h>
 #include <thread>
 #include <mutex>
+#include <unistd.h> //usleep
 #include "data.h"   //strcut float3 & float4
 
 using namespace std::chrono;

@@ -83,7 +83,7 @@ void RS_Camera::init()
 			pipe.start(cfg);
 			pipelines.emplace_back(pipe);
 		}
-		sleep(1);	// wait 1 sec to setup next device
+		usleep(1000);    // wait 1 sec to setup next device
 	}
 
 
@@ -126,6 +126,9 @@ void RS_Camera::stream()
                 << " " << std::endl;
             savelog();
         }
+        pipelines[0].stop();
+	    pipelines[1].stop();
+        printf("RealSense pipelines stopped!\n");
     }
 }
 
@@ -268,7 +271,7 @@ void RS_Camera::get_rotate_matrix()
 
 void RS_Camera::stop()
 {
-    std::cout << "Stop RS_Camera Streaming" << std::endl;
+    std::cout << "Stopping RS_Camera Streaming" << std::endl;
     camera_stream = false;
     if(streamThread.joinable()){
         streamThread.join();

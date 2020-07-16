@@ -18,7 +18,7 @@ stdint.h
 KHR/khrplatform.h
 -
 
-/home/leo/git/mapper_px4/src/glad.c
+/home/leo/git/darpa_gnc/mapper/src/glad.c
 stdio.h
 -
 stdlib.h

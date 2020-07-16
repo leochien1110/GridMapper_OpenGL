@@ -1,4 +1,3 @@
-# mapper_px4
 #
 sudo apt-get update && sudo apt-get upgrade && sudo apt-get install build-essential
 sudo apt-get install cmake
@@ -27,8 +26,6 @@ cd ..
 cd opencv
 mkdir build && cd build
 
-cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
-
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=$cwd/installation/OpenCV-3.4 \
       -D INSTALL_C_EXAMPLES=ON \
@@ -40,6 +37,11 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D WITH_OPENGL=ON \
       -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
       -D BUILD_EXAMPLES=ON ..
+
+make -j8 # runs 7 jobs in parallel
+sudo make install
+
+export OpenCV_DIR=~/git/opencv/build	# or change to where you install /opencv/build
 
 # RealSense
 sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
@@ -58,4 +60,21 @@ echo 'hid_sensor_custom' | sudo tee -a /etc/modules
 mkdir build && cd build
 cmake ../ -DBUILD_EXAMPLES=true -DBUILD_CV_EXAMPLES=true
 sudo make uninstall && make clean && make -j8 && sudo make install
+
+# Mapper
+sudo apt-get install libncurses5-dev
+
+cd mapper
+mkdir build && cd build
+cmake ..
+make
+
+# run code
+cd src/
+
+# mapper:
+./onboard "Type your ip address"
+
+# ground station
+./read_voxel
 

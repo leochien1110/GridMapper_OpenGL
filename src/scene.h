@@ -9,9 +9,22 @@
 #include <iostream> 
 #include <thread>
 #include <mutex>
+
+#include <opencv2/opencv.hpp>   // Include OpenCV API
+
+//imgui
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
+
 #include "stb_image.h"
 #include "shader_m.h"
 #include "data.h"
+
+#define GUI
+
+using namespace cv;
+using namespace std;
 
 class Scene
 {
@@ -27,6 +40,7 @@ public:
         unsigned int AttribSize2, unsigned int Stride, unsigned int VertexOffset);
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     unsigned int loadTexture(char const * path);
+    unsigned int matToTexture(cv::Mat &mat, GLenum minFilter, GLenum magFilter, GLenum wrapFilter);
     void start();
     void update();
     void stop();
@@ -40,8 +54,8 @@ public:
     void mouseLeftDragEvent(GLFWwindow * window, double xpos, double ypos);
 
     // Window settings
-    const unsigned int SCR_WIDTH = 800;
-    const unsigned int SCR_HEIGHT = 600;
+    static const unsigned int SCR_WIDTH = 1600;
+    static const unsigned int SCR_HEIGHT = 900;
 
     // Camera movement
     static glm::vec3 cameraPos;
@@ -56,11 +70,25 @@ public:
 
     // Save map
 
+    // ImGUI
+    bool show_2d_map;
+    bool show_demo_window;
+    bool show_another_window;
+    ImVec2 window_size_2d;
+    ImVec4 clear_color;
 
 private:
     int specific_row = 15;
     int map_shift[3] = {0};
-    
+    // texture index for different texture
+    unsigned int texture_index = 0;
+
+    // 2D map parameters
+    float f1L[3], f1R[3], f2L[3], f2R[3];
+    const int v_x = LENGTH * mapscale_x;	//1500
+    const int v_y = HEIGHT * mapscale_y;	//900
+    const int v_z = WIDTH * mapscale_z;	//1500
+
     // Streaming
     std::thread streamThread;
     bool scene_stream = false;

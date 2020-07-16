@@ -50,23 +50,28 @@ endif()
 link_directories(../thirdparty/lib)
 
 # The main program
-add_executable(onboard main.cpp
-                       onboard.h
-                       onboard.cpp
-                       rs_camera.h
-                       rs_camera.cpp
-                       mapper.h
-                       mapper.cpp
-                       connect.h
-                       connect.cpp
-                       stb_image.h 
-                       shader_m.h 
-                       glad.c 
-                       scene.h
-                       scene.cpp
-                       data.h
-                       data.cpp
-                       )
+  add_executable(onboard main.cpp
+                        onboard.h
+                        onboard.cpp
+                        rs_camera.h
+                        rs_camera.cpp
+                        mapper.h
+                        mapper.cpp
+                        connect.h
+                        connect.cpp
+                        stb_image.h 
+                        shader_m.h 
+                        glad.c 
+                        scene.h
+                        scene.cpp
+                        data.h
+                        data.cpp
+                        imgui/imgui.cpp 
+                        imgui/imgui_draw.cpp 
+                        imgui/imgui_demo.cpp
+                        imgui/imgui_widgets.cpp 
+                        imgui/imgui_impl_opengl3.cpp 
+                        imgui/imgui_impl_glfw.cpp)
 
 target_link_libraries(onboard PRIVATE thirdparty
                       pthread

@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/git/mapper_px4
+CMAKE_SOURCE_DIR = /home/leo/git/darpa_gnc/mapper
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/git/mapper_px4/build
+CMAKE_BINARY_DIR = /home/leo/git/darpa_gnc/mapper/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/leo/git/mapper_px4/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/mapper_px4/build/CMakeFiles /home/leo/git/mapper_px4/build/src/CMakeFiles/progress.marks
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/mapper_px4/build/CMakeFiles 0
+	cd /home/leo/git/darpa_gnc/mapper/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/darpa_gnc/mapper/build/CMakeFiles /home/leo/git/darpa_gnc/mapper/build/src/CMakeFiles/progress.marks
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/darpa_gnc/mapper/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/leo/git/mapper_px4/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/leo/git/darpa_gnc/mapper/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/onboard.dir/rule:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/onboard.dir/rule
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/onboard.dir/rule
 .PHONY : src/CMakeFiles/onboard.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ onboard: src/CMakeFiles/onboard.dir/rule
 
 # fast build rule for target.
 onboard/fast:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/build
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/build
 .PHONY : onboard/fast
 
 connect.o: connect.cpp.o
@@ -131,7 +131,7 @@ connect.o: connect.cpp.o
 
 # target to build an object file
 connect.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.o
 .PHONY : connect.cpp.o
 
 connect.i: connect.cpp.i
@@ -140,7 +140,7 @@ connect.i: connect.cpp.i
 
 # target to preprocess a source file
 connect.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.i
 .PHONY : connect.cpp.i
 
 connect.s: connect.cpp.s
@@ -149,7 +149,7 @@ connect.s: connect.cpp.s
 
 # target to generate assembly for a file
 connect.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/connect.cpp.s
 .PHONY : connect.cpp.s
 
 data.o: data.cpp.o
@@ -158,7 +158,7 @@ data.o: data.cpp.o
 
 # target to build an object file
 data.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.o
 .PHONY : data.cpp.o
 
 data.i: data.cpp.i
@@ -167,7 +167,7 @@ data.i: data.cpp.i
 
 # target to preprocess a source file
 data.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.i
 .PHONY : data.cpp.i
 
 data.s: data.cpp.s
@@ -176,7 +176,7 @@ data.s: data.cpp.s
 
 # target to generate assembly for a file
 data.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/data.cpp.s
 .PHONY : data.cpp.s
 
 glad.o: glad.c.o
@@ -185,7 +185,7 @@ glad.o: glad.c.o
 
 # target to build an object file
 glad.c.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.o
 .PHONY : glad.c.o
 
 glad.i: glad.c.i
@@ -194,7 +194,7 @@ glad.i: glad.c.i
 
 # target to preprocess a source file
 glad.c.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.i
 .PHONY : glad.c.i
 
 glad.s: glad.c.s
@@ -203,8 +203,170 @@ glad.s: glad.c.s
 
 # target to generate assembly for a file
 glad.c.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/glad.c.s
 .PHONY : glad.c.s
+
+imgui/imgui.o: imgui/imgui.cpp.o
+
+.PHONY : imgui/imgui.o
+
+# target to build an object file
+imgui/imgui.cpp.o:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui.cpp.o
+.PHONY : imgui/imgui.cpp.o
+
+imgui/imgui.i: imgui/imgui.cpp.i
+
+.PHONY : imgui/imgui.i
+
+# target to preprocess a source file
+imgui/imgui.cpp.i:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui.cpp.i
+.PHONY : imgui/imgui.cpp.i
+
+imgui/imgui.s: imgui/imgui.cpp.s
+
+.PHONY : imgui/imgui.s
+
+# target to generate assembly for a file
+imgui/imgui.cpp.s:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui.cpp.s
+.PHONY : imgui/imgui.cpp.s
+
+imgui/imgui_demo.o: imgui/imgui_demo.cpp.o
+
+.PHONY : imgui/imgui_demo.o
+
+# target to build an object file
+imgui/imgui_demo.cpp.o:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_demo.cpp.o
+.PHONY : imgui/imgui_demo.cpp.o
+
+imgui/imgui_demo.i: imgui/imgui_demo.cpp.i
+
+.PHONY : imgui/imgui_demo.i
+
+# target to preprocess a source file
+imgui/imgui_demo.cpp.i:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_demo.cpp.i
+.PHONY : imgui/imgui_demo.cpp.i
+
+imgui/imgui_demo.s: imgui/imgui_demo.cpp.s
+
+.PHONY : imgui/imgui_demo.s
+
+# target to generate assembly for a file
+imgui/imgui_demo.cpp.s:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_demo.cpp.s
+.PHONY : imgui/imgui_demo.cpp.s
+
+imgui/imgui_draw.o: imgui/imgui_draw.cpp.o
+
+.PHONY : imgui/imgui_draw.o
+
+# target to build an object file
+imgui/imgui_draw.cpp.o:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_draw.cpp.o
+.PHONY : imgui/imgui_draw.cpp.o
+
+imgui/imgui_draw.i: imgui/imgui_draw.cpp.i
+
+.PHONY : imgui/imgui_draw.i
+
+# target to preprocess a source file
+imgui/imgui_draw.cpp.i:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_draw.cpp.i
+.PHONY : imgui/imgui_draw.cpp.i
+
+imgui/imgui_draw.s: imgui/imgui_draw.cpp.s
+
+.PHONY : imgui/imgui_draw.s
+
+# target to generate assembly for a file
+imgui/imgui_draw.cpp.s:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_draw.cpp.s
+.PHONY : imgui/imgui_draw.cpp.s
+
+imgui/imgui_impl_glfw.o: imgui/imgui_impl_glfw.cpp.o
+
+.PHONY : imgui/imgui_impl_glfw.o
+
+# target to build an object file
+imgui/imgui_impl_glfw.cpp.o:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_impl_glfw.cpp.o
+.PHONY : imgui/imgui_impl_glfw.cpp.o
+
+imgui/imgui_impl_glfw.i: imgui/imgui_impl_glfw.cpp.i
+
+.PHONY : imgui/imgui_impl_glfw.i
+
+# target to preprocess a source file
+imgui/imgui_impl_glfw.cpp.i:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_impl_glfw.cpp.i
+.PHONY : imgui/imgui_impl_glfw.cpp.i
+
+imgui/imgui_impl_glfw.s: imgui/imgui_impl_glfw.cpp.s
+
+.PHONY : imgui/imgui_impl_glfw.s
+
+# target to generate assembly for a file
+imgui/imgui_impl_glfw.cpp.s:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_impl_glfw.cpp.s
+.PHONY : imgui/imgui_impl_glfw.cpp.s
+
+imgui/imgui_impl_opengl3.o: imgui/imgui_impl_opengl3.cpp.o
+
+.PHONY : imgui/imgui_impl_opengl3.o
+
+# target to build an object file
+imgui/imgui_impl_opengl3.cpp.o:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_impl_opengl3.cpp.o
+.PHONY : imgui/imgui_impl_opengl3.cpp.o
+
+imgui/imgui_impl_opengl3.i: imgui/imgui_impl_opengl3.cpp.i
+
+.PHONY : imgui/imgui_impl_opengl3.i
+
+# target to preprocess a source file
+imgui/imgui_impl_opengl3.cpp.i:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_impl_opengl3.cpp.i
+.PHONY : imgui/imgui_impl_opengl3.cpp.i
+
+imgui/imgui_impl_opengl3.s: imgui/imgui_impl_opengl3.cpp.s
+
+.PHONY : imgui/imgui_impl_opengl3.s
+
+# target to generate assembly for a file
+imgui/imgui_impl_opengl3.cpp.s:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_impl_opengl3.cpp.s
+.PHONY : imgui/imgui_impl_opengl3.cpp.s
+
+imgui/imgui_widgets.o: imgui/imgui_widgets.cpp.o
+
+.PHONY : imgui/imgui_widgets.o
+
+# target to build an object file
+imgui/imgui_widgets.cpp.o:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_widgets.cpp.o
+.PHONY : imgui/imgui_widgets.cpp.o
+
+imgui/imgui_widgets.i: imgui/imgui_widgets.cpp.i
+
+.PHONY : imgui/imgui_widgets.i
+
+# target to preprocess a source file
+imgui/imgui_widgets.cpp.i:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_widgets.cpp.i
+.PHONY : imgui/imgui_widgets.cpp.i
+
+imgui/imgui_widgets.s: imgui/imgui_widgets.cpp.s
+
+.PHONY : imgui/imgui_widgets.s
+
+# target to generate assembly for a file
+imgui/imgui_widgets.cpp.s:
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/imgui/imgui_widgets.cpp.s
+.PHONY : imgui/imgui_widgets.cpp.s
 
 main.o: main.cpp.o
 
@@ -212,7 +374,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -221,7 +383,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -230,7 +392,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 mapper.o: mapper.cpp.o
@@ -239,7 +401,7 @@ mapper.o: mapper.cpp.o
 
 # target to build an object file
 mapper.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.o
 .PHONY : mapper.cpp.o
 
 mapper.i: mapper.cpp.i
@@ -248,7 +410,7 @@ mapper.i: mapper.cpp.i
 
 # target to preprocess a source file
 mapper.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.i
 .PHONY : mapper.cpp.i
 
 mapper.s: mapper.cpp.s
@@ -257,7 +419,7 @@ mapper.s: mapper.cpp.s
 
 # target to generate assembly for a file
 mapper.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/mapper.cpp.s
 .PHONY : mapper.cpp.s
 
 onboard.o: onboard.cpp.o
@@ -266,7 +428,7 @@ onboard.o: onboard.cpp.o
 
 # target to build an object file
 onboard.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/onboard.cpp.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/onboard.cpp.o
 .PHONY : onboard.cpp.o
 
 onboard.i: onboard.cpp.i
@@ -275,7 +437,7 @@ onboard.i: onboard.cpp.i
 
 # target to preprocess a source file
 onboard.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/onboard.cpp.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/onboard.cpp.i
 .PHONY : onboard.cpp.i
 
 onboard.s: onboard.cpp.s
@@ -284,7 +446,7 @@ onboard.s: onboard.cpp.s
 
 # target to generate assembly for a file
 onboard.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/onboard.cpp.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/onboard.cpp.s
 .PHONY : onboard.cpp.s
 
 rs_camera.o: rs_camera.cpp.o
@@ -293,7 +455,7 @@ rs_camera.o: rs_camera.cpp.o
 
 # target to build an object file
 rs_camera.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.o
 .PHONY : rs_camera.cpp.o
 
 rs_camera.i: rs_camera.cpp.i
@@ -302,7 +464,7 @@ rs_camera.i: rs_camera.cpp.i
 
 # target to preprocess a source file
 rs_camera.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.i
 .PHONY : rs_camera.cpp.i
 
 rs_camera.s: rs_camera.cpp.s
@@ -311,7 +473,7 @@ rs_camera.s: rs_camera.cpp.s
 
 # target to generate assembly for a file
 rs_camera.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/rs_camera.cpp.s
 .PHONY : rs_camera.cpp.s
 
 scene.o: scene.cpp.o
@@ -320,7 +482,7 @@ scene.o: scene.cpp.o
 
 # target to build an object file
 scene.cpp.o:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.o
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.o
 .PHONY : scene.cpp.o
 
 scene.i: scene.cpp.i
@@ -329,7 +491,7 @@ scene.i: scene.cpp.i
 
 # target to preprocess a source file
 scene.cpp.i:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.i
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.i
 .PHONY : scene.cpp.i
 
 scene.s: scene.cpp.s
@@ -338,7 +500,7 @@ scene.s: scene.cpp.s
 
 # target to generate assembly for a file
 scene.cpp.s:
-	cd /home/leo/git/mapper_px4/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.s
+	cd /home/leo/git/darpa_gnc/mapper/build && $(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/scene.cpp.s
 .PHONY : scene.cpp.s
 
 # Help Target
@@ -359,6 +521,24 @@ help:
 	@echo "... glad.o"
 	@echo "... glad.i"
 	@echo "... glad.s"
+	@echo "... imgui/imgui.o"
+	@echo "... imgui/imgui.i"
+	@echo "... imgui/imgui.s"
+	@echo "... imgui/imgui_demo.o"
+	@echo "... imgui/imgui_demo.i"
+	@echo "... imgui/imgui_demo.s"
+	@echo "... imgui/imgui_draw.o"
+	@echo "... imgui/imgui_draw.i"
+	@echo "... imgui/imgui_draw.s"
+	@echo "... imgui/imgui_impl_glfw.o"
+	@echo "... imgui/imgui_impl_glfw.i"
+	@echo "... imgui/imgui_impl_glfw.s"
+	@echo "... imgui/imgui_impl_opengl3.o"
+	@echo "... imgui/imgui_impl_opengl3.i"
+	@echo "... imgui/imgui_impl_opengl3.s"
+	@echo "... imgui/imgui_widgets.o"
+	@echo "... imgui/imgui_widgets.i"
+	@echo "... imgui/imgui_widgets.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -385,6 +565,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/leo/git/mapper_px4/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/leo/git/darpa_gnc/mapper/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
