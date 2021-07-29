@@ -1,15 +1,18 @@
-#
+# Essential dependencies
+```
 sudo apt-get update && sudo apt-get upgrade && sudo apt-get install build-essential
 sudo apt-get install cmake
 sudo apt-get install git
 sudo apt-get install qtbase5-dev
 sudo apt-get install qtdeclarative5-dev
-
+```
 # OpenGL
+```
 sudo apt-get install libglfw3
 sudo apt-get install libglfw3-dev
-
+```
 # OpenCV 3.4
+```
 mkdir git && cd git
 sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 git clone https://github.com/opencv/opencv.git
@@ -42,8 +45,9 @@ make -j8 # runs 7 jobs in parallel
 sudo make install
 
 export OpenCV_DIR=~/git/opencv/build	# or change to where you install /opencv/build
-
+```
 # RealSense
+```
 sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
 git clone https://github.com/IntelRealSense/librealsense.git
 
@@ -60,21 +64,25 @@ echo 'hid_sensor_custom' | sudo tee -a /etc/modules
 mkdir build && cd build
 cmake ../ -DBUILD_EXAMPLES=true -DBUILD_CV_EXAMPLES=true
 sudo make uninstall && make clean && make -j8 && sudo make install
-
+```
 # Mapper
+```
 sudo apt-get install libncurses5-dev
 
 cd mapper
 mkdir build && cd build
 cmake ..
 make
-
+```
 # run code
+```
 cd src/
-
+```
 # mapper:
-./onboard "Type your ip address"
-
+```
+./onboard "your.ip.address"
+```
 # ground station
+```
 ./read_voxel
-
+```
