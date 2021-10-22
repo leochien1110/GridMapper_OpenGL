@@ -128,12 +128,12 @@ make
 cd src/
 ```
 
-# mapper:
+## mapper:
 ```bash
 ./onboard Ground.Station.IP.address
-````
+```
 
-# ground station
+## ground station
 ```bash
 ./read_voxel
 ```
