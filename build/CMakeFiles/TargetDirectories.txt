@@ -1,9 +1,0 @@
-/home/leo/git/darpa_gnc/mapper/build/CMakeFiles/rebuild_cache.dir
-/home/leo/git/darpa_gnc/mapper/build/CMakeFiles/edit_cache.dir
-/home/leo/git/darpa_gnc/mapper/build/thirdparty/CMakeFiles/rebuild_cache.dir
-/home/leo/git/darpa_gnc/mapper/build/thirdparty/CMakeFiles/edit_cache.dir
-/home/leo/git/darpa_gnc/mapper/build/res/CMakeFiles/rebuild_cache.dir
-/home/leo/git/darpa_gnc/mapper/build/res/CMakeFiles/edit_cache.dir
-/home/leo/git/darpa_gnc/mapper/build/src/CMakeFiles/rebuild_cache.dir
-/home/leo/git/darpa_gnc/mapper/build/src/CMakeFiles/onboard.dir
-/home/leo/git/darpa_gnc/mapper/build/src/CMakeFiles/edit_cache.dir
