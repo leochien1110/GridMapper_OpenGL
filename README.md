@@ -138,24 +138,22 @@ cd src/
 ./read_voxel
 ```
 
-## Knwon Issue
+# Knwon Issue
 [1] Known OpenCV error while building mapper
-**If you see the error message while cmaking the project in the build folder:**
+If you see the error message while cmaking the project in the build folder:
 
 Could not find a package configuration file provided by "OpenCV" with any
-  of the following names:
+of the following names:
+```bash
+OpenCVConfig.cmake
 
-  OpenCVConfig.cmake
-  
-  opencv-config.cmake
+opencv-config.cmake
+```
+Add the installation prefix of OpenCV to `CMAKE_PREFIX_PATH` or set
+`OpenCV_DIR` to a directory containing one of the above files.  If **OpenCV**
+provides a separate development package or SDK, be sure it has been
+installed.
 
-  Add the installation prefix of "OpenCV" to CMAKE_PREFIX_PATH or set
-  "OpenCV_DIR" to a directory containing one of the above files.  If "OpenCV"
-  provides a separate development package or SDK, be sure it has been
-  installed.
+Run `export OpenCV_DIR=~/git/opencv/build` and try again.
 
-
-
-**Run `export OpenCV_DIR=~/git/opencv/build` and try again.**
-
-**Note:** or change to where you install `/opencv/build`
+> :bulb: or change to where you install `/opencv/build`
