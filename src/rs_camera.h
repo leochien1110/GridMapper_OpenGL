@@ -5,37 +5,17 @@
 #include <librealsense2/rsutil.h>
 
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include <thread>
 #include <mutex>
+#include <unistd.h> //usleep
+#include "data.h"   //strcut float3 & float4
 
-struct float4 {
-	float w, x, y, z;
-	float4 operator*(float t);
-
-	float4 operator-(float t);
-
-	void operator*=(float t);
-
-	void operator=(const float4 &other);
-
-	void add(float t1, float t2, float t3, float t4);
-};
-
-struct float3 {
-	float x, y, z;
-	float3 operator*(float t);
-
-	float3 operator-(float t);
-
-	void operator*=(float t);
-
-	void operator=(const float3 &other);
-
-	void add(float t1, float t2, float t3);
-};
+using namespace std::chrono;
 
 class RS_Camera
 {
@@ -46,18 +26,23 @@ public:
         stop();
     }
 
-    void init(int,int,int);
+    void init();
     void start();   // read data
     void stream();
+    void tracking();    // record positions
     void read_depth();
     void read_pose();
     void fov(rs2::frame &);
     void get_rotate_matrix();
     void stop();
+    void log_init();
+    void savelog();
+    
     float3 Quat2Euler();
 
-    float3 *pc_vertices;
+    //float3 *pc_vertices;
     rs2::points points;
+    //int points_size;
 
     //******************
     // Camera Parameters
@@ -67,10 +52,10 @@ public:
     // attitude :phi,theat,psi
     // local    :X,Y,Z
     // shift_map:sx,sy,sz
-    float camera_pose[12] = { 0 };
+    //float camera_pose[12] = { 0 };
     
-    float init_camera_global_pos[3] = { 10, 3, 10};
-    float specific_point[3]; //for FOV
+    //float init_camera_global_pos[3] = { 10, 3, 10};
+    //float specific_point[3]; //for FOV
     rs2_intrinsics intr;
     float FOV[2];
     float half_FOVxz;
@@ -78,12 +63,12 @@ public:
     float cm_fovxz;
 
     // rotation matrix
-    float inv_C[3][3];
+    //float inv_C[3][3];
 
 private:
 
     // int
-    int width, height, framerate;
+    //int width, height, framerate;
     
     // float 
     float camera_state[9] = { 0 };
@@ -95,6 +80,11 @@ private:
     // Class
     std::vector<rs2::pipeline>  pipelines;  //pipe for D435 and T265
     
+    // Sensors
+    rs2::sensor depth_sensor;
+	rs2::sensor color_sensor;
+	rs2::sensor pose_sensor;
+
     //rs2::config cfg;    // Setup configuration
     rs2::device_list devices;
 	rs2::context   ctx;    // realsense context
@@ -108,11 +98,14 @@ private:
 	rs2::spatial_filter spat_filter;
 	rs2::temporal_filter temp_filter;
 	rs2::hole_filling_filter hole_filter;
-    
+
     //Threading
     std::mutex mutex;
     std::thread streamThread;
     bool stream_status;
+
+    // log file
+    std::ofstream fileID;
 };
 
 #endif //RS_CAMERA_H

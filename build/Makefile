@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/git/mapper_px4
+CMAKE_SOURCE_DIR = /home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/git/mapper_px4/build
+CMAKE_BINARY_DIR = /home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/mapper_px4/build/CMakeFiles /home/leo/git/mapper_px4/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build/CMakeFiles /home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/git/mapper_px4/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named read_voxel
+
+# Build rule for target.
+read_voxel: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 read_voxel
+.PHONY : read_voxel
+
+# fast build rule for target.
+read_voxel/fast:
+	$(MAKE) -f src/CMakeFiles/read_voxel.dir/build.make src/CMakeFiles/read_voxel.dir/build
+.PHONY : read_voxel/fast
+
+#=============================================================================
 # Target rules for targets named onboard
 
 # Build rule for target.
@@ -123,6 +136,19 @@ onboard/fast:
 	$(MAKE) -f src/CMakeFiles/onboard.dir/build.make src/CMakeFiles/onboard.dir/build
 .PHONY : onboard/fast
 
+#=============================================================================
+# Target rules for targets named voxel_map
+
+# Build rule for target.
+voxel_map: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 voxel_map
+.PHONY : voxel_map
+
+# fast build rule for target.
+voxel_map/fast:
+	$(MAKE) -f src/CMakeFiles/voxel_map.dir/build.make src/CMakeFiles/voxel_map.dir/build
+.PHONY : voxel_map/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -131,7 +157,9 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... read_voxel"
 	@echo "... onboard"
+	@echo "... voxel_map"
 .PHONY : help
 
 

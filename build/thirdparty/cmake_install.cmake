@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/git/mapper_px4/thirdparty
+# Install script for directory: /home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/thirdparty
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

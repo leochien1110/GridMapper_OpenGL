@@ -1,4 +1,4 @@
-project(mapper_px4)
+project(mapper)
 
 # Preset
 if (POLICY CMP0072)
@@ -50,46 +50,22 @@ endif()
 link_directories(../thirdparty/lib)
 
 # The main program
-add_executable(onboard main.cpp
-                       onboard.h
-                       onboard.cpp
-                       rs_camera.h
-                       rs_camera.cpp
-                       mapper.h
-                       mapper.cpp
-                       )
-
-target_link_libraries(onboard PRIVATE thirdparty
-                      pthread
-                      ${CMAKE_THREAD_LIBS_INIT}
-                      ${REALSENSE2_FOUND}
-                      ${OpenCV_LIBS} 
-                      ${CMAKE_DL_LIBS})
-
-#[[
-add_executable(onboard onboard.cpp
-                       connection.hpp
-                       connection.cpp
-                       stb_image.h 
-                       shader_m.h
-                       glad.c)
-                       
-target_link_libraries(onboard PRIVATE thirdparty 
-                       ${CMAKE_THREAD_LIBS_INIT} 
-                       ${OpenCV_LIBS} 
-                       ${REALSENSE2_FOUND} 
-                       ${OPENGL_gl_LIBRARY} 
-                       ${OPENGL_glu_LIBRARY} 
-                       ${CMAKE_DL_LIBS} 
-                       glfw3 
-                       GL 
-                       X11 
-                       pthread Xrandr Xi dl ${CURSES_LIBRARIES})
-
-add_executable(offboard offboard.cpp 
+  add_executable(onboard main.cpp
+                        onboard.h
+                        onboard.cpp
+                        rs_camera.h
+                        rs_camera.cpp
+                        mapper.h
+                        mapper.cpp
+                        connect.h
+                        connect.cpp
                         stb_image.h 
                         shader_m.h 
                         glad.c 
+                        scene.h
+                        scene.cpp
+                        data.h
+                        data.cpp
                         imgui/imgui.cpp 
                         imgui/imgui_draw.cpp 
                         imgui/imgui_demo.cpp
@@ -97,17 +73,71 @@ add_executable(offboard offboard.cpp
                         imgui/imgui_impl_opengl3.cpp 
                         imgui/imgui_impl_glfw.cpp)
 
-target_link_libraries(offboard PRIVATE thirdparty 
-                      ${CMAKE_THREAD_LIBS_INIT} 
+target_link_libraries(onboard PRIVATE thirdparty
+                      pthread
+                      ${CMAKE_THREAD_LIBS_INIT}
+                      ${REALSENSE2_FOUND}
                       ${OpenCV_LIBS} 
-                      ${OPENGL_gl_LIBRARY} 
-                      ${OPENGL_glu_LIBRARY} 
-                      ${CMAKE_DL_LIBS} 
-                      glfw3 
-                      GL 
-                      X11 
-                      pthread 
-                      Xrandr 
-                      Xi 
-                      dl)
-]]
+                      ${CMAKE_DL_LIBS}
+                      ${OPENGL_gl_LIBRARY}
+                      ${OPENGL_glu_LIBRARY}
+                      ${CMAKE_DL_LIBS}
+                      glfw3
+                      GL
+                      X11
+                      Xrandr
+                      Xi
+                      dl
+                      )
+# All-in-one mapper
+add_executable(voxel_map rs-imshow_voxel.cpp stb_image.h shader_m.h glad.c)
+
+target_link_libraries(voxel_map PRIVATE 
+		        thirdparty 
+		        ${CMAKE_THREAD_LIBS_INIT} 
+		        ${OpenCV_LIBS} 
+		        ${REALSENSE2_FOUND} 
+		        ${OPENGL_gl_LIBRARY} 
+		        ${OPENGL_glu_LIBRARY} 
+		        ${CMAKE_DL_LIBS} 
+		        ${CURSES_LIBRARIES} 
+		        glfw3 
+		        GL 
+		        X11 
+		        pthread 
+		        Xrandr 
+		        Xi 
+		        dl
+			)
+
+# Ground Station
+add_executable(read_voxel read_voxel.cpp 
+                stb_image.h 
+                shader_m.h 
+                glad.c 
+                imgui/imgui.cpp 
+                imgui/imgui_draw.cpp 
+                imgui/imgui_demo.cpp
+                imgui/imgui_widgets.cpp 
+                imgui/imgui_impl_opengl3.cpp 
+                imgui/imgui_impl_glfw.cpp)
+
+if(BUILD_VICON)
+	target_link_libraries(voxel_map PRIVATE ViconDataStreamSDK_CPP)
+endif()
+
+target_link_libraries(read_voxel PRIVATE 
+			thirdparty 
+			${CMAKE_THREAD_LIBS_INIT} 
+			${OpenCV_LIBS} 
+			${OPENGL_gl_LIBRARY} 
+			${OPENGL_glu_LIBRARY} 
+			${CMAKE_DL_LIBS} 
+			glfw3 
+			GL 
+			X11 
+			pthread 
+			Xrandr 
+			Xi 
+			dl
+			)

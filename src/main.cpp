@@ -22,11 +22,12 @@ int main(int argc, char * argv[]) try
     }
 
     //call onboard code
-    Onboard px4(argv[1]);
+    Onboard onboard(argv[1]);
 
-    px4.update();
+    onboard.update();
 
     std::cout << "code terminating..." << std::endl;
+
     return 0;
 }
 

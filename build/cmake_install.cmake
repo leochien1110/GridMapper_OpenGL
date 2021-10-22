@@ -1,4 +1,4 @@
-# Install script for directory: /home/leo/git/mapper_px4
+# Install script for directory: /home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,9 +39,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/leo/git/mapper_px4/build/thirdparty/cmake_install.cmake")
-  include("/home/leo/git/mapper_px4/build/res/cmake_install.cmake")
-  include("/home/leo/git/mapper_px4/build/src/cmake_install.cmake")
+  include("/home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build/thirdparty/cmake_install.cmake")
+  include("/home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build/res/cmake_install.cmake")
+  include("/home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build/src/cmake_install.cmake")
 
 endif()
 
@@ -53,5 +53,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/leo/git/mapper_px4/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/NEA.com/wen.yu.chien/git/GridMapper_OpenGL/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
