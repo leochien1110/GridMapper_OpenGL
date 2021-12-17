@@ -1,4 +1,4 @@
-#include <opencv/cv.h>
+#include <opencv2/opencv.hpp>
 #include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 #include "opencv2/highgui.hpp"
@@ -32,7 +32,7 @@ struct OpenCVImage
 	    mat = frame; // maybe i should copy that frame (clone it)
 
 	    if (change)
-		cv::cvtColor(mat, mat, CV_BGR2RGB);
+		cv::cvtColor(mat, mat, cv::COLOR_BGR2RGB);
 	    
 	    glGenTextures(1, &texture);
 	    glBindTexture(GL_TEXTURE_2D, texture);
@@ -61,7 +61,7 @@ struct OpenCVImage
 	
 	
 	if (change_color_order)
-	    cv::cvtColor(frame, frame, CV_BGR2RGB);
+	    cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
 
 	// image must have same size
 	glBindTexture(GL_TEXTURE_2D, texture);

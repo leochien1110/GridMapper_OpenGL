@@ -564,48 +564,32 @@ int main(int argc, char * argv[]) try
 
 	// Declare RealSense pipeline, encapsulating the actual device and sensors
 	std::vector<rs2::pipeline>  pipelines;
+	
+	std::unordered_map<std::string, std::string> dev_map;	// serial, name
+	std::vector<std::string> serials;
+	rs2::device_list&& devices = ctx.query_devices();
 
-	// Check avaible cameras
-	rs2::device_list devices = ctx.query_devices();
-	std::cout << "Found " << devices.size() << " devices " << std::endl;
-	if (devices.size() != 2) {
-		std::cout << "[WARNING]There's no/only one camera connected.\n\
-		Please unplug USB and try again." << std::endl;
-		return 0;
+    for (auto dev : devices) {
+		std::string serial = dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER);
+		std::string name = dev.get_info(RS2_CAMERA_INFO_NAME);
+        serials.push_back(serial);
+		dev_map[serial] = name;
 	}
+	std::cout << "Found " << serials.size() << " devices " << std::endl;
+	// if (serials.size() != 2) {
+	// 	std::cout << "[WARNING]There's no/only one camera connected.\n\
+	// 	Please unplug USB and try again." << std::endl;
+	// 	return 0;
+	// }
 
-	// Setup Pipeline for each device
-	for (auto&& dev : devices)
-	{
-		const char* dev_name = dev.get_info(RS2_CAMERA_INFO_NAME);
-		printf("dev_name:%s\n",dev_name);
-		const char* dev_num = dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER);
-		rs2::pipeline pipe(ctx);
-
-		// Setup configuration
-		rs2::config cfg;
-		cfg.enable_device(dev_num);
-		auto advanced_sensors = dev.query_sensors();
-
-		for (auto&& sensor : advanced_sensors) {
-			std::string module_name = sensor.get_info(RS2_CAMERA_INFO_NAME);
-			std::cout << module_name << std::endl;
-
-			if (module_name == "Stereo Module") {
-				depth_sensor = sensor;
-			} else if (module_name == "RGB Camera") {
-				color_sensor = sensor;
-			} else if (module_name == "Tracking Module") {
-				pose_sensor = sensor;
-			}
-		}
-		
-		// D435 & D435i
-		if (strcmp("Intel RealSense D435", dev_name) == 0 || strcmp("Intel RealSense D435I", dev_name) == 0) {
-			std::cout << "Camera " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected" << std::endl;
+	for (auto&& serial : serials)
+    {
+        rs2::pipeline pipe(ctx);
+        rs2::config cfg;
+        cfg.enable_device(serial);
+		if (dev_map[serial] == "Intel RealSense D435") {
 			cfg.enable_stream(RS2_STREAM_DEPTH, width, height, RS2_FORMAT_Z16, desired_fps);
 			cfg.enable_stream(RS2_STREAM_COLOR, width, height, RS2_FORMAT_BGR8, desired_fps);
-			
 			rs2::pipeline_profile selection = pipe.start(cfg);
 			rs2::device selected_device = selection.get_device();
 			auto d_sensor = selected_device.first<rs2::depth_sensor>();
@@ -616,25 +600,20 @@ int main(int argc, char * argv[]) try
 			if (d_sensor.supports(RS2_OPTION_LASER_POWER))
 				d_sensor.set_option(RS2_OPTION_LASER_POWER, 150);
 			pipelines.emplace_back(pipe);
+			std::cout << "Intel RealSense D435 initialized" << std::endl;
 		}
-		// T265
-		else if (strcmp("Intel RealSense T265", dev_name) == 0) {
-            cfg.enable_stream(RS2_STREAM_POSE,RS2_FORMAT_6DOF);
+
+		if (dev_map[serial] == "Intel RealSense T265") {
+			cfg.enable_stream(RS2_STREAM_POSE,RS2_FORMAT_6DOF);
             cfg.disable_stream(RS2_STREAM_FISHEYE, 1);
             cfg.disable_stream(RS2_STREAM_FISHEYE, 2);
-			std::cout << "Camera: " << dev.get_info(RS2_CAMERA_INFO_NAME) << " Connected" << std::endl;
-			
-			// Functions have to be set before streaming
-			pose_sensor.set_option(RS2_OPTION_ENABLE_MAPPING, 1.f);
-			pose_sensor.set_option(RS2_OPTION_ENABLE_RELOCALIZATION, 1.f);
-			pose_sensor.set_option(RS2_OPTION_ENABLE_POSE_JUMPING, 1.f);
-			
 			pipe.start(cfg);
 			pipelines.emplace_back(pipe);
+			std::cout << "Intel RealSense T265 initialized" << std::endl;
 		}
-		sleep(1);	// wait 1 sec to setup next device
-	}
-	
+		usleep(500);
+    }
+
 	// Create Windows for 2D map
 #ifdef CV
 	const auto window_name = "Depth Image";
